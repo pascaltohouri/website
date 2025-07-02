@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
         .hero-bg {
             background-color: #f8fafc;
@@ -24,8 +24,8 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-900">Pascal Tohouri</a>
             <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-600 hover:text-gray-900 transition duration-300">Home</a>
-                <a href="#essays" class="text-gray-600 hover:text-gray-900 transition duration-300">Essays</a>
+                <a href="#about" class="text-gray-600 hover:text-gray-900 transition duration-300">About</a>
+                <a href="#blog" class="text-gray-600 hover:text-gray-900 transition duration-300">Blog</a>
                 <a href="#research" class="text-gray-600 hover:text-gray-900 transition duration-300">Research</a>
                 <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
             </div>
@@ -35,54 +35,61 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#home" class="block py-2 text-gray-600 hover:text-gray-900">Home</a>
-            <a href="#essays" class="block py-2 text-gray-600 hover:text-gray-900">Essays</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-gray-900">About</a>
+            <a href="#blog" class="block py-2 text-gray-600 hover:text-gray-900">Blog</a>
             <a href="#research" class="block py-2 text-gray-600 hover:text-gray-900">Research</a>
             <a href="#contact" class="block py-2 text-gray-600 hover:text-gray-900">Contact</a>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero-bg py-20 md:py-32">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">Showcasing Ideas & Discoveries</h1>
-                <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-                    Welcome to my personal space. Here I share my thoughts on various topics through essays and present findings from my research endeavors.
-                </p>
-                <a href="#essays" class="mt-8 inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">Explore My Work</a>
+        <!-- Hero Section (About) -->
+        <section id="about" class="hero-bg py-20 md:py-24">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                <!-- Image Column -->
+                <div class="flex-shrink-0">
+                    <img src="images/profile-pic.jpg" alt="fMRI and EEG brain scans for language, music, and motor imagery" class="rounded-full w-48 h-48 md:w-60 md:h-60 object-cover shadow-lg border-4 border-white">
+                </div>
+                <!-- Text Column -->
+                <div class="text-center md:text-left">
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Pascal Tohouri</h1>
+                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
+                        My name is Pascal, and I am interested in human welfare. This page aims to inform readers about my work. You can read a collection of my writings on various topics in human welfare, research best-practices, and machine learning. This page is for formalising unstructured thoughts, and as such may contain errors.
+                    </p>
+                    <a href="#blog" class="mt-8 inline-block bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">Explore My Work</a>
+                </div>
             </div>
         </section>
 
-        <!-- Essays Section -->
-        <section id="essays" class="py-20">
+        <!-- Blog Section -->
+        <section id="blog" class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Featured Essays</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Featured Blog Posts</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Essay Card 1 -->
+                    <!-- Blog Card 1 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Essay+Thumbnail" alt="Essay Thumbnail" class="w-full h-48 object-cover">
+                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">The Future of Artificial Intelligence</h3>
-                            <p class="text-gray-600 mb-4">An exploration of the potential impacts of AI on society, ethics, and human existence.</p>
+                            <h3 class="text-xl font-semibold mb-2">A Formal Approach to Improving the World</h3>
+                            <p class="text-gray-600 mb-4">An examination of how matter corresponds with human welfare (ongoing).</p>
                             <a href="#" class="text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
                         </div>
                     </div>
-                    <!-- Essay Card 2 -->
+                    <!-- Blog Card 2 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Essay+Thumbnail" alt="Essay Thumbnail" class="w-full h-48 object-cover">
+                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">On the Philosophy of Science</h3>
-                            <p class="text-gray-600 mb-4">A critical look at the foundational principles that guide scientific inquiry and knowledge.</p>
+                            <h3 class="text-xl font-semibold mb-2">Methods for Better Research</h3>
+                            <p class="text-gray-600 mb-4">Evidence-based principles that accelerate scientific inquiry and knowledge discovery.</p>
                             <a href="#" class="text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
                         </div>
                     </div>
-                    <!-- Essay Card 3 -->
+                    <!-- Blog Card 3 -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Essay+Thumbnail" alt="Essay Thumbnail" class="w-full h-48 object-cover">
+                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">The Art of Storytelling in the Digital Age</h3>
-                            <p class="text-gray-600 mb-4">How modern technology is reshaping narrative structures and the way we share stories.</p>
+                            <h3 class="text-xl font-semibold mb-2">The Stable Recursive Self-Improvement Path to ASI</h3>
+                            <p class="text-gray-600 mb-4">A high level discussion of how to solve the welfare-matter problem autonomously.</p>
                             <a href="#" class="text-blue-600 font-semibold hover:underline">Read More &rarr;</a>
                         </div>
                     </div>
@@ -97,16 +104,16 @@
                 <div class="space-y-8 max-w-4xl mx-auto">
                     <!-- Research Paper 1 -->
                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                        <h3 class="text-xl font-semibold mb-2">A Novel Approach to Machine Learning Model Optimization</h3>
+                        <h3 class="text-xl font-semibold mb-2">Training a 3D Spatially Embedded Neural Network via Gradient Descent</h3>
                         <p class="text-gray-600 mb-3">Published in: Journal of Advanced Computing, Vol. 42, 2023</p>
-                        <p class="text-gray-600 mb-4">This paper introduces a new algorithm that significantly improves the efficiency and accuracy of deep learning models...</p>
+                        <p class="text-gray-600 mb-4">This paper details a method for optimizing a novel 3D neural network architecture using established gradient descent techniques, demonstrating its application in spatial data analysis.</p>
                         <a href="#" class="text-blue-600 font-semibold hover:underline">View Publication / PDF &rarr;</a>
                     </div>
                     <!-- Research Paper 2 -->
                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                        <h3 class="text-xl font-semibold mb-2">The Socio-Economic Impact of Renewable Energy Adoption</h3>
+                        <h3 class="text-xl font-semibold mb-2">Training a 3D Spatially Embedded Neural Network via Bayesian Updating</h3>
                         <p class="text-gray-600 mb-3">Presented at: International Conference on Sustainable Development, 2022</p>
-                        <p class="text-gray-600 mb-4">A comprehensive study analyzing the effects of transitioning to renewable energy sources on local economies and employment rates.</p>
+                        <p class="text-gray-600 mb-4">This research explores an alternative training methodology for 3D neural networks using Bayesian updating, comparing its performance and uncertainty quantification against traditional methods.</p>
                         <a href="#" class="text-blue-600 font-semibold hover:underline">View Publication / PDF &rarr;</a>
                     </div>
                 </div>
@@ -115,27 +122,17 @@
 
         <!-- Contact Section -->
         <section id="contact" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Get In Touch</h2>
-                <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
-                    <form id="contact-form">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300">Send Message</button>
-                        </div>
-                    </form>
-                    <div id="form-feedback" class="mt-4 text-center"></div>
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Get In Touch</h2>
+                <div class="max-w-xl mx-auto text-lg">
+                    <p class="mb-4">
+                        <strong>Email:</strong> 
+                        <a id="email-link" href="#" class="text-blue-600 hover:underline">pascal.tohouri1 [at] google [dot] com</a>
+                    </p>
+                    <p>
+                        <strong>LinkedIn:</strong> 
+                        <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View Profile</a>
+                    </p>
                 </div>
             </div>
         </section>
@@ -145,59 +142,47 @@
     <footer class="bg-gray-900 text-white py-8">
         <div class="container mx-auto px-6 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                 <!-- Replace with your actual social media links -->
-                <a href="#" class="hover:text-blue-400 transition duration-300">Twitter</a>
-                <a href="#" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
-                <a href="#" class="hover:text-blue-400 transition duration-300">GitHub</a>
+                 <!-- Social media links are now generated by JavaScript -->
+                <a id="footer-email-link" href="#" class="hover:text-blue-400 transition duration-300">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
             </div>
             <p>&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
+        // --- Mobile menu toggle ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Contact form submission
-        const contactForm = document.getElementById('contact-form');
-        const formFeedback = document.getElementById('form-feedback');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation feedback
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+        // --- Obfuscated Contact Info ---
+        // This script runs after the page loads. It builds the contact links dynamically.
+        // This makes it harder for bots to scrape your contact information from the HTML source.
+        window.addEventListener('DOMContentLoaded', () => {
+            // --- Your updated contact information ---
+            const emailUser = 'pascal.tohouri1';
+            const emailDomain = 'google.com';
+            const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
 
-            if (name && email && message) {
-                formFeedback.textContent = "Thank you for your message! I'll get back to you soon.";
-                formFeedback.className = 'mt-4 text-center text-green-600';
-                contactForm.reset();
-            } else {
-                formFeedback.textContent = "Please fill out all fields.";
-                formFeedback.className = 'mt-4 text-center text-red-600';
-            }
+            // Construct the full email address
+            const fullEmail = `mailto:${emailUser}@${emailDomain}`;
 
-            // In a real application, you would send this data to a server
-            // For example, using fetch():
-            /*
-            const formData = new FormData(this);
-            fetch('/your-server-endpoint', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                formFeedback.textContent = "Message sent successfully!";
-            })
-            .catch(error => {
-                formFeedback.textContent = "An error occurred. Please try again.";
-            });
-            */
+            // Get the link elements from the page
+            const emailLink = document.getElementById('email-link');
+            const linkedinLink = document.getElementById('linkedin-link');
+            const footerEmailLink = document.getElementById('footer-email-link');
+            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
+
+            // Set the 'href' attribute for the email links
+            if (emailLink) emailLink.href = fullEmail;
+            if (footerEmailLink) footerEmailLink.href = fullEmail;
+
+            // Set the 'href' attribute for the LinkedIn links
+            if (linkedinLink) linkedinLink.href = linkedinUrl;
+            if (footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
         });
     </script>
 
