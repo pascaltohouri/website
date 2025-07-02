@@ -48,7 +48,7 @@
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
                 <!-- Image Column -->
                 <div class="flex-shrink-0">
-                    <img src="images/profile-pic.jpg" alt="fMRI and EEG brain scans for language, music, and motor imagery" class="rounded-full w-48 h-48 md:w-60 md:h-60 object-cover shadow-lg border-4 border-white">
+                    <img src="images/stick_man_normal_dist.png" alt="A stick man on a roller coaster shaped like a normal distribution curve" class="rounded-full w-48 h-48 md:w-60 md:h-60 object-cover shadow-lg border-4 border-white">
                 </div>
                 <!-- Text Column -->
                 <div class="text-center md:text-left">
@@ -67,7 +67,7 @@
                 <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Featured Blog Posts</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Blog Card 1 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">A Formal Approach to Improving the World</h3>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <!-- Blog Card 2 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                         <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Methods for Better Research</h3>
@@ -85,8 +85,8 @@
                         </div>
                     </div>
                     <!-- Blog Card 3 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" alt="Abstract visualization of an advanced AI or neural network" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">The Stable Recursive Self-Improvement Path to ASI</h3>
                             <p class="text-gray-600 mb-4">A high level discussion of how to solve the welfare-matter problem autonomously.</p>
@@ -103,14 +103,14 @@
                 <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Research Papers</h2>
                 <div class="space-y-8 max-w-4xl mx-auto">
                     <!-- Research Paper 1 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold mb-2">Training a 3D Spatially Embedded Neural Network via Gradient Descent</h3>
                         <p class="text-gray-600 mb-3">Published in: Journal of Advanced Computing, Vol. 42, 2023</p>
                         <p class="text-gray-600 mb-4">This paper details a method for optimizing a novel 3D neural network architecture using established gradient descent techniques, demonstrating its application in spatial data analysis.</p>
                         <a href="#" class="text-blue-600 font-semibold hover:underline">View Publication / PDF &rarr;</a>
                     </div>
                     <!-- Research Paper 2 -->
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold mb-2">Training a 3D Spatially Embedded Neural Network via Bayesian Updating</h3>
                         <p class="text-gray-600 mb-3">Presented at: International Conference on Sustainable Development, 2022</p>
                         <p class="text-gray-600 mb-4">This research explores an alternative training methodology for 3D neural networks using Bayesian updating, comparing its performance and uncertainty quantification against traditional methods.</p>
@@ -142,7 +142,6 @@
     <footer class="bg-gray-900 text-white py-8">
         <div class="container mx-auto px-6 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                 <!-- Social media links are now generated by JavaScript -->
                 <a id="footer-email-link" href="#" class="hover:text-blue-400 transition duration-300">Email</a>
                 <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
             </div>
@@ -159,30 +158,15 @@
         });
 
         // --- Obfuscated Contact Info ---
-        // This script runs after the page loads. It builds the contact links dynamically.
-        // This makes it harder for bots to scrape your contact information from the HTML source.
         window.addEventListener('DOMContentLoaded', () => {
-            // --- Your updated contact information ---
             const emailUser = 'pascal.tohouri1';
             const emailDomain = 'google.com';
             const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
-
-            // Construct the full email address
             const fullEmail = `mailto:${emailUser}@${emailDomain}`;
-
-            // Get the link elements from the page
-            const emailLink = document.getElementById('email-link');
-            const linkedinLink = document.getElementById('linkedin-link');
-            const footerEmailLink = document.getElementById('footer-email-link');
-            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
-
-            // Set the 'href' attribute for the email links
-            if (emailLink) emailLink.href = fullEmail;
-            if (footerEmailLink) footerEmailLink.href = fullEmail;
-
-            // Set the 'href' attribute for the LinkedIn links
-            if (linkedinLink) linkedinLink.href = linkedinUrl;
-            if (footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
+            document.getElementById('email-link').href = fullEmail;
+            document.getElementById('linkedin-link').href = linkedinUrl;
+            document.getElementById('footer-email-link').href = fullEmail;
+            document.getElementById('footer-linkedin-link').href = linkedinUrl;
         });
     </script>
 
