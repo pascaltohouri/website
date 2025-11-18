@@ -1,1 +1,99 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linguistic Descriptions of Experiment Traversals - Pascal Tohouri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .article-body h2 {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .article-body p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        .article-body a {
+            color: #2563eb; /* blue-600 */
+            text-decoration: underline;
+        }
+        .article-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-900">Pascal Tohouri</a>
+            <a href="index.html" class="text-gray-600 hover:text-gray-900 transition duration-300">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Article Content -->
+        <article class="container mx-auto px-6 py-12 md:py-20 max-w-4xl">
+            <!-- Article Header -->
+            <header class="mb-8 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900" style="font-family: 'Roboto Slab', serif;">A Formal Approach to Improving the World</h1>
+                <p class="mt-4 text-lg text-gray-500">Published 2025-11-18</p>
+            </header>
+
+            <!-- Article Body -->
+            <div class="article-body text-lg text-gray-800">
+                <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, number of encoders and decoders, hyper-parameters/learning rate, etc.). These different elements are what make the experiment unique, and changing them would recover a different experiment.</p>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.</p>
+
+                <h2>Subheading for a New Section</h2>
+                <p>Introduce a new concept or expand on a previous point here. You can use headings to structure your article into logical sections, making it easier for readers to follow your train of thought.</p>
+                <ul>
+                    <li>This is an example of a list item.</li>
+                    <li>You can use lists to break down complex ideas.</li>
+                    <li>Or to present key takeaways in a scannable format.</li>
+                </ul>
+                <p>Continue your discussion here. You can also include links to external resources, like this <a href="#">example link to a research paper</a>, to provide further context or evidence for your claims.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a id="footer-email-link" href="#" class="hover:text-blue-400 transition duration-300">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
+            </div>
+            <p>&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Obfuscated Contact Info ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const emailUser = 'pascal.tohouri1';
+            const emailDomain = 'google.com';
+            const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
+            const fullEmail = `mailto:${emailUser}@${emailDomain}`;
+            // Footer links might not exist on every page, so check first
+            const footerEmailLink = document.getElementById('footer-email-link');
+            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
+            if(footerEmailLink) footerEmailLink.href = fullEmail;
+            if(footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
+        });
+    </script>
+</body>
+</html>
