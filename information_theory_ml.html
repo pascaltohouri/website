@@ -8,87 +8,88 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Back to Roboto + Roboto Slab -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Body text back to Roboto */
         body {
-            font-family: 'Roboto Slab', Georgia, serif;
+            font-family: 'Roboto', sans-serif;
         }
+
+        /* LaTeX-style numbering setup */
         .article-body {
-    /* Start the section counter at 0 */
-    counter-reset: section;
-    }
+            counter-reset: section;
+        }
 
-    h1 {
-    font-family: 'Roboto Slab', Georgia, serif;
-    }
-    
-    /* Section = \section{} (use h2 inside article-body) */
-    .article-body h2 {
-        font-family: 'Roboto Slab', Georgia, serif;
-        font-size: 1.6rem;          /* similar to LaTeX section */
-        font-weight: 700;
-        margin-top: 2.5rem;         /* extra space before */
-        margin-bottom: 0.75rem;     /* tighter under heading */
-        line-height: 1.3;
-        counter-reset: subsection;  /* reset subsection numbering */
-    }
+        /* Main page title uses Roboto Slab */
+        h1 {
+            font-family: 'Roboto+Slab', 'Roboto Slab', serif;
+        }
 
-    .article-body h2:first-of-type {
-    margin-top: 2rem;
-    }
-    
-    /* Numbering like "1 " before section title */
-    .article-body h2::before {
-        counter-increment: section;
-        content: counter(section) ". ";
-    }
-    
-    /* Subsection = \subsection{} (use h3) */
-    .article-body h3 {
-        font-family: 'Roboto Slab', Georgia, serif;
-        font-size: 1.25rem;         /* smaller than h2 */
-        font-weight: 700;
-        margin-top: 1.8rem;
-        margin-bottom: 0.6rem;
-        line-height: 1.3;
-        counter-reset: subsubsection;
-    }
-    
-    /* Numbering like "1.1 " before subsection title */
-    .article-body h3::before {
-        counter-increment: subsection;
-        content: counter(section) "." counter(subsection) " ";
-    }
-    
-    /* Subsubsection = \subsubsection{} (use h4) */
-    .article-body h4 {
-        font-family: 'Roboto Slab', Georgia, serif;
-        font-size: 1.05rem;
-        font-weight: 700;
-        margin-top: 1.4rem;
-        margin-bottom: 0.5rem;
-        line-height: 1.3;
-    }
+        /* Section = \section{} (use h2 inside article-body) */
+        .article-body h2 {
+            font-size: 1.6rem;      /* similar to LaTeX section */
+            font-weight: 700;
+            margin-top: 2.5rem;     /* extra space before */
+            margin-bottom: 0.75rem; /* tighter under heading */
+            line-height: 1.3;
+            counter-reset: subsection;
+        }
 
-    /* Numbering like "1.1.1 " before subsubsection title */
-    .article-body h4::before {
-        counter-increment: subsubsection;
-        content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
-    }
+        .article-body h2:first-of-type {
+            margin-top: 2rem;
+        }
 
-    .article-body p {
-        margin-bottom: 1rem;
-        line-height: 1.75;
-    }
-    .article-body ul {
-        list-style-type: disc;
-        margin-left: 1.5rem;
-        margin-bottom: 1rem;
-    }
+        /* Numbering like "1 " before section title */
+        .article-body h2::before {
+            counter-increment: section;
+            content: counter(section) ". ";
+        }
 
+        /* Subsection = \subsection{} (use h3) */
+        .article-body h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 1.8rem;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            counter-reset: subsubsection;
+        }
+
+        /* Numbering like "1.1 " before subsection title */
+        .article-body h3::before {
+            counter-increment: subsection;
+            content: counter(section) "." counter(subsection) " ";
+        }
+
+        /* Subsubsection = \subsubsection{} (use h4) */
+        .article-body h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-top: 1.4rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        /* Numbering like "1.1.1 " before subsubsection title */
+        .article-body h4::before {
+            counter-increment: subsubsection;
+            content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+        }
+
+        .article-body p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+
+        .article-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
-<body class="bg-slate-100 text-gray-800">
+<body class="bg-white text-gray-800">
 
     <!-- Header -->
     <header class="bg-white shadow-md sticky top-0 z-50">
@@ -97,6 +98,18 @@
             <a href="index.html" class="text-gray-600 hover:text-gray-900 transition duration-300">&larr; Back to Home</a>
         </nav>
     </header>
+
+    <main>
+        <!-- Article Content -->
+        <article class="container mx-auto px-6 py-12 md:py-20 max-w-4xl">
+            <!-- Article Header -->
+            <header class="mb-8 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900">
+                    Linguistic Descriptions of Experiment Traversals
+                </h1>
+                <p class="mt-4 text-lg text-gray-500">Published 2025-11-18</p>
+            </header>
+
 
     <main>
         <!-- Article Content -->
