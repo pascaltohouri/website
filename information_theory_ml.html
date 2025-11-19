@@ -122,7 +122,7 @@
                     <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations.</p>
                     
                     <h3>Platonic and Structuralist Forms</h3>
-                    <p>In the Platonic view, each experiment's abstract form resides in the symbolic space of symantically distinct objects. In the sturcturalist view, however, no independent space of forms exists, and an experiment is just the enduring symmetries that translate between representations. The manifold hypothesis unites these views by saying that each semantic object in the symbolic space has a fiber bundle that contains all possible representations. So, the symbolic representation of "dog" has a mapping to each representation including "perro", the sound of a bark, the image of a dog, and so forth. A space of fiber bundles like this is a Moduli space.</p>
+                    <p>In the Platonic view, each experiment's abstract form resides in the symbolic space of semantically distinct objects. In the sturcturalist view, no independent space of forms exists, and an experiment is just the enduring symmetries that translate between representations. The manifold hypothesis unites these views by saying that each semantic object in the symbolic space has a fiber bundle that contains all possible representations. So, the symbolic representation of "dog" has a mapping to each representation including "perro", the sound of a bark, the image of a dog, and so forth. A space of fiber bundles like this is a Moduli space.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
                     
                     <h3>Method-Specific Limitations</h3>
                     <p>A task with well-defined preferences over all these symbolic experiments may have an optimum \(e^*\), but with constant experiment features, the researcher may never find it. For example, sticking to an LLM architecture may guarantee that another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
@@ -168,6 +168,16 @@
                     <h3>Linear Trajectories to AGI</h3>
                     <p>This implies that the "Path Generality" mentioned above is not merely a metaphorical journey; it is a trajectory optimization problem. If the space is truly canonical and flattened via the correct basis decomposition, the path from a current, imperfect model to a target state (AGI or an optimal predictor) need not be a complex, non-convex search. Instead, it could be modeled as a linear time-path—a straight line or simple geodesic through the experiment region.</p>
                 </div>
+            <section class="footnotes mt-10 pt-6 border-t border-gray-200">
+                <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
+                <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
+                    <li id="fn1">
+                        Perhaps more technically, if the number of representations varies across objects,
+                        the space is a diffeological space of sheaves.
+                        <a href="#fnref1" class="article-link ml-1">↩︎</a>
+                    </li>
+                </ol>
+            </section>
             </div>
         </article>
     </main>
