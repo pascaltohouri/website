@@ -112,8 +112,13 @@
             <!-- Article Body -->
             <div class="article-body text-lg text-gray-800">
                 <h2>Learning Representations and Symbolic Information</h2>
+                <h3>Essential Experiment Features</h3>
                 <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, number of encoders and decoders, hyper-parameters/learning rate, etc.). These different elements are what make the experiment unique; changing them would recover a different experiment. </p>
+                
+                <h3>Differing Representations</h3>
                 <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector, or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing, etc.), but the essence of an experiment is preserved when translating between representations. </p>
+
+                <h3>Method-Specific Limitations</h3>
                 <p>A task with well-defined preferences over all these symbolic experiments may have an optimum, but with constant experiment features, the researcher may never find it. For example, sticking to an LLM architecture may guarantee that another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
 
                 <h2>General Information-Theoretic Semantics</h2>
@@ -127,7 +132,7 @@
                 <p>This proposition raises the issue of traversals. If two experiments e_1 and e_2, are static "snapshot", for example an LLMs parameters pre- and post-training, then moving from e_1 to e_2 is precisely what happens during training. More generally, traversing the semantic vector space traces a path, and an onlooker may assign different values to each path. For example, an experimentalist may deem a path quickly converging to the global loss minimum "good", and a path stopping in a high-loss local minimum "bad".</p>
                     
                 <h3>Path Generality</h3>
-                These paths are not confined to specific architectures. The path might start at an LLM's semantic vector, pass through a GAN or VAE, and settle at a diffusion model. Moreover, these paths are not restricted to learning systems at all; a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space.</p>
+                These paths are not confined to specific architectures. The path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. In fact, these paths are not restricted to learning systems at all; a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space.</p>
                 
                 <p>If the symbolic space really can represent all semantically distinct objects, </p>
                 <ul>
