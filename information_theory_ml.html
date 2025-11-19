@@ -130,8 +130,9 @@
                     <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations.</p>
                     
                     <h3>Platonic and Structuralist Forms</h3>
-                    <p>In the Platonic view, each experiment's abstract form resides in the canonical space of forms; a symbolic space of semantically distinct objects. In the structuralist view, no independent space of forms exists; an experiment is just the enduring symmetries that translate between representations. One unifying interpretation is the manifold hypothesis, which unites these views by saying each semantic object in the symbolic space sits on a manifold and has an associated fiber containing all possible representations. So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", technical report, semantic vector, and so forth. A space of fiber bundles like this is a Moduli space.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
-                    
+                    <p>In the Platonic view, each experiment's abstract form resides in the canonical space of forms; a symbolic space of semantically distinct objects. In the structuralist view, no independent space of forms exists; an experiment is just the enduring symmetries that translate between representations. One unifying interpretation is the manifold hypothesis, which unites these views by saying each semantic object in the symbolic space sits on a manifold and has an associated fiber containing all possible representations. So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", technical report, semantic vector, and so forth.</p>
+                    <p>A space of fiber bundles like this is a Moduli space.<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. This interpretation is problematic because it presupposes some structure onto the canonical space of forms. The semantics of this structure have canonical forms themselves. Still, the idea is useful here for illustrative purposes.
+
                     <h3>Method-Specific Limitations</h3>
                     <p>A task with well-defined preferences over all these symbolic experiments may have an optimum \(e^*\), but with rigid experiment features, the researcher may never find it. For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
 
@@ -158,7 +159,7 @@
                     </figure>
 
                     <h3>Path Generality</h3>
-                    <p>Since these paths are not confined to specific architectures, the path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. In fact, given these paths are not restricted to learning systems at all, a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space. This derailment is precisely what happens when a language model produces garbled repsonses when trying to contribute to improve a learning experiment. It naturally follows that recursively self-improving algorithms are also paths on the semantic manifold. As the focus of this article is on linguistic descriptions of these paths, rather than the paths themselves, the reader is referred to the <a href="experiment_traversals.html" class="article-link">related blog post</a> for a fuller discussion.</p>
+                    <p>Since these paths are not confined to specific architectures, the path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. In fact, given these paths are not restricted to learning systems at all, a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space. This derailment happens when a language model garbles repsonses when improving a learning experiment. It naturally follows that recursively self-improving algorithms are also paths on the semantic manifold. As the focus of this article is on linguistic descriptions of these paths, rather than the paths themselves, the reader is referred to the <a href="experiment_traversals.html" class="article-link">related blog post</a> for a fuller discussion.</p>
 
                     <h2>Canonical Forms and the Semantic Basis</h2>
                     
@@ -228,4 +229,5 @@
         });
     </script>
 </body>
+</html>
 </html>
