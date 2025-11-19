@@ -5,175 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An essay by Pascal Tohouri on machine learning experiment traversals, and formal languages.">
     <title>Linguistic Descriptions of Experiment Traversals - Pascal Tohouri</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX CSS and JS for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto:wght@400;500&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        /* Body text back to Roboto */
+        /* Typography Settings */
         body {
             font-family: 'Lora', Georgia, serif;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* LaTeX-style numbering setup */
+        /* Headers and UI Fonts */
+        h1, h2, h3, h4 {
+            font-family: 'Roboto Slab', serif;
+        }
+        
+        nav, footer, .meta-data {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* LaTeX-style Numbering System */
         .article-body {
             counter-reset: section;
         }
 
-        /* Main page title uses Roboto Slab */
-        h1, h2 {
-            font-family: 'Roboto Slab', serif;
-        }
-
-        /* Section = \section{} (use h2 inside article-body) */
         .article-body h2 {
-            font-size: 1.6rem;      /* similar to LaTeX section */
+            font-size: 1.75rem;
             font-weight: 700;
-            margin-top: 2.5rem;     /* extra space before */
-            margin-bottom: 0.75rem; /* tighter under heading */
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
             line-height: 1.3;
+            color: #111827; /* Gray 900 */
             counter-reset: subsection;
         }
 
-        .article-body h2:first-of-type {
-            margin-top: 2rem;
-        }
-
-        /* Numbering like "1 " before section title */
         .article-body h2::before {
             counter-increment: section;
             content: counter(section) ". ";
         }
 
-        /* Subsection = \subsection{} (use h3) */
         .article-body h3 {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 700;
-            margin-top: 1.8rem;
-            margin-bottom: 0.6rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
             line-height: 1.3;
+            color: #374151; /* Gray 700 */
             counter-reset: subsubsection;
         }
 
-        /* Numbering like "1.1 " before subsection title */
         .article-body h3::before {
             counter-increment: subsection;
             content: counter(section) "." counter(subsection) " ";
         }
 
-        /* Subsubsection = \subsubsection{} (use h4) */
-        .article-body h4 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-top: 1.4rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-
-        /* Numbering like "1.1.1 " before subsubsection title */
-        .article-body h4::before {
-            counter-increment: subsubsection;
-            content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
-        }
-
         .article-body p {
-            margin-bottom: 1rem;
-            line-height: 1.75;
+            margin-bottom: 1.25rem;
+            line-height: 1.8; /* Improved line height for reading */
+            font-size: 1.125rem; /* 18px base size */
+            color: #374151;
         }
 
-        .article-body ul {
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
+        /* Link Styling */
+        .article-link {
+            color: #2563eb;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
         }
-        
-        /* Simple italics for math variables if LaTeX isn't loaded */
-        .math-var {
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
+        .article-link:hover {
+            color: #1e40af;
         }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-gray-900">Pascal Tohouri</a>
-            <a href="index.html" class="text-gray-600 hover:text-gray-900 transition duration-300">&larr; Back to Home</a>
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-4xl">
+            <a href="#" class="text-xl font-bold text-gray-900 tracking-tight">Pascal Tohouri</a>
+            <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition duration-300 group">
+                <span class="inline-block transition-transform group-hover:-translate-x-1">&larr;</span> Back to Home
+            </a>
         </nav>
     </header>
 
     <main>
-        <article class="container mx-auto px-6 py-12 md:py-20 max-w-4xl">
-            <div class="bg-white shadow-sm rounded-lg px-6 md:px-10 py-8">
-            <header class="mb-8 text-center">
-                <h1 class="text-3xl md:text-5xl font-bold text-gray-900" style="font-family: 'Roboto Slab', serif;">Linguistic Descriptions of Experiment Traversals</h1>
-                <p class="mt-4 text-lg text-gray-500">First Published 2025-11-18</p>
-            </header>
-
-            <div class="article-body text-lg text-gray-800">
-                <h2>Learning Representations and Symbolic Information</h2>
-                <h3>Essential Experiment Features</h3>
-                <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, number of encoders and decoders, hyper-parameters/learning rate, etc.). These different elements are what make the experiment unique; changing them would recover a different experiment. </p>
+        <article class="container mx-auto px-4 py-12 md:py-16 max-w-3xl"> <!-- Narrower max-w-3xl for readability -->
+            <div class="bg-white shadow-sm rounded-xl px-6 md:px-12 py-10 border border-gray-100">
                 
-                <h3>Differing Representations</h3>
-                <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector, or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing, etc.), but the essence of an experiment is preserved when translating between representations. </p>
+                <header class="mb-10 text-center">
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">Linguistic Descriptions of Experiment Traversals</h1>
+                    <div class="meta-data flex justify-center gap-4 text-sm text-gray-500 uppercase tracking-wider">
+                        <span>Nov 18, 2025</span>
+                        <span>&bull;</span>
+                        <span>6 Min Read</span>
+                    </div>
+                </header>
 
-                <h3>Method-Specific Limitations</h3>
-                <p>A task with well-defined preferences over all these symbolic experiments may have an optimum, but with constant experiment features, the researcher may never find it. For example, sticking to an LLM architecture may guarantee that another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
-
-                <h2>General Information-Theoretic Semantics</h2>
-                <h3>Non-Experiment Objects</h3>
-                <p>Experiments are not the only type of information that occupies this symbolic space of forms. Any thing distinct from nothingness and from other pieces of information may inhabit the space. For example, a dog, a person, a house, a feeling, an image - all these different human comprehensible objects has a unique essence that presents differently depending on the language used. This seems obvious because a single object has a different name across natural languages (e.g., "dog" is equivalent to "perro", "hund", "skylos", "kutta", and "gou"). </p>
-
-                <h3>Alternate Representations and Semantic Geometry</h3>
-                <p>It is natural to think that new languages might exist that allow us to express these symbolic essences more succinctly, or traverse between them with greater ease. So far, the semantic space of real-valued vectors is the most tractable language for expressing objects. We know, for example, that adding the vector from (man -> woman) to the vector from (0 -> king) returns the vector from (0 -> queen). So, an abstract space's geometry or rules may encode its semantics.</p>
-
-                <h3>Traversals</h3>
-                <p>This proposition raises the issue of traversals. If two experiments <span class="math-var">e<sub>1</sub></span> and <span class="math-var">e<sub>2</sub></span>, are static "snapshots", for example an LLMs parameters pre- and post-training, then moving from <span class="math-var">e<sub>1</sub></span> to <span class="math-var">e<sub>2</sub></span> is precisely what happens during training. More generally, traversing the semantic vector space traces a path, and an onlooker may assign different values to each path. For example, an experimentalist may deem a path quickly converging to the global loss minimum "good", and a path stopping in a high-loss local minimum "bad".</p>
+                <div class="article-body">
+                    <h2>Learning Representations and Symbolic Information</h2>
+                    <h3>Essential Experiment Features</h3>
+                    <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, hidden dimension size, normalisation strategy...), loss function, hyper-parameters, learning rate \(\eta\), etc.. These elements make the experiment unique; changing them would recover a different experiment \(e'\).</p>
                     
-                <h3>Path Generality</h3>
-                <p>These paths are not confined to specific architectures. The path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. In fact, these paths are not restricted to learning systems at all; a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space. As the focus of this article is on linguistic descriptions of these paths, rather than the paths themselves, the reader is referred to the <a href="#" class="text-blue-600 hover:underline">related blog post</a> for a fuller discussion.</p>
+                    <h3>Differing Representations</h3>
+                    <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations.</p>
+                    
+                    <h3>Platonic and Structuralist Forms</h3>
+                    <p>In the Platonic view, each experiment's abstract form resides in the symbolic space of symantically distinct objects. In the sturcturalist view, however, no independent space of forms exists, and an experiment is just the enduring symmetries that translate between representations. The manifold hypothesis unites these views by saying that each semantic object in the symbolic space has a fiber bundle that contains all possible representations. So, the symbolic representation of "dog" has a mapping to each representation including "perro", the sound of a bark, the image of a dog, and so forth. A space of fiber bundles like this is a Moduli space.</p>
+                    
+                    <h3>Method-Specific Limitations</h3>
+                    <p>A task with well-defined preferences over all these symbolic experiments may have an optimum \(e^*\), but with constant experiment features, the researcher may never find it. For example, sticking to an LLM architecture may guarantee that another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
 
-                <h2>Canonical Forms and the Semantic Basis</h2>
-                
-                <h3>The Entanglement of Natural Language</h3>
-                <p>If the symbolic space really can represent all semantically distinct objects, we must address the problem of entanglement. In natural language, concepts like "Politeness" and "Formality" are often treated as distinct axes, but they are essentially molecular "alloys" composed of deeper, shared semantic atoms. This necessitates the use of Fiber Bundles in many geometric deep learning frameworks—complex topological structures required to handle the curvature and dependencies of these entangled concepts.</p>
+                    <h2>General Information-Theoretic Semantics</h2>
+                    <h3>Non-Experiment Objects</h3>
+                    <p>Experiments are not the only type of information that occupies this symbolic space of forms \(\mathcal{S}\). Any thing distinct from nothingness and from other pieces of information may inhabit the space. For example, a dog, a person, a house, a feeling, an image—all these different human comprehensible objects have a unique essence that presents differently depending on the language used. This seems obvious because a single object has a different name across natural languages (e.g., "dog" \(\equiv\) "perro" \(\equiv\) "hund").</p>
 
-                <h3>The Canonical, Decomposed Space</h3>
-                <p>However, if we can derive the true canonical bases of the semantic vector space (SVS), we can dispense with the complexity of fibers entirely. By continuously subdividing concepts into their "prime factors"—atomic basis elements that may be uninterpretable to humans but mathematically orthogonal—we can flatten the manifold. In this "One Space" model, we do not need to traverse a curved fiber to preserve symmetry; we simply mask or traverse a specific subset of these atomic axes. The resulting space is likely high-dimensional and defined by the eigenvectors of the knowledge graph's connectivity, but it renders the geometry Euclidean and predictable.</p>
+                    <h3>Alternate Representations and Semantic Geometry</h3>
+                    <p>It is natural to think that new languages might exist that allow us to express these symbolic essences more succinctly, or traverse between them with greater ease. So far, the semantic space of real-valued vectors \(\mathbb{R}^n\) is the most tractable language for expressing objects. We know, for example, that adding the vector difference to a new origin yields semantic consistency:</p>
+                    
+                    <!-- Block Math Equation -->
+                    <p>$$ \vec{v}_{\text{king}} - \vec{v}_{\text{man}} + \vec{v}_{\text{woman}} \approx \vec{v}_{\text{queen}} $$</p>
+                    
+                    <p>So, an abstract space's geometry or rules may encode its semantics.</p>
 
-                <h2>Recursive Geometry: The LLM as a Point</h2>
-                
-                <h3>Models as Coordinates</h3>
-                <p>A unique and novel implication of this canonical SVS is the recursion it creates for the models themselves. We typically view a Large Language Model (LLM) as a function that processes vectors. However, within the SVS of "experiments," the LLM itself—its architecture, parameters, and loss function—occupies a single coordinate point. It is a static object within the meta-space of possible intelligences.</p>
+                    <h3>Traversals</h3>
+                    <p>This proposition raises the issue of traversals. If two experiments \(e_1\) and \(e_2\) are static "snapshots," for example an LLM's parameters \(\theta_t\) and \(\theta_{t+1}\), then moving from \(e_1\) to \(e_2\) is precisely what happens during training. More generally, traversing the semantic vector space traces a path \(\gamma(t)\), and an onlooker may assign different values to each path. For example, an experimentalist may deem a path quickly converging to the global loss minimum \(\mathcal{L}_{min}\) as "good."</p>
+                    
+                    <!-- Visual Placeholder for Traversals -->
+                    <figure class="my-8 p-8 bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg text-center flex flex-col items-center justify-center h-64">
+                        <svg class="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                         <p class="text-gray-500 font-medium">Placeholder: Semantic Vector Space Visualization</p>
+                        <figcaption class="mt-2 text-sm text-gray-400 italic">Fig 1. A visualization of a trajectory \(\gamma(t)\) through the semantic manifold.</figcaption>
+                    </figure>
 
-                <h3>Linear Trajectories to AGI</h3>
-                <p>This implies that the "Path Generality" mentioned above is not merely a metaphorical journey; it is a trajectory optimization problem. If the space is truly canonical and flattened via the correct basis decomposition, the path from a current, imperfect model to a target state (AGI or an optimal predictor) need not be a complex, non-convex search. Instead, it could be modeled as a linear time-path—a straight line or simple geodesic through the experiment region. Research, then, is not about inventing new architectures from scratch, but about calculating the gradient vector in this meta-space and sliding the configuration along that linear path.</p>
-                
-            </div>
+                    <h3>Path Generality</h3>
+                    <p>These paths are not confined to specific architectures. The path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. In fact, these paths are not restricted to learning systems at all; a path may derail into a non-experiment object, especially when interpolating between well-defined objects in a smooth space. As the focus of this article is on linguistic descriptions of these paths, rather than the paths themselves, the reader is referred to the <a href="#" class="article-link">related blog post</a> for a fuller discussion.</p>
+
+                    <h2>Canonical Forms and the Semantic Basis</h2>
+                    
+                    <h3>The Entanglement of Natural Language</h3>
+                    <p>If the symbolic space really can represent all semantically distinct objects, we must address the problem of entanglement. In natural language, concepts like "Politeness" and "Formality" are often treated as distinct axes, but they are essentially molecular "alloys" composed of deeper, shared semantic atoms. This necessitates the use of Fiber Bundles in many geometric deep learning frameworks—complex topological structures required to handle the curvature and dependencies of these entangled concepts.</p>
+
+                    <h3>The Canonical, Decomposed Space</h3>
+                    <p>However, if we can derive the true canonical bases of the semantic vector space (SVS), we can dispense with the complexity of fibers entirely. By continuously subdividing concepts into their "prime factors"—atomic basis elements that may be uninterpretable to humans but mathematically orthogonal—we can flatten the manifold. In this "One Space" model, we do not need to traverse a curved fiber to preserve symmetry; we simply mask or traverse a specific subset of these atomic axes.</p>
+
+                    <h2>Recursive Geometry: The LLM as a Point</h2>
+                    
+                    <h3>Models as Coordinates</h3>
+                    <p>A unique and novel implication of this canonical SVS is the recursion it creates for the models themselves. We typically view a Large Language Model (LLM) as a function \(f(x)\) that processes vectors. However, within the SVS of "experiments," the LLM itself—its architecture, parameters, and loss function—occupies a single coordinate point \(P_{LLM} \in \mathbb{R}^N\). It is a static object within the meta-space of possible intelligences.</p>
+
+                    <h3>Linear Trajectories to AGI</h3>
+                    <p>This implies that the "Path Generality" mentioned above is not merely a metaphorical journey; it is a trajectory optimization problem. If the space is truly canonical and flattened via the correct basis decomposition, the path from a current, imperfect model to a target state (AGI or an optimal predictor) need not be a complex, non-convex search. Instead, it could be modeled as a linear time-path—a straight line or simple geodesic through the experiment region.</p>
+                </div>
             </div>
         </article>
     </main>
 
-    <footer class="bg-gray-900 text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a id="footer-email-link" href="#" class="hover:text-blue-400 transition duration-300">Email</a>
-                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-8 mb-4">
+                <a id="footer-email-link" href="#" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">LinkedIn</a>
             </div>
-            <p>&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
+            <p class="text-gray-400 text-sm">&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // --- Obfuscated Contact Info ---
         window.addEventListener('DOMContentLoaded', () => {
+            // --- KaTeX Initialization ---
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+
+            // --- Obfuscated Contact Info ---
             const emailUser = 'pascal.tohouri1';
             const emailDomain = 'gmail.com';
             const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
             const fullEmail = `mailto:${emailUser}@${emailDomain}`;
-            // Footer links might not exist on every page, so check first
+            
             const footerEmailLink = document.getElementById('footer-email-link');
             const footerLinkedinLink = document.getElementById('footer-linkedin-link');
             if(footerEmailLink) footerEmailLink.href = fullEmail;
