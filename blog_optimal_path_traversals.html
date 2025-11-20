@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An essay by Pascal Tohouri on the formal description of optimal path traversals.">
+    <title>A Quick Formal Description of Optimal Path Traversals - Pascal Tohouri</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX CSS and JS for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Inter Font to match Home Page -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Typography Settings */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Headers and UI Fonts */
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.015em;
+        }
+        
+        nav, footer, .meta-data {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* LaTeX-style Numbering System */
+        .article-body {
+            counter-reset: section;
+        }
+        .article-body p {
+            margin-bottom: 1.15rem;
+            line-height: 1.7; /* Slightly tighter line height for academic feel */
+            font-size: 0.95rem; /* Reduced size for compact academic look */
+            color: #374151;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .article-body h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            color: #111827; /* Gray 900 */
+            counter-reset: subsection;
+        }
+
+        .article-body h2::before {
+            counter-increment: section;
+            content: counter(section) ". ";
+        }
+
+        .article-body h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            color: #374151; /* Gray 700 */
+            counter-reset: subsubsection;
+        }
+
+        .article-body h3::before {
+            counter-increment: subsection;
+            content: counter(section) "." counter(subsection) " ";
+        }
+
+        /* Link Styling */
+        .article-link {
+            color: #2563eb;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+        .article-link:hover {
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-4xl">
+            <a href="index.html" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
+            <a href="index.html" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
+                <span class="inline-block transition-transform group-hover:-translate-x-1">&larr;</span> Back to Home
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <article class="container mx-auto px-4 py-12 md:py-16 max-w-3xl">
+            <div class="bg-white shadow-sm rounded-xl px-6 md:px-12 py-10 border border-gray-100">
+                
+                <header class="mb-8 text-center">
+                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">A Quick Formal Description of Optimal Path Traversals</h1>
+                    <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
+                        <span>Nov 21, 2025</span>
+                        <span>&bull;</span>
+                        <span>5 Min Read</span>
+                    </div>
+                </header>
+
+                <div class="article-body">
+                    <h2>The Vector Space on \mathbb{R}*n</h2>
+                    <p>A vector space is not just an unordered jumble of vectors. The vector space on the reals \(\mathbf{V} = \mathbb{R}^n\)
+                        is taken with operations and axioms that ensure the space is well-behaved. 
+                        For example, if we start at the origin and travel along one vector, then a second vector, pointing in the same direction, 
+                        we do not expect to return to the origin. So, the sum of two parallel vectors \vec{u},\vec{v} where \vec{u} starts at \mathbf{0}, 
+                        and \vec{v} at \vec{u} should not be \mathbf{0}. 
+                    </p>
+                    
+                    <h3>Differing Representations</h3>
+                    <p>Each experiment's symbolic information is like an abstract symmetry preserved across different representations. 
+                        For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, 
+                        a semantic vector \(\vec{v}_e\), or in natural language. 
+                        Each representation has different linguistic rules, and thus different properties 
+                        (e.g., completeness, description lengths, self-referencing), but translations preserve the essence of an experiment. 
+                        It is therefore assumed here that an experiment is an equivalence class of 
+                        representations that preserve task-relevant structure.
+                    </p>
+                    
+                    <h3>Platonic and Structuralist Forms</h3>
+                    <p>In the Platonic view, each experiment's abstraction resides in the canonical space of forms; 
+                        a symbolic space of semantically distinct objects. In the structuralist view, 
+                        no independent space of forms exists; an experiment is just the enduring symmetries that translate between the experiment's representations. 
+                        One unifying interpretation is the manifold hypothesis, which unites these views by supposing a symbolic space 
+                        \(\mathcal{S}\) where each semantic object sits on a manifold and has an associated fiber containing all possible representations. 
+                        So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", 
+                        "technical report", "semantic vector", and so forth.
+                    </p>
+                    
+                    <p>Loosely speaking, a manifold of fiber bundles is like a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. 
+                        I'm using this analogy informally and it is already somewhat problematic because it presupposes a lot of structure onto the canonical space of forms. 
+                        For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. 
+                        Immediately therefore, it is easy to acquiesce to the structarlist view of persistent symmtric properties, 
+                        treating this canonical space as just another representation, not a literal description of reality. 
+                        Still, the manifold hypothesis is useful here for illustrative purposes.
+                    </p>
+                    
+                    <h3>Method-Specific Limitations</h3>
+                    <p>A task with well-defined preferences over all these experiments may have an optimum \(e^*\), 
+                        but holding some experiment features fixed, the researcher may never find it. 
+                        For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, 
+                        irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, 
+                        and instead invest in experiment agnostic search.
+                    </p>
+
+                    <h2>General Information-Theoretic Semantics</h2>
+                    <h3>Non-Experiment Objects</h3>
+                    <p>Experiments are not the only type of information that occupies this symbolic manifold \(\mathcal{S}\). 
+                        Any thing distinct from nothingness and from other pieces of information may inhabit the space. 
+                        For example, a dog, a person, a house, a feeling, an image 
+                        - all these different human comprehensible objects have a unique essence that presents differently depending on the language used. 
+                        This seems obvious because a single object has a different name across natural languages 
+                        (e.g., "dog" \(\equiv\) "perro" \(\equiv\) "hund").
+                    </p>
+
+                    <h3>Alternate Representations and Semantic Geometry</h3>
+                    <p>It is natural to think new languages might exist that allow us to express these symbolic essences more succinctly, 
+                        or traverse between them with greater ease. So far, the semantic space of real-valued vectors \(\mathbb{R}^n\) is the most tractable language for expressing objects. 
+                        We know, for example, that adding the vector difference to a new origin yields semantic consistency:
+                    </p>
+                    
+
+
+
+            <section class="footnotes mt-10 pt-6 border-t border-gray-200">
+                <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
+                <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
+                    <li id="fn1">
+                        Perhaps more technically, if the number of representations varies across objects,
+                        the space is a diffeological space of sheaves.
+                        <a href="#fnref1" class="article-link ml-1">↩︎</a>
+                    </li>
+                </ol>
+            </section>
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-8 mb-4">
+                <a id="footer-email-link" href="#" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">LinkedIn</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // --- KaTeX Initialization ---
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+
+            // --- Obfuscated Contact Info ---
+            const emailUser = 'pascal.tohouri1';
+            const emailDomain = 'gmail.com';
+            const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
+            const fullEmail = `mailto:${emailUser}@${emailDomain}`;
+            
+            const footerEmailLink = document.getElementById('footer-email-link');
+            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
+            if(footerEmailLink) footerEmailLink.href = fullEmail;
+            if(footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
+        });
+    </script>
+</body>
+</html>
