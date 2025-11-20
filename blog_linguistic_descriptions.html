@@ -214,9 +214,9 @@
                     <p>Since these paths are not confined to specific architectures, the path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. 
                         Moreover, given these paths are not restricted to learning systems at all, a path may derail into a non-experiment object, 
                         especially when interpolating between well-defined objects in a smooth space. This derailment happens when a language model garbles improvements to a learning experiment. 
-                        In the special case where a learning modell articulates these experiment traversals, the path represents a recursively self-improving algorithm. 
+                        In the special case where a learning model articulates these experiment traversals, the path represents a recursively self-improving algorithm. 
                         Recent JEPA work by <a href="https://arxiv.org/abs/2509.14252" class="article-link">Huang et al.</a> is approaching semantic vector traversal by applying the loss to the encoded vector, not the output.
-                        It remains to be seen whether these LLM induced paths, or simpler divergence-based minimiser paths are most accurate or practical.
+                        It remains to be seen whether these LLM induced paths, or simpler divergence-based minimiser paths are most accurate and practical. (Again, I quietly believe a very manual method of calculating the norm-integral between two paths will prevail, though I am currently unsure!)
                         The focus of this article is on linguistic path descriptions, so the reader should refer to <a href="blog_optimal_path_traverals.html" class="article-link">this blog post</a> 
                         for a fuller discussion.
                     </p>
@@ -226,16 +226,17 @@
                     <h3>The Entanglement of Natural Language</h3>
                     <p>If the symbolic space really can represent all semantically distinct objects, we must address the problem of entanglement. 
                         In natural language, concepts like "Politeness" and "Formality" are often treated as distinct axes, but more accurately, 
-                        they are amalgams of more fundamental semantic primitives. These semantic primitives may be incomprehensible to us, 
-                        just as the binary representation of a song or the RGB values of an image cannot individually convey their equivalent semantic composition.
+                        they are amalgams of more fundamental primitives. These semantic primitives may be incomprehensible to us, 
+                        just as the binary representation of a song or the RGB values of an image cannot individually convey their aggregate meaning.
                     </p>
                         
                     <p>Nonetheless, this semantic decomposition is mathematically useful. For example, by varying a subset of these bases, 
                         one fixes useful semantic properties while optimising over variables. Concretely, let \(x_1, x_2, x_3\) be the primitives comprising "interpretability", 
                         then let \(x_4, x_5, x_6\) compose to "performance". Importantly, suppose there is no basis that contributes to both concepts, or that if a basis (say \(x_3\)) were contributing to both, 
                         that one could decompose \(x_3\) into orthogonal components (say \(x'_3, x'_4\) ) that contribute separately to each concept by composition. 
-                        Fixing the first three bases while varying the second three will change peformance while retaining interpretability, and thus with sufficient decomposition, paths can preserve useful symmetries by moving along the hyper-plane of constant primitives. 
-                        In practice we should not expect to literally recover these primitives; I’m using them as idealisations to consider holding interpretability fixed while improving performance.
+                        Having obtained the distinct \(\{x_1, x_2, x_3\}, \{x_4, x_5, x_6\}\) bases, fixing the first three while varying the second three to change peformance while retaining interpretability. 
+                        So, with sufficient decomposition, paths can optimise discretionary semantics by moving along a hyper-plane of fixed symmetries. 
+                        In practice we might not expect to literally recover these primitives; I’m using them as idealisations to consider holding interpretability fixed while improving performance.
                     </p>
                         
                     <p>Returning to the manifold and fiber bundles, movement along the fiber of a desirable symmetry can optimise a representation while retaining a useful property. 
@@ -244,36 +245,39 @@
                     </p>
 
                     <h3>The Canonical, Decomposed Space</h3>
-                    <p>If we can derive the true canonical bases of the semantic vector space (SVS), we may dispense with the complexity of fibers entirely. 
-                        Instead of accepting the manifold hypothesis' canonical non-Euclidean space, we can take the infinite-dimensional Euclidean interpretation as fundamental. 
-                        Then, the fiber bundles that map to different representations are flattened within the semantic space. 
-                        For example, bases \(x_7, x_8, x_9\) might specify the representation-specificying primitives, allowing us to flatten the fibre bundles into a single Euclidean vector space and go from "programming script", to "natural language", 
-                        to "semantic vector". It is slightly unintuitive to think of the SVS representation as at once describing the present representation, while not being that representation. 
-                        But, this hierarchical-referencing problem exists whenever a canonical space of forms is presumed; one language is used to describe another.
+                    <p>If we can derive the true canonical bases of the semantic vector space, we may dispense with the complexity of fibers entirely. 
+                        Instead of accepting the manifold hypothesis, take the infinite-dimensional Euclidean interpretation as fundamental. 
+                        Then, the fiber bundles mapping to different representations are flattened within the SVS. 
+                        For example, bases \(x_7, x_8, x_9\) might specify the language-relevant primitives, allowing us to alter their relative contributions and go from "programming script", to "natural language", 
+                        to "semantic vector". It is slightly unintuitive to think of the SVS as at once describing the present representation, while not being that representation. 
+                        But, this self-referencing problem exists whenever a canonical space of forms is presumed; one language describes another.
                     </p>
                         
-                    <p>It must be emphasised that in this flattened "One Space" model, one need not traverse a curved fiber to preserve symmetry; simply mask or traverse a specific subset of the primitive axes.
+                    <p>It must be emphasised that in this flattened "One Space" model, one need not traverse a curved fiber to preserve symmetry; 
+                        simply mask or traverse a specific subset of the primitive axes.
                     </p>
 
                     <h2>Recursive Geometry</h2>
                     <h3>Models and Paths as Coordinates</h3>
                     <p>An important implication of the canonical SVS is the recursion arising for the models themselves. 
-                        Typically, a Large Language Model (LLM) is a function \(f(x)\) that processes vectors. 
+                        Typically, an LLM is a function \(f(x)\) that processes vectors. 
                         However, within the SVS of "experiments," the LLM itself, its architecture, parameters, and loss function, occupies a single coordinate point \(P_{LLM} \in \mathbb{R}^N\). 
                         It is a static object within the space of possible intelligences. The SVS's completeness further implies that there exists a point for each path through the space. 
-                        In a semantically principled space, geometric transforms would describe these combinations, with the elements of an experiment transforming under composition to the semantic vector of the whole experiment. 
+                        In a semantically principled space, geometric transforms would describe these combinations, with the experiment's element-vectors transforming under composition (perhaps even addition) to the whole experiment's vector. 
                         Likewise, one could project a time path on the space to a single point. This is the standard trick of moving to a function space: a trajectory \(\gamma(t)\) becomes a single object in a higher-level space, whose coordinates summarise properties of the whole curve. 
-                        These projections and reconstructions essentially move between object descriptions at differing levels of depth.
+                        These projections and reconstructions essentially move between object descriptions at differing levels of detail.
                     </p>
                     
                     <h3>Linear Trajectories to Task Optimal Architectures</h3>
                     <p>These facts imply the "Path Generality" mentioned is literally a trajectory optimisation problem. 
                         By expressing preferences over time-paths a person could (in principle) vary trajectories through the space of architectures such that at any moment the path specifies a task-optimal architecture. 
-                        In the idealised limit where the space is truly canonical and flattened via the right basis decomposition, the path from an imperfect model to a target state (an optimal predictor or experiment \(e^*\)) need not be a wild, non-convex search. 
-                        Instead, the correct bases may render the optimal path linear (not curved), or a simple geodesic in the manifold case. 
-                        It is then interesting to imagine that, if a linear trajectory could distinguish an infinitessimally fine semantic movement, whether standard optimisers, like hill-climbing or gradient descent might generalis beyond parameter tuning to a broader "semantic optimisation" over models and experiments.
+                        In the idealised limit where the space is truly canonical and flattened via the right basis decomposition, 
+                        the path from an imperfect model to a target state \(e^*\) need not be a wild, non-convex search. 
+                        Rather, the correct bases may render the optimal path linear (not curved), or perhaps a simple geodesic in the manifold case. 
+                        It is then interesting to imagine that, if a linear trajectory could distinguish an infinitessimally fine semantic movement, 
+                        whether standard optimisers, like hill-climbing or gradient descent might generalise beyond parameter tuning to broader semantic optimisation over models and experiments.
                     </p>
-                </div>
+
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
                 <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
