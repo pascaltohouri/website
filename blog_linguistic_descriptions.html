@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="An essay by Pascal Tohouri on machine learning experiment traversals, and formal languages.">
-    <title>Linguistic Descriptions of Experiment Traversals - Pascal Tohouri</title>
+    <title>Describing Experiment Traversals - Pascal Tohouri</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -108,7 +108,7 @@
             <div class="bg-white shadow-sm rounded-xl px-6 md:px-12 py-10 border border-gray-100">
                 
                 <header class="mb-8 text-center">
-                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">Linguistic Descriptions of Experiment Traversals</h1>
+                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">Describing Experiment Traversals</h1>
                     <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
                         <span>Nov 18, 2025</span>
                         <span>&bull;</span>
@@ -118,25 +118,65 @@
 
                 <div class="article-body">
                     <h2>Learning Representations and Symbolic Information</h2>
-                    <h3>Essential Experiment Features</h3>
-                    <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, hidden dimension size, normalisation strategy...), loss function, hyper-parameters, learning rate \(\eta\), etc.. These elements make the experiment unique; changing them would recover a different experiment \(e'\).</p>
+                    <h3>Experiment Features</h3>
+                    <p>A machine learning experiment comprises many different features. 
+                        For example, when training a Large Language Model (LLM), 
+                        one specifies the architecture (attention heads, hidden dimension size, normalisation strategy...), 
+                        loss function, learning rate \(\eta\), etc.. These elements make the experiment unique; 
+                        changing them would recover a different experiment \(e'\).
+                    </p>
                     
                     <h3>Differing Representations</h3>
-                    <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations. It is assumed here that an experiment is an equivalence class of representations related by translation that preserve task-relevant structure.</p>
+                    <p>Each experiment's symbolic information is like an abstract symmetry preserved across different representations. 
+                        For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, 
+                        a semantic vector \(\vec{v}_e\), or in natural language. 
+                        Each representation has different linguistic rules, and thus different properties 
+                        (e.g., completeness, description lengths, self-referencing), but translations preserve the essence of an experiment. 
+                        It is therefore assumed here that an experiment is an equivalence class of 
+                        representations that preserve task-relevant structure.
+                    </p>
                     
                     <h3>Platonic and Structuralist Forms</h3>
-                    <p>In the Platonic view, each experiment's abstract form resides in the canonical space of forms; a symbolic space of semantically distinct objects. In the structuralist view, no independent space of forms exists; an experiment is just the enduring symmetries that translate between its representations. One unifying interpretation is the manifold hypothesis, which unites these views by supposing a symbolic space \(\mathcal{S}\) where each semantic object sits on a manifold and has an associated fiber containing all possible representations. So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", "technical report", "semantic vector", and so forth.</p>
-                    <p>Loosely speaking, a manifold of fiber bundles is like a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. I'm using this analogy informally and it is already somewhat problematic because it presupposes a lot of structure onto the canonical space of forms. For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. Arguably therefore, this canonical representation is better seen as another representation, rather than a literal description of reality, and the structuralist view of persistent symmetric properties is more reasonable. Still, the manifold hypothesis is useful here for illustrative purposes.
-
+                    <p>In the Platonic view, each experiment's abstraction resides in the canonical space of forms; 
+                        a symbolic space of semantically distinct objects. In the structuralist view, 
+                        no independent space of forms exists; an experiment is just the enduring symmetries that translate between the experiment's representations. 
+                        One unifying interpretation is the manifold hypothesis, which unites these views by supposing a symbolic space 
+                        \(\mathcal{S}\) where each semantic object sits on a manifold and has an associated fiber containing all possible representations. 
+                        So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", 
+                        "technical report", "semantic vector", and so forth.
+                    </p>
+                    
+                    <p>Loosely speaking, a manifold of fiber bundles is like a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. 
+                        I'm using this analogy informally and it is already somewhat problematic because it presupposes a lot of structure onto the canonical space of forms. 
+                        For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. 
+                        Immediately therefore, it is easy to acquiesce to the structarlist view of persistent symmtric properties, 
+                        treating this canonical space as just another representation, not a literal description of reality. 
+                        Still, the manifold hypothesis is useful here for illustrative purposes.
+                    </p>
+                    
                     <h3>Method-Specific Limitations</h3>
-                    <p>A task with well-defined preferences over all these symbolic experiments may have an optimum \(e^*\), but holding some experiment features fixed, the researcher may never find it. For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
+                    <p>A task with well-defined preferences over all these experiments may have an optimum \(e^*\), 
+                        but holding some experiment features fixed, the researcher may never find it. 
+                        For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, 
+                        irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, 
+                        and instead invest in experiment agnostic search.
+                    </p>
 
                     <h2>General Information-Theoretic Semantics</h2>
                     <h3>Non-Experiment Objects</h3>
-                    <p>Experiments are not the only type of information that occupies this symbolic manifold \(\mathcal{S}\). Any thing distinct from nothingness and from other pieces of information may inhabit the space. For example, a dog, a person, a house, a feeling, an image - all these different human comprehensible objects have a unique essence that presents differently depending on the language used. This seems obvious because a single object has a different name across natural languages (e.g., "dog" \(\equiv\) "perro" \(\equiv\) "hund").</p>
+                    <p>Experiments are not the only type of information that occupies this symbolic manifold \(\mathcal{S}\). 
+                        Any thing distinct from nothingness and from other pieces of information may inhabit the space. 
+                        For example, a dog, a person, a house, a feeling, an image 
+                        - all these different human comprehensible objects have a unique essence that presents differently depending on the language used. 
+                        This seems obvious because a single object has a different name across natural languages 
+                        (e.g., "dog" \(\equiv\) "perro" \(\equiv\) "hund").
+                    </p>
 
                     <h3>Alternate Representations and Semantic Geometry</h3>
-                    <p>It is natural to think new languages might exist that allow us to express these symbolic essences more succinctly, or traverse between them with greater ease. So far, the semantic space of real-valued vectors \(\mathbb{R}^n\) is the most tractable language for expressing objects. We know, for example, that adding the vector difference to a new origin yields semantic consistency:</p>
+                    <p>It is natural to think new languages might exist that allow us to express these symbolic essences more succinctly, 
+                        or traverse between them with greater ease. So far, the semantic space of real-valued vectors \(\mathbb{R}^n\) is the most tractable language for expressing objects. 
+                        We know, for example, that adding the vector difference to a new origin yields semantic consistency:
+                    </p>
                     
                     <!-- Block Math Equation -->
                     <p>$$ \vec{v}_{\text{king}} - \vec{v}_{\text{man}} + \vec{v}_{\text{woman}} \approx \vec{v}_{\text{queen}} $$</p>
@@ -144,8 +184,10 @@
                     <p> So, an abstract space's geometry or rules may encode its semantics. This is exactly the sort of structure exploited by word-embedding models like 
                         <a href="https://arxiv.org/abs/1301.3781" class="article-link">Word2Vec</a> and <a href="https://aclanthology.org/D14-1162/" class="article-link">GloVe</a>, 
                         where linear relations in \(\mathbb{R}^n\) often correlate with semantic analogies. 
-                        (I quietly think there is a more semantically principled language with the same tractability as the SVS for expressing these movements, similar to the approach of 
-                        <a href="https://www.researchgate.net/publication/45907781_Mathematical_Foundations_for_a_Compositional_Distributional_Model_of_Meaning#:~:text=framework.%20...-,...,natural%20language%20processing.%20..." class="article-link">Coecke et al.</a>.)
+                        (I quietly think there is a more principled language with the same tractability as the SVS for expressing these movements, 
+                        similar to the approach of 
+                        <a href="https://www.researchgate.net/publication/45907781_Mathematical_Foundations_for_a_Compositional_Distributional_Model_of_Meaning#:~:text=framework.%20...-,...,natural%20language%20processing.%20..." class="article-link">
+                        Coecke et al.</a>.)
                     </p>
 
                     <h3>Traversals</h3>
@@ -153,7 +195,8 @@
                        If two experiments \(e_1\) and \(e_2\) are static "snapshots," for example an LLM's parameters \(\theta_t\) and \(\theta_{t+1}\), 
                         then moving from \(e_1\) to \(e_2\) is precisely what happens during training. More generally, traversing the semantic vector space traces a path \(\gamma(t)\), 
                         and an onlooker may assign different values to each path. 
-                        For example, an experimentalist may deem a path quickly converging to the global loss minimum \(\mathcal{L}_{min}\) as "good."</p>
+                        For example, an experimentalist may deem a path quickly converging to the global loss minimum \(\mathcal{L}_{min}\) as "good."
+                    </p>
                     
                     <figure class="my-8 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center flex flex-col items-center justify-center">
                     <!-- Placeholder used since original image was not provided -->
@@ -217,7 +260,8 @@
                         It is a static object within the space of possible intelligences. The SVS's completeness further implies that there exists a point for each path through the space. 
                         In a semantically principled space, geometric transforms would describe these combinations, with the elements of an experiment transforming under composition to the semantic vector of the whole experiment. 
                         Likewise, one could project a time path on the space to a single point. This is the standard trick of moving to a function space: a trajectory \(\gamma(t)\) becomes a single object in a higher-level space, whose coordinates summarise properties of the whole curve. 
-                        These projections and reconstructions essentially move between object descriptions at differing levels of depth.</p>
+                        These projections and reconstructions essentially move between object descriptions at differing levels of depth.
+                    </p>
                     
                     <h3>Linear Trajectories to Task Optimal Architectures</h3>
                     <p>These facts imply the "Path Generality" mentioned is literally a trajectory optimisation problem. 
