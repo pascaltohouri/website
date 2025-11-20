@@ -17,7 +17,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Updated to Inter to match Home Page -->
+    <!-- Inter Font to match Home Page -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
@@ -44,14 +44,14 @@
         .article-body p {
             margin-bottom: 1.15rem;
             line-height: 1.7; /* Slightly tighter line height for academic feel */
-            font-size: 0.95rem; /* Reduced to ~15px for a compact academic look */
+            font-size: 0.95rem; /* Reduced size for compact academic look */
             color: #374151;
             text-align: justify;
             text-justify: inter-word;
         }
 
         .article-body h2 {
-            font-size: 1.25rem; /* Reduced significantly */
+            font-size: 1.25rem;
             font-weight: 600;
             margin-top: 2rem;
             margin-bottom: 0.75rem;
@@ -66,7 +66,7 @@
         }
 
         .article-body h3 {
-            font-size: 1.05rem; /* Reduced significantly */
+            font-size: 1.05rem;
             font-weight: 600;
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
@@ -112,7 +112,7 @@
                     <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
                         <span>Nov 18, 2025</span>
                         <span>&bull;</span>
-                        <span>6 Min Read</span>
+                        <span>5 Min Read</span>
                     </div>
                 </header>
 
@@ -122,11 +122,11 @@
                     <p>A machine learning experiment comprises many different elements. For example, when training an LLM, one specifies the architecture (attention heads, hidden dimension size, normalisation strategy...), loss function, hyper-parameters, learning rate \(\eta\), etc.. These elements make the experiment unique; changing them would recover a different experiment \(e'\).</p>
                     
                     <h3>Differing Representations</h3>
-                    <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations.</p>
+                    <p>The symbolic information that each experiment contains is like an abstract symmetry preserved across different representations. For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, a semantic vector \(\vec{v}_e\), or in natural language. Each representation has different linguistic rules, and thus different properties (e.g., completeness, description lengths, self-referencing), but the essence of an experiment is preserved when translating between representations. It is assumed here that an experiment is an equivalence class of represenations related by translation that preserve task-relevant structure.</p>
                     
                     <h3>Platonic and Structuralist Forms</h3>
-                    <p>In the Platonic view, each experiment's abstract form resides in the canonical space of forms; a symbolic space of semantically distinct objects. In the structuralist view, no independent space of forms exists; an experiment is just the enduring symmetries that translate between representations. One unifying interpretation is the manifold hypothesis, which unites these views by saying each semantic object in the symbolic space sits on a manifold and has an associated fiber containing all possible representations. So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", "technical report", "semantic vector", and so forth.</p>
-                    <p>A manifold of fiber bundles is a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>, and this interpretation is problematic because it presupposes some structure onto the canonical space of forms. For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. Arguably therefore, this canonical representation is just as valid as any other representation, and the structuralist view of persistent symmetric properties is more reasonable. Still, the manifold hypothesis is useful here for illustrative purposes.
+                    <p>In the Platonic view, each experiment's abstract form resides in the canonical space of forms; a symbolic space of semantically distinct objects. In the structuralist view, no independent space of forms exists; an experiment is just the enduring symmetries that translate between its representations. One unifying interpretation is the manifold hypothesis, which unites these views by supposing a symbolic space \(\mathcal{S}\) where each semantic object sits on manifold and has an associated fiber containing all possible representations. So, the symbolic representation of "LLM" has a mapping to each representation including "programming script", "technical report", "semantic vector", and so forth.</p>
+                    <p>Loosely speaking, a manifold of fiber bundles is like a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. I'm using this analogy informally and it is already somewhat problematic because it presupposes a lot of structure onto the canonical space of forms. For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. Arguably therefore, this canonical representation is better seen another representation, rather than a literal description of reality, and the structuralist view of persistent symmetric properties is more reasonable. Still, the manifold hypothesis is useful here for illustrative purposes.
 
                     <h3>Method-Specific Limitations</h3>
                     <p>A task with well-defined preferences over all these symbolic experiments may have an optimum \(e^*\), but holding some experiment features fixed, the researcher may never find it. For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, and instead invest in experiment agnostic search.</p>
@@ -141,7 +141,12 @@
                     <!-- Block Math Equation -->
                     <p>$$ \vec{v}_{\text{king}} - \vec{v}_{\text{man}} + \vec{v}_{\text{woman}} \approx \vec{v}_{\text{queen}} $$</p>
                     
-                    <p>So, an abstract space's geometry or rules may encode its semantics. (I quietly think there is a more semantically principled langugage with the same tractability as the SVS for expressing these movements, similar to the approach of <a href="https://www.researchgate.net/publication/45907781_Mathematical_Foundations_for_a_Compositional_Distributional_Model_of_Meaning#:~:text=framework.%20...-,...,natural%20language%20processing.%20..." class="article-link">Coeke et al.</a>.)</p>
+                    <p> So, an abstract space's geometry or rules may encode its semantics. This is exactly the sort of structure exploited by word-embedding models like 
+                        <a href="https://arxiv.org/abs/1301.3781" class="article-link">Word2Vec</a> and <a href="https://aclanthology.org/D14-1162/" class="article-link">GloVe</a>, 
+                        where linear relations in \(\mathbb{R}^n\) often correlate with semantic analogies. 
+                        (I quietly think there is a more semantically principled language with the same tractability as the SVS for expressing these movements, similar to the approach of 
+                        <a href="https://www.researchgate.net/publication/45907781_Mathematical_Foundations_for_a_Compositional_Distributional_Model_of_Meaning#:~:text=framework.%20...-,...,natural%20language%20processing.%20..." class="article-link">Coecke et al.</a>.)
+                    <\p>
 
                     <h3>Traversals</h3>
                     <p>This proposition raises the issue of traversals. If two experiments \(e_1\) and \(e_2\) are static "snapshots," for example an LLM's parameters \(\theta_t\) and \(\theta_{t+1}\), then moving from \(e_1\) to \(e_2\) is precisely what happens during training. More generally, traversing the semantic vector space traces a path \(\gamma(t)\), and an onlooker may assign different values to each path. For example, an experimentalist may deem a path quickly converging to the global loss minimum \(\mathcal{L}_{min}\) as "good."</p>
@@ -165,19 +170,24 @@
                     
                     <h3>The Entanglement of Natural Language</h3>
                     <p>If the symbolic space really can represent all semantically distinct objects, we must address the problem of entanglement. In natural language, concepts like "Politeness" and "Formality" are often treated as distinct axes, but more accurately, they are amalgams of more fundamental semantic primitives. These semantic primitives may be incomprehensible to us, just as the binary representation of a song or the RGB values of an image cannot individually convey their equivalent semantic composition.</p>
-                    <p>Nonetheless, this semantic decomposition is mathematically useful. For example, by varying a subset of these bases, one fixes useful semantic properties while optimising over variables. Concretely, let \(x_1, x_2, x_3\) be the primitives comprising "interpretability", then let \(x_4, x_5, x_6\) compose to "performance". Importantly, suppose there is no basis that contributes to both concepts, or that if a basis (say \(x_3\)) were contributing to both, that one could decompose \(x_3\) into orthogonal components (say \(x'_3, x'_4\) ) that were contributing separately to each concept by composition. Fixing the first three bases while varying the second three will change peformance while retaining interpretability, and thus with sufficiently primitive bases, paths can preserve useful symmetries by fixing disentangled primitives.</p>
+                    <p>Nonetheless, this semantic decomposition is mathematically useful. For example, by varying a subset of these bases, one fixes useful semantic properties while optimising over variables. Concretely, let \(x_1, x_2, x_3\) be the primitives comprising "interpretability", then let \(x_4, x_5, x_6\) compose to "performance". Importantly, suppose there is no basis that contributes to both concepts, or that if a basis (say \(x_3\)) were contributing to both, that one could decompose \(x_3\) into orthogonal components (say \(x'_3, x'_4\) ) that contribute separately to each concept by composition. Fixing the first three bases while varying the second three will change peformance while retaining interpretability, and thus with sufficiently primitive bases, paths can preserve useful symmetries by fixing disentangled primitives. In practice we should not expect to literally recover these primitives; I’m using them as idealisations to consider holding interpretability fixed while improving performance.</p>
                     <p>Returning to the manifold and fiber bundles, movement along the fiber of a desirable symmetry can optimise a representation while retaining a useful property. For example, when traversing the canonical manifold, a researcher may first settle on a highly interpretable model and then move around its fiber to change the model's representation. So, there is scope for preserving symmetries within and between representations.</p>
 
                     <h3>The Canonical, Decomposed Space</h3>
-                    <p>If we can derive the true canonical bases of the semantic vector space (SVS), we may dispense with the complexity of fibers entirely. Instead of accepting the manifold hypothesis' canonical non-Euclidean space, we can take the infinite-dimensional Euclidean interpretation as fundamental. Then, the fiber bundles that map to different reprentations are flattened within the semantic space. For example, bases \(x_7, x_8, x_9\) might specify the reprentation-specificying primitives, allowing us to flatten the fibre bundles into a single Euclidean vector space and go from "programming script", to "natural language", to "semantic vector". It is slightly paradoxical to think of the SVS representation as at once describing the present representation, while not being that representation. But, this problem exists whenever a canonical space of forms is presumed; one language is used to describe another.</p>
+                    <p>If we can derive the true canonical bases of the semantic vector space (SVS), we may dispense with the complexity of fibers entirely. Instead of accepting the manifold hypothesis' canonical non-Euclidean space, we can take the infinite-dimensional Euclidean interpretation as fundamental. Then, the fiber bundles that map to different reprentations are flattened within the semantic space. For example, bases \(x_7, x_8, x_9\) might specify the reprentation-specificying primitives, allowing us to flatten the fibre bundles into a single Euclidean vector space and go from "programming script", to "natural language", to "semantic vector". It is slightly unintuitive to think of the SVS representation as at once describing the present representation, while not being that representation. But, this hierarchical-referencing problem exists whenever a canonical space of forms is presumed; one language is used to describe another.</p>
                     <p>It must be emphasised that in this flattened "One Space" model, one need not traverse a curved fiber to preserve symmetry; simply mask or traverse a specific subset of the primitive axes.</p>
 
                     <h2>Recursive Geometry</h2>
                     <h3>Models and Paths as Coordinates</h3>
-                    <p>An important implication of the canonical SVS is the recursion arising for the models themselves. Typically, a Large Language Model (LLM) is a function \(f(x)\) that processes vectors. However, within the SVS of "experiments," the LLM itself, its architecture, parameters, and loss function, occupies a single coordinate point \(P_{LLM} \in \mathbb{R}^N\). It is a static object within the space of possible intelligences. The SVS's completeness further implies that there exists a point for each path through the space. In a semantically principled space, geometric transforms would describe these combinations, with the elements of an experiment transforming under composition to the semantic vector of the whole experiment. Likewise, one could project a time path on the space to a single point. These projections and reconstructions essentially moving between object descriptions at differing levels of depth.</p>
+                    <p>An important implication of the canonical SVS is the recursion arising for the models themselves. Typically, a Large Language Model (LLM) is a function \(f(x)\) that processes vectors. However, within the SVS of "experiments," the LLM itself, its architecture, parameters, and loss function, occupies a single coordinate point \(P_{LLM} \in \mathbb{R}^N\). It is a static object within the space of possible intelligences. The SVS's completeness further implies that there exists a point for each path through the space. In a semantically principled space, geometric transforms would describe these combinations, with the elements of an experiment transforming under composition to the semantic vector of the whole experiment. Likewise, one could project a time path on the space to a single point. This is the standard trick of moving to a function space: a trajectory 
+𝛾
+(
+𝑡
+)
+γ(t) becomes a single object in a higher-level space, whose coordinates summarise properties of the whole curve. These projections and reconstructions essentially moving between object descriptions at differing levels of depth.</p>
                     
-                    <h3>Linear Trajectories to AGI</h3>
-                    <p>These facts imply the "Path Generality" mentioned is literally a trajectory optimisation problem. By experessing preferences over time-paths a person can vary trajectories through the space of architectures such that at any moment the path specifies a task-optimal architecture. Further, if the space is truly canonical and flattened via the correct basis decomposition, the path from an imperfect model to a target state (AGI or an optimal predictor) need not be a complex, non-convex search. Instead, the correct bases may render the optimal path linear (not curved), or a simple geodesic in the manifold case. It is then interesting to imagine that, if a linear trajectory could distinguish an infinitessimally fine semantic movement, whether standard optimisers, like hill-climbing or gradient descent might have more general semantic applicability, beyond parameter optimisation.</p>
+                    <h3>Linear Trajectories to Task Optimal Architectures</h3>
+                    <p>These facts imply the "Path Generality" mentioned is literally a trajectory optimisation problem. By experessing preferences over time-paths a person could (in principle) vary trajectories through the space of architectures such that at any moment the path specifies a task-optimal architecture. In the idealised limit where the space is truly canonical and flattened via the right basis decomposition, the path from an imperfect model to a target state (an optimal predictor or experiment \(e^*\)) need not be a wild, non-convex search. Instead, the correct bases may render the optimal path linear (not curved), or a simple geodesic in the manifold case. It is then interesting to imagine that, if a linear trajectory could distinguish an infinitessimally fine semantic movement, whether standard optimisers, like hill-climbing or gradient descent might generalis beyond parameter tuning to a broader "semantic optimisation" over models and experiments.</p>
                 </div>
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
