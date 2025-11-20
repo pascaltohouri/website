@@ -17,56 +17,64 @@
         }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
 
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gray-900">Pascal Tohouri</a>
+            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-6">
                 <a href="#about" class="text-gray-600 hover:text-gray-900 transition duration-300">About</a>
                 <a href="#blog" class="text-gray-600 hover:text-gray-900 transition duration-300">Blog</a>
-                <a href="#research" class="text-gray-600 hover:text-gray-900 transition duration-300">Research</a>
-                <a href="#contact" class="text-gray-600 hover:text-gray-900 transition duration-300">Contact</a>
+                <!-- External Links -->
+                <a href="https://figshare.com" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900 transition duration-300">Pre-prints</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900 transition duration-300">Code</a>
+                <!-- Replaced Contact with Publications -->
+                <a href="#publications" class="text-gray-600 hover:text-gray-900 transition duration-300">Publications</a>
             </div>
+
             <button id="mobile-menu-button" class="md:hidden flex items-center">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
+        
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 shadow-lg">
             <a href="#about" class="block py-2 text-gray-600 hover:text-gray-900">About</a>
             <a href="#blog" class="block py-2 text-gray-600 hover:text-gray-900">Blog</a>
-            <a href="#research" class="block py-2 text-gray-600 hover:text-gray-900">Research</a>
-            <a href="#contact" class="block py-2 text-gray-600 hover:text-gray-900">Contact</a>
+            <a href="https://figshare.com" target="_blank" rel="noopener noreferrer" class="block py-2 text-gray-600 hover:text-gray-900">Pre-prints</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="block py-2 text-gray-600 hover:text-gray-900">Code</a>
+            <a href="#publications" class="block py-2 text-gray-600 hover:text-gray-900">Publications</a>
         </div>
     </header>
 
-    <main>
+    <main class="flex-grow">
         <!-- Hero Section (About) -->
         <section id="about" class="hero-bg py-20 md:py-24">
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
                 <!-- Image Column -->
                 <div class="flex-shrink-0">
-                    <img src="images/stick_man_normal_dist.png" alt="A stick man on a roller coaster shaped like a normal distribution curve" class="rounded-full w-48 h-48 md:w-60 md:h-60 object-cover shadow-lg border-4 border-white">
+                    <img src="1667056078103.jpg" alt="Pascal Tohouri" class="rounded-full w-48 h-48 md:w-60 md:h-60 object-cover shadow-lg border-4 border-white">
                 </div>
                 <!-- Text Column -->
                 <div class="text-center md:text-left">
                     <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Pascal Tohouri</h1>
-                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
-                        My name is Pascal, and my goal is to quantify welfare and contribute to human flourishing. I think intelligent systems offer the most promising method for solving societal welfare problems at scale. So, I am currently building a series of models (called Ethos 0.x) that will help achieve this goal.
+                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl md:text-justify">
+                        My name is Pascal, and my goal is to quantify welfare and contribute to human flourishing. Intelligent systems offer the most promising method for solving societal welfare problems at scale. So, I am currently building a series of models (called Ethos 0.x) that will help achieve this goal.
                     </p>
-                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
+                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl md:text-justify">
                         My research process goes:
                     </p>
-                    <ul class="mt-2 text-lg md:text-xl text-gray-600 max-w-xl list-disc list-inside">
-                        <li>Blog post (here)</li>
-                        <li>Pre-print output (Figshare)</li>
-                        <li>Code (GitHub)</li>
-                        <li>Publication (arXiv / external hosting)</li>
+                    <ul class="mt-2 text-lg md:text-xl text-gray-600 max-w-xl list-disc list-inside text-left inline-block md:block md:text-left">
+                        <li>Blog post (here),</li>
+                        <li>Pre-prints (Fighshare),</li>
+                        <li>Code (Github),</li>
+                        <li>Publication (arXiv / external hosting).</li>
                     </ul>
-                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl">
-                        So, you'll find many incipient ideas in these blog posts. For more polished work, please see the research links.
+                    <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-xl md:text-justify">
+                        So, you'll find many incipient ideas in these blog posts. For more polished work, please see the header links.
                     </p>
                 </div>
             </div>
@@ -78,8 +86,8 @@
                 <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Featured Blog Posts</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Blog Card 1 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://images.pexels.com/photos/3082452/pexels-photo-3082452.jpeg?auto=compress&cs=tinysrgb&w=800" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Matter+%26+Welfare'" alt="Abstract geometric shapes" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">A Formal Approach to Improving the World</h3>
                             <p class="text-gray-600 mb-4">An examination of how matter corresponds with human welfare (ongoing).</p>
@@ -87,8 +95,8 @@
                         </div>
                     </div>
                     <!-- Blog Card 2 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/e2e8f0/4a5568?text=Blog+Post" alt="Blog Thumbnail" class="w-full h-48 object-cover">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800" onerror="this.src='https://placehold.co/600x400/cbd5e1/4a5568?text=Research+Methods'" alt="Graphs and data analysis" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Methods for Better Research</h3>
                             <p class="text-gray-600 mb-4">Evidence-based principles that accelerate scientific inquiry and knowledge discovery.</p>
@@ -96,8 +104,8 @@
                         </div>
                     </div>
                     <!-- Blog Card 3 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" alt="Abstract visualization of an advanced AI or neural network" class="w-full h-48 object-cover">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Experiment+Traversals'" alt="Abstract visualization" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">Linguistic Descriptions of Experiment Traversals</h3>
                             <p class="text-gray-600 mb-4">An introductory look at experiment traversals in different representations.</p>
@@ -105,8 +113,8 @@
                         </div>
                     </div>
                     <!-- Blog Card 4 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg" alt="Abstract visualization of an advanced AI or neural network" class="w-full h-48 object-cover">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg" onerror="this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Recursive+ASI'" alt="Abstract visualization" class="w-full h-48 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">The Stable Recursive Self-Improvement Path to ASI</h3>
                             <p class="text-gray-600 mb-4">A high level discussion of how to solve the welfare-matter problem autonomously.</p>
@@ -117,10 +125,10 @@
             </div>
         </section>
 
-        <!-- Research Section -->
-        <section id="research" class="bg-gray-50 py-20">
+        <!-- Publications Section (Replaces Contact) -->
+        <section id="publications" class="bg-gray-50 py-20">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Research Papers</h2>
+                <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Publications</h2>
                 <div class="space-y-8 max-w-4xl mx-auto">
                     <!-- Research Paper 1 -->
                     <div class="bg-white p-6 rounded-lg shadow-md">
@@ -139,33 +147,16 @@
                 </div>
             </div>
         </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Get In Touch</h2>
-                <div class="max-w-xl mx-auto text-lg">
-                    <p class="mb-4">
-                        <strong>Email:</strong> 
-                        <a id="email-link" href="#" class="text-blue-600 hover:underline">pascal.tohouri1 [at] gmail [dot] com</a>
-                    </p>
-                    <p>
-                        <strong>LinkedIn:</strong> 
-                        <a id="linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View Profile</a>
-                    </p>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-8">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a id="footer-email-link" href="#" class="hover:text-blue-400 transition duration-300">Email</a>
-                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition duration-300">LinkedIn</a>
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-8 mb-4">
+                <a id="footer-email-link" href="#" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">LinkedIn</a>
             </div>
-            <p>&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
+            <p class="text-gray-400 text-sm">&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -183,16 +174,17 @@
             const emailDomain = 'gmail.com';
             const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
             const fullEmail = `mailto:${emailUser}@${emailDomain}`;
-            document.getElementById('email-link').href = fullEmail;
-            document.getElementById('linkedin-link').href = linkedinUrl;
-            document.getElementById('footer-email-link').href = fullEmail;
-            document.getElementById('footer-linkedin-link').href = linkedinUrl;
+            
+            // Update footer links
+            const footerEmailLink = document.getElementById('footer-email-link');
+            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
+            if(footerEmailLink) footerEmailLink.href = fullEmail;
+            if(footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
         });
     </script>
 
 </body>
 </html>
-
 
 
 
