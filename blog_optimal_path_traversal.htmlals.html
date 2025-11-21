@@ -117,6 +117,10 @@
                 </header>
 
                 <div class="article-body">
+                    <p>
+                    <em>This article follows a <a href="blog_linguistic_descriptions.html" class="article-link">prior blog post</a> 
+                     motivating the study of experiment path traversals.</em>
+                    </p>
                     <h2>The Vector Space on $\mathbb{R}^n$</h2>
                     <p>A vector space is not just an unordered jumble of vectors. The vector space on the reals \(V = \mathbb{R}^n\)
                         is taken with operations and axioms that ensure the space is well-behaved. 
@@ -203,7 +207,7 @@
                     <h2>Paths as Mappings</h2>
                     <p>A path is like a curve that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
                         Think of a plane, rocket, or bird’s flight path. Since we have no direct experience of paths in higher dimensions, 
-                        we can use the differences between paths in the observed dimensions to conjecture about high dimensional paths.
+                        we can use the differences between paths in the observed dimensions to conjecture about high-dimensional paths.
                     </p>
 
                     <p> Starting in one dimension, movement is restricted to a scalar value changing over time. There is no "wiggle room"; one can only move forward or backward along the line. 
@@ -217,7 +221,7 @@
 
                     <p>
                         Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. 
-                        In physical traversals, the path must be continuous to ensure it is unbroken<sup class="footnote-ref"><a href="#fn1" id="fnref1">2</a></sup. 
+                        In physical traversals, the path must be continuous to ensure it is unbroken<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>. 
                         Though, this stipulation may be unnecessary for traversals in the space of machine learning experiments.
                     </p>
 
@@ -227,7 +231,7 @@
                         (We should stop here to say that any assumption made about optimality may severely limit the generality of derived results.
                         This commitment to oversimplified, special-case assumptions continually frustrates me, 
                         but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once. 
-                        Statements take on a slippery or ephemeral quality, and few statements are ubiquitously true.)
+                        Statements take on a slippery or ephemeral quality, and few statements are concretely true.)
                     </p>
                     <p>
                     So, assume an experimentalist expresses preferences over ML experiments $\mathbf{x}$ with a utility or preference function $f$.
@@ -238,11 +242,11 @@
                     <p>
                         Assume further that this utility function is dynamic and can change from time to time.
                     </p>
-                     <p class="my-4 text-center">
+                    <p class="my-4 text-center">
                         $$ u_t = f_t(\mathbf{x}_t) $$
                     </p>
                     <p>
-                        Then, to measure the aggregate quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
+                        Then, to measure the aggregate value of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
                         sum each of the instantaneous utility values:
                     </p>
                     <p class="my-4 text-center">
@@ -253,10 +257,30 @@
                         The optimal path then maximises that integral:
                     </p>
                     <p class="my-4 text-center">
-                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
+                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t. $$
+                    </p>
+                    <p>  
+                        By default, the current utility function does not distinguish between a smooth and an erratically varying path. 
+                        We can force the integral to account for smoothness by just adding a cost term that is some multiple of the path's smoothness at each point.
+                        So:
+                    </p>
+                    <p class="my-4 text-center">
+                        $$ f(\gamma(t), t)$$
+                    </p>
+                    <p>
+                        becomes the canonical Lagrangian $ L(\gamma(t), \gamma'(t), t)$:    
+                    </p>
+                    <p class="my-4 text-center">
+                        $$L(\gamma(t), \gamma'(t), t) = f(\gamma(t), t)-\lambda||\gamma'(t)||^2$$
+                    </p>
+                    </p>
+                       and the optimal path is:
+                    </p>
+                    <p class="my-4 text-center">
+                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} L(\gamma(t), \gamma'(t), t)\, dt$$
                     </p>
                     <p>    
-                        If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
+                        We can then import the famous Euler-Lagrange result for optimal paths.
                         The result says that if we dice up the path and wiggle each section, 
                         there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
                         The final section of this article includes a full derivation of this result. The equation's solutions are the necessary conditions for optimality.
@@ -267,7 +291,7 @@
                     <p>
                        The utility integral (mapping paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
                         Whereas standard calculus examines the stationary point of functions, the "calculus of variations" examines functional optimisations.
-                        It follows that the path yields a higher utility than its neighbouring paths:
+                        An optimal path then yields a higher utility than its neighbouring paths:
                     </p>
                     <p class="my-4 text-center">
                         $$ U(\gamma^*) \geq U(\gamma) $$
@@ -279,14 +303,14 @@
                         These assumptions are restrictive because while performance metrics like inference time or loss are objective, 
                         human preferences vary wildly across time and experiments, and are often inconsistent.
                         So, we are in a position where the deductions we build rely so heavily on these brittle assumptions 
-                        that they may collapse entirely when these assumptions are later relaxed.
+                        that they may collapse entirely when assumptions are later relaxed.
                     </p> 
                     <p>  
-                        For theis reason, I don't feel motivated to identify all the valid conclusions and corollaries here; that effort seems wasteful. 
+                        For this reason, I don't feel motivated to identify all the valid conclusions and corollaries here; that effort seems wasteful. 
                         Also, these results are standard and can be found elsewhere in texts on the calculus of variations.
                         This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
                         For example, we could say "given a set of objective metrics, and a general utility function over those metrics, 
-                        what general, structural optimality results can we claim and how do they depend on the utility function's form?"
+                        what broad, structural optimality results can we claim and how do they depend on the utility function's form?"
                         That is our next stop, and the reader is referred to this <a href="#" class="article-link">blog post</a> for a fuller discussion.
                     </p>
 
@@ -294,7 +318,7 @@
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
                 <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
                     <li id="fn1">
-                        The choice of the interval $[a,b]$ is arbitrary but usually normalized to $[0,1]$ for topological proofs.
+                        The choice of the interval $[a,b]$ is arbitrary but usually normalised to $[0,1]$ for topological proofs.
                         <a href="#fnref1" class="article-link ml-1">↩︎</a>
                     </li>
                     <li id="fn2">
@@ -346,3 +370,4 @@
     </script>
 </body>
 </html>
+   
