@@ -118,33 +118,88 @@
 
                 <div class="article-body">
                     <h2>The Vector Space on $\mathbb{R}^n$</h2>
-                    <p>A vector space is not just an unordered jumble of vectors. The vector space on the reals \(\mathbf{V} = \mathbb{R}^n\)
+                    <p>A vector space is not just an unordered jumble of vectors. The vector space on the reals \(V = \mathbb{R}^n\)
                         is taken with operations and axioms that ensure the space is well-behaved. 
-                        For example, if we start at the origin and travel along one vector, then a second vector, pointing in the same direction, 
-                        we do not expect to return to the origin. So, the sum of two parallel vectors $\vec{u}$,$\vec{v}$ where $\vec{u}$ starts at $\mathbf{0}$, 
-                        and $\vec{v}$ at $\vec{u}$ should not be $\mathbf{0}$. 
+                        For example, if we start at the origin, walk along one vector $\vec{u}$, then along another $\vec{v}$ (parallel and in the same direction), 
+                        we do not expect to return to the origin, we expect to end at $\vec{u}+\vec{v} \neq \mathbf{0}$.
                     </p>
-
                     <p>These common-sense assumptions are guaranteed by eight axioms that, in the interest of brevity, 
                     I will not elaborate on, other than to list them (where $\vec{u}, \vec{v}, \vec{w} \in V$ and scalars $a, b \in \mathbb{R}$): 
                     </p>
 
-                    <h3>Vector Addition</h3>
-                    <ul class="list-none space-y-1 pl-4 border-l border-stone-300 my-3 text-sm">
-                        <li><span class="text-stone-400 mr-2">01.</span> Associativity: $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$</li>
-                        <li><span class="text-stone-400 mr-2">02.</span> Commutativity: $\vec{u} + \vec{v} = \vec{v} + \vec{u}$</li>
-                        <li><span class="text-stone-400 mr-2">03.</span> Identity Element: $\exists \mathbf{0}$ such that $\vec{u} + \mathbf{0} = \vec{u}$</li>
-                        <li><span class="text-stone-400 mr-2">04.</span> Inverse Element: $\forall \vec{u}$, there exists $-\vec{u}$ such that $\vec{u} + (-\vec{u}) = \mathbf{0}$</li>
-                    </ul>
-                    
-                    <h3>Scalar Multiplication</h3>
-                    <ul class="list-none space-y-1 pl-4 border-l border-stone-300 my-3 text-sm">
-                        <li><span class="text-stone-400 mr-2">01.</span> Compatibility: $a(b\vec{u}) = (ab)\vec{u}$</li>
-                        <li><span class="text-stone-400 mr-2">02.</span> Multiplicative Identity: $1 \cdot \vec{u} = \vec{u}$</li>
-                        <li><span class="text-stone-400 mr-2">03.</span> Distributivity (Vector Addition): $a(\vec{u} + \vec{v}) = a\vec{u} + a\vec{v}$</li>
-                        <li><span class="text-stone-400 mr-2">04.</span> Distributivity (Scalar Addition): $(a + b)\vec{u} = a\vec{u} + b\vec{u}$</li>
-                    </ul>
-                                        
+                    <!-- Collapsible Axioms Section -->
+                    <div class="space-y-3 my-8">
+                        <!-- Vector Addition -->
+                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Axioms of Vector Addition
+                                </span>
+                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50">
+                                <ul class="space-y-3 text-sm">
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Associativity</span>
+                                        <span class="text-stone-600">$(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Commutativity</span>
+                                        <span class="text-stone-600">$\vec{u} + \vec{v} = \vec{v} + \vec{u}$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Identity Element</span>
+                                        <span class="text-stone-600">$\exists \mathbf{0}$ such that $\vec{u} + \mathbf{0} = \vec{u}$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Inverse Element</span>
+                                        <span class="text-stone-600">$\forall \vec{u}$, there exists $-\vec{u}$ s.t. $\vec{u} + (-\vec{u}) = \mathbf{0}$</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </details>
+
+                        <!-- Scalar Multiplication -->
+                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    Axioms of Scalar Multiplication
+                                </span>
+                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50">
+                                <ul class="space-y-3 text-sm">
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Compatibility</span>
+                                        <span class="text-stone-600">$a(b\vec{u}) = (ab)\vec{u}$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Multiplicative Identity</span>
+                                        <span class="text-stone-600">$1 \cdot \vec{u} = \vec{u}$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Distributivity (Vector)</span>
+                                        <span class="text-stone-600">$a(\vec{u} + \vec{v}) = a\vec{u} + a\vec{v}$</span>
+                                    </li>
+                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
+                                        <span class="font-semibold text-stone-700">Distributivity (Scalar)</span>
+                                        <span class="text-stone-600">$(a + b)\vec{u} = a\vec{u} + b\vec{u}$</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </details>
+                    </div>
+                                            
                     <h2>Paths as Mappings</h2>
                     <p>A path is like a line that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
                         Think of a plane, rocket, or bird’s flight path. Since we have no direct experience of paths in higher dimensions, 
@@ -172,9 +227,11 @@
                         (We should stop here to say that any assumption made about optimality may severely limit the generality of derived results.
                         This commitment to oversimplicity and the consignment of results to a special case continually frustrate me, 
                         but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once and statements take on a slippery or ephemeral quality; no statement is concretely true.)
-                        So, assume an experimentalist expresses preferences over ML experiments with a utility or preference function.
                     </p>
-                     <p class="my-4 text-center">
+                    <p>
+                    So, assume an experimentalist expresses preferences over ML experiments $\mathbf{x}$ with a utility or preference function $f$.
+                    </p>
+                    <p class="my-4 text-center">
                         $$ u_t = f(\mathbf{x}_t) $$
                     </p>
                     <p>
@@ -184,48 +241,51 @@
                         $$ u_t = f_t(\mathbf{x}_t) $$
                     </p>
                     <p>
-                        Then, to measure the quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
-                        Add up each of the instantaneous utility values:
+                        Then, to measure the aggregate quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
+                        Sum each of the instantaneous utility values:
                     </p>
                     <p class="my-4 text-center">
                         $$ U = \sum_{t} f_t(\mathbf{x}_t) $$
                     </p>
                     <p> 
-                        If the utility function output varies smoothly with time, we can integrate the experimentalist's utility.
+                        If the utility function output varies smoothly with time, we can instead integrate the experimentalist's utility.
                         The optimal path then maximises that integral:
                     </p>
                     <p class="my-4 text-center">
                         $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
                     </p>
-                    <p>   
+                    <p>    
                         If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
-                        This result applies because if we dice up the path and wiggle each section, 
+                        The result says that if we dice up the path and wiggle each section, 
                         there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
-                        The final section of this article includes a full derivation of this result whose solutions yield the necessary conditions for optimality.
+                        The final section of this article includes a full derivation of this result. The equation's solutions are the necessary conditions for optimality.
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
                         $$ \frac{\partial L}{\partial \gamma} - \frac{d}{dt} \left( \frac{\partial L}{\partial \gamma'} \right) = 0 $$
                     </p>
                     <p>
-                       The utility integral (which maps from paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
-                        The field concerning these optimisations is technically the "calculus of variations". Whereas in standard calculus we seek the stationary point of a function,
-                        in the calculus of variations we seek the "stationary point" of the functional. The optimal path yields a higher utility than its neighbouring paths:
+                       The utility integral (mapping paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
+                        Whereas standard calculus examines the stationary point of functions, the "calculus of variations" examines functional optimisations.
+                        The optimal path yields a higher utility than its neighbouring paths:
                     </p>
                     <p class="my-4 text-center">
                         $$ U(\gamma^*) \geq U(\gamma) $$
                     </p>
                     
-                    <h3>The Journey Ahead</h3>
+                    <h3>Limitations and Next Steps</h3>
                     <p>
                         You'll notice we assumed the experimentalist's utility was well-defined, smooth, and integrable. 
-                        These assumptions are particularly strong because even though objective performance metrics like inference time or loss are consistent, 
-                        human preferences vary wildly across time and experiments.
-                        A collossal edifice whose foundations are sand can tumble to a heap, and these results are likewise a brittle artefact of those current assumptions. 
-                        For these reasons, I don't feel motivated to deduce all the valid conclusions and corrolaries here; that effort seems wasteful. 
-                        This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
+                        These assumptions are restrictive because while performance metrics like inference time or loss are objective, 
+                        human preferences vary wildly across time and experiments, and are often inconsistent.
+                        So, we are in a position where building a collossal edifice of theoretical deductions on these brittle assumptions risks
+                        reducing those deductions to a heap later when these assumptions are relaxed.
+                    </p> 
+                    <p>  
+                        For this reasons, I don't feel motivated to identify all the valid conclusions and corrolaries here; that effort seems wasteful. 
+                        Also, I'm sure they exist elsewhere! This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
                         For example, we could say "given a set of objective metrics, and a general utility function over those metrics, 
                         what optimality results can we claim and how do they depend on the utility function's form?"
-                        That is our next stop, and the reader is referred to this <a href="#" class="article-link">blog post</a>, for a fuller discussion.
+                        That is our next stop, and the reader is referred to this <a href="#" class="article-link">blog post</a> for a fuller discussion.
                     </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
