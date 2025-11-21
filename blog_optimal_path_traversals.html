@@ -201,7 +201,7 @@
                     </div>
                                             
                     <h2>Paths as Mappings</h2>
-                    <p>A path is like a line that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
+                    <p>A path is like a curve that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
                         Think of a plane, rocket, or bird’s flight path. Since we have no direct experience of paths in higher dimensions, 
                         we can use the differences between paths in the observed dimensions to conjecture about high dimensional paths.
                     </p>
@@ -216,8 +216,8 @@
                     </p>
 
                     <p>
-                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint. 
-                        In physical traversals, the path must be continuous to ensure it is unbroken. 
+                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. 
+                        In physical traversals, the path must be continuous to ensure it is unbroken<sup class="footnote-ref"><a href="#fn1" id="fnref1">2</a></sup. 
                         Though, this stipulation may be unnecessary for traversals in the space of machine learning experiments.
                     </p>
 
@@ -225,8 +225,9 @@
                     <p>
                         To discuss what the 'best path' actually is, we need to set an optimality criterion. 
                         (We should stop here to say that any assumption made about optimality may severely limit the generality of derived results.
-                        This commitment to oversimplicity and the consignment of results to a special case continually frustrate me, 
-                        but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once and statements take on a slippery or ephemeral quality; no statement is concretely true.)
+                        This commitment to oversimplified, special-case assumptions continually frustrates me, 
+                        but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once. 
+                        Statements take on a slippery or ephemeral quality, and few statements are ubiquitously true.)
                     </p>
                     <p>
                     So, assume an experimentalist expresses preferences over ML experiments $\mathbf{x}$ with a utility or preference function $f$.
@@ -242,7 +243,7 @@
                     </p>
                     <p>
                         Then, to measure the aggregate quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
-                        Sum each of the instantaneous utility values:
+                        sum each of the instantaneous utility values:
                     </p>
                     <p class="my-4 text-center">
                         $$ U = \sum_{t} f_t(\mathbf{x}_t) $$
@@ -252,7 +253,7 @@
                         The optimal path then maximises that integral:
                     </p>
                     <p class="my-4 text-center">
-                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
+                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
                     </p>
                     <p>    
                         If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
@@ -266,7 +267,7 @@
                     <p>
                        The utility integral (mapping paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
                         Whereas standard calculus examines the stationary point of functions, the "calculus of variations" examines functional optimisations.
-                        The optimal path yields a higher utility than its neighbouring paths:
+                        It follows that the path yields a higher utility than its neighbouring paths:
                     </p>
                     <p class="my-4 text-center">
                         $$ U(\gamma^*) \geq U(\gamma) $$
@@ -277,14 +278,15 @@
                         You'll notice we assumed the experimentalist's utility was well-defined, smooth, and integrable. 
                         These assumptions are restrictive because while performance metrics like inference time or loss are objective, 
                         human preferences vary wildly across time and experiments, and are often inconsistent.
-                        So, we are in a position where building a collossal edifice of theoretical deductions on these brittle assumptions risks
-                        reducing those deductions to a heap later when these assumptions are relaxed.
+                        So, we are in a position where the deductions we build rely so heavily on these brittle assumptions 
+                        that they may collapse entirely when these assumptions are later relaxed.
                     </p> 
                     <p>  
-                        For this reasons, I don't feel motivated to identify all the valid conclusions and corrolaries here; that effort seems wasteful. 
-                        Also, I'm sure they exist elsewhere! This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
+                        For theis reason, I don't feel motivated to identify all the valid conclusions and corollaries here; that effort seems wasteful. 
+                        Also, these results are standard and can be found elsewhere in texts on the calculus of variations.
+                        This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
                         For example, we could say "given a set of objective metrics, and a general utility function over those metrics, 
-                        what optimality results can we claim and how do they depend on the utility function's form?"
+                        what general, structural optimality results can we claim and how do they depend on the utility function's form?"
                         That is our next stop, and the reader is referred to this <a href="#" class="article-link">blog post</a> for a fuller discussion.
                     </p>
 
