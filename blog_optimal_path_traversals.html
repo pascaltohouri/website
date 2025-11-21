@@ -155,25 +155,49 @@
                         Formalizing this for $n$-dimensions, we define a path $\gamma$ as a correspondence between a path parameter (like time) and the vector space:
                     </p>
 
-                    <p>
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
                         $$ \gamma: [a, b] \to \mathbb{R}^n $$
                         $$ t \mapsto \gamma(t) = (x_1(t), x_2(t), \dots, x_n(t)) $$
                     </p>
 
                     <p>
-                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint. This function is continuous, ensuring the path is unbroken, which is a necessary condition for physical traversal.
+                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint. 
+                        In physical traversals, the path must be continuous to ensure it is unbroken. 
+                        Though, this stipulation may be unnecessary for traversals in the space of machine learning experiments.
                     </p>
 
                     <h2>Optimal Paths</h2>
                     <p>
-                        To discuss "optimality," we must first define a criterion for what constitutes the "best" path. 
-                        Typically, an experimenalist expresses preferences over experiments with a utility or preference function.
+                        To discuss what the 'best path' actually is, we need to set an optimality criterion. 
+                        (We should stop here to say that any assumption made here about optimality may severely limit the generality of derived results.
+                        This commitment to oversimplicity and the consignment of results to a special case continually frustrate me, 
+                        but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once and statements take on a slippery or ephemeral quality; no statement is concretely true.)
+                        So, assume an experimentalist expresses preferences over ML experiments with a utility or preference function.
                     </p>
-
-                     <p>
-                        $$ U = f(\mathbf{x}_t) $$
+                     <p class="my-4 text-center">
+                        $$ u = f(\mathbf{x}_t) $$
                     </p>
-
+                    <p>
+                        Assume further that this utility function is dynamic and can change from time to time.
+                    </p>
+                     <p class="my-4 text-center">
+                        $$ u_t = f_t(\mathbf{x}_t) $$
+                    </p>
+                    <p>
+                        Then, to measure the quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
+                        Add up each of the instantaneous utility values:
+                    </p>
+                    <p class="my-4 text-center">
+                        $$ U = \sum_{t} f_t(\mathbf{x}_t) $$
+                    </p>
+                    <p> 
+                        If the utility function output varies smoothly with time, we can integrate the experimentalist's utility.
+                        The optimal path maximises this integral:
+                    </p>
+                    <p class="my-4 text-center">
+                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
+                    </p>
+                    <p>   
                         In geometry, this is often distance; in physics, it might be action or time. 
                         We formalize this cost by assigning a scalar value to every possible path. This mapping from a function space to the reals is called a <em>functional</em>.
                     </p>
@@ -210,6 +234,13 @@
 
                     <p>
                         Solving this differential equation provides the necessary conditions for the path to be optimal.
+                    </p>
+                    
+                    <h3>The Distinguishing Feature</h3>
+                    <p>
+                        So we have reached the distinguishing and only known feature of the optimal path—that it maximises the utility integral (or equivalently, minimizes the cost functional). 
+                        This simple tautology is the seed from which all specific path-finding algorithms grow. By defining the path not by <em>what it is</em> (a list of coordinates), 
+                        but by <em>what it does</em> (accumulates the maximum possible utility over the interval), we transform the problem from one of geometry to one of calculus.
                     </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
