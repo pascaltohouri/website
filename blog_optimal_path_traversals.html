@@ -192,62 +192,40 @@
                     </p>
                     <p> 
                         If the utility function output varies smoothly with time, we can integrate the experimentalist's utility.
-                        The optimal path maximises this integral:
+                        The optimal path then maximises that integral:
                     </p>
                     <p class="my-4 text-center">
                         $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
                     </p>
                     <p>   
                         If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
-                        This result applies because if we dice up the path and wiggle each section, there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
-                        The final section of this article includes a full derivation of this result.
+                        This result applies because if we dice up the path and wiggle each section, 
+                        there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
+                        The final section of this article includes a full derivation of this result whose solutions yield the necessary conditions for optimality.
                     </p>
-                    <p> 
-                    \[
-                    \frac{\partial L}{\partial \gamma}(\gamma^*(t),\gamma^{*'}(t),t)
-                    - \frac{d}{dt}\left(\frac{\partial L}{\partial \gamma'}(\gamma^*(t),\gamma^{*'}(t),t)\right)
-                    = 0.
-                    \]
-                    </p>
-                    <p>
-                        The most common cost functional takes the form of an integral over the path's duration. If we denote a cost function $L(\gamma(t), \gamma'(t), t)$—often called the Lagrangian—the total cost $J$ of a path $\gamma$ is:
-                    </p>
-
-                    <p class="my-4 text-center">
-                        $$ J(\gamma) = \int_{a}^{b} L(\gamma(t), \gamma'(t), t) \, dt $$
-                    </p>
-
-                    <p>
-                        For simple Euclidean length, the cost is merely the magnitude of the velocity vector, $L = \|\gamma'(t)\|$, integrated over time. However, in optimization problems involving terrain or potential fields, $L$ becomes significantly more complex.
-                    </p>
-
-                    <h3>Defining Optimality</h3>
-                    <p>
-                        An optimal path $\gamma^*$ is one that minimizes this functional $J$. Formally, we seek a $\gamma^*$ such that for all valid neighboring paths $\gamma$:
-                    </p>
-                    
-                    <p class="my-4 text-center">
-                        $$ J(\gamma^*) \leq J(\gamma) $$
-                    </p>
-
-                    <p>
-                        This minimization problem leads us to the Calculus of Variations. Just as we find local minima in standard calculus by setting the derivative to zero, here we seek a "stationary point" of the functional. 
-                        This yields the famous Euler-Lagrange equation:
-                    </p>
-
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
                         $$ \frac{\partial L}{\partial \gamma} - \frac{d}{dt} \left( \frac{\partial L}{\partial \gamma'} \right) = 0 $$
                     </p>
-
                     <p>
-                        Solving this differential equation provides the necessary conditions for the path to be optimal.
+                       The utility integral (which maps from paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
+                        The field concerning these optimisations is technically the "calculus of variations". Whereas in standard calculus we seek the stationary point of a function,
+                        in the calculus of variations we seek the "stationary point" of the functional. The optimal path yields a higher utility than its neighbouring paths:
+                    </p>
+                    <p class="my-4 text-center">
+                        $$ U(\gamma^*) \geq U(\gamma) $$
                     </p>
                     
-                    <h3>The Distinguishing Feature</h3>
+                    <h3>The Journey Ahead</h3>
                     <p>
-                        So we have reached the distinguishing and only known feature of the optimal path—that it maximises the utility integral (or equivalently, minimizes the cost functional). 
-                        This simple tautology is the seed from which all specific path-finding algorithms grow. By defining the path not by <em>what it is</em> (a list of coordinates), 
-                        but by <em>what it does</em> (accumulates the maximum possible utility over the interval), we transform the problem from one of geometry to one of calculus.
+                        You'll notice we assumed the experimentalist's utility was well-defined, smooth, and integrable. 
+                        These assumptions are particularly strong because even though objective performance metrics like inference time or loss are consistent, 
+                        human preferences vary wildly across time and experiments.
+                        A collossal edifice whose foundations are sand can tumble to a heap, and these results are likewise a brittle artefact of those current assumptions. 
+                        For these reasons, I don't feel motivated to deduce all the valid conclusions and corrolaries here; that effort seems wasteful. 
+                        This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
+                        For example, we could say "given a set of objective metrics, and a general utility function over those metrics, 
+                        what optimality results can we claim and how do they depend on the utility function's form?"
+                        That is our next stop, and the reader is referred to this blog post, for a fuller discussion.
                     </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
