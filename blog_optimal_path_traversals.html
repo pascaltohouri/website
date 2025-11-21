@@ -169,13 +169,13 @@
                     <h2>Optimal Paths</h2>
                     <p>
                         To discuss what the 'best path' actually is, we need to set an optimality criterion. 
-                        (We should stop here to say that any assumption made here about optimality may severely limit the generality of derived results.
+                        (We should stop here to say that any assumption made about optimality may severely limit the generality of derived results.
                         This commitment to oversimplicity and the consignment of results to a special case continually frustrate me, 
                         but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once and statements take on a slippery or ephemeral quality; no statement is concretely true.)
                         So, assume an experimentalist expresses preferences over ML experiments with a utility or preference function.
                     </p>
                      <p class="my-4 text-center">
-                        $$ u = f(\mathbf{x}_t) $$
+                        $$ u_t = f(\mathbf{x}_t) $$
                     </p>
                     <p>
                         Assume further that this utility function is dynamic and can change from time to time.
@@ -198,10 +198,17 @@
                         $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
                     </p>
                     <p>   
-                        In geometry, this is often distance; in physics, it might be action or time. 
-                        We formalize this cost by assigning a scalar value to every possible path. This mapping from a function space to the reals is called a <em>functional</em>.
+                        If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
+                        This result applies because if we dice up the path and wiggle each section, there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
+                        The final section of this article includes a full derivation of this result.
                     </p>
-
+                    <p> 
+                    \[
+                    \frac{\partial L}{\partial \gamma}(\gamma^*(t),\gamma^{*'}(t),t)
+                    - \frac{d}{dt}\left(\frac{\partial L}{\partial \gamma'}(\gamma^*(t),\gamma^{*'}(t),t)\right)
+                    = 0.
+                    \]
+                    </p>
                     <p>
                         The most common cost functional takes the form of an integral over the path's duration. If we denote a cost function $L(\gamma(t), \gamma'(t), t)$—often called the Lagrangian—the total cost $J$ of a path $\gamma$ is:
                     </p>
