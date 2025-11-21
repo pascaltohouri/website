@@ -96,8 +96,8 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-4xl">
-            <a href="index.html" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
-            <a href="index.html" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
+            <a href="#" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
+            <a href="#" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
                 <span class="inline-block transition-transform group-hover:-translate-x-1">&larr;</span> Back to Home
             </a>
         </nav>
@@ -145,23 +145,83 @@
                         <li><span class="text-stone-400 mr-2">04.</span> Distributivity (Scalar Addition): $(a + b)\vec{u} = a\vec{u} + b\vec{u}$</li>
                     </ul>
                                         
-                    <h3>Paths</h3>
+                    <h2>Paths as Mappings</h2>
                     <p>A path is like a line that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
                         Think of a plane, rocket, or bird’s flight path. Since we have no direct experience of paths in higher dimensions, 
                         we can use the differences between paths in the observed dimensions to conjecture about high dimensional paths.
                     </p>
 
-                    <p> Starting in one dimension, 
+                    <p> Starting in one dimension, movement is restricted to a scalar value changing over time. There is no "wiggle room"; one can only move forward or backward along the line. 
+                        Formalizing this for $n$-dimensions, we define a path $\gamma$ as a correspondence between a path parameter (like time) and the vector space:
+                    </p>
+
+                    <p>
+                        $$ \gamma: [a, b] \to \mathbb{R}^n $$
+                        $$ t \mapsto \gamma(t) = (x_1(t), x_2(t), \dots, x_n(t)) $$
+                    </p>
+
+                    <p>
+                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint. This function is continuous, ensuring the path is unbroken, which is a necessary condition for physical traversal.
+                    </p>
+
+                    <h2>Optimal Paths</h2>
+                    <p>
+                        To discuss "optimality," we must first define a criterion for what constitutes the "best" path. 
+                        Typically, an experimenalist expresses preferences over experiments with a utility or preference function.
+                    </p>
+
+                     <p>
+                        $$ U = f(\mathbf{x}_t) $$
+                    </p>
+
+                        In geometry, this is often distance; in physics, it might be action or time. 
+                        We formalize this cost by assigning a scalar value to every possible path. This mapping from a function space to the reals is called a <em>functional</em>.
+                    </p>
+
+                    <p>
+                        The most common cost functional takes the form of an integral over the path's duration. If we denote a cost function $L(\gamma(t), \gamma'(t), t)$—often called the Lagrangian—the total cost $J$ of a path $\gamma$ is:
+                    </p>
+
+                    <p class="my-4 text-center">
+                        $$ J(\gamma) = \int_{a}^{b} L(\gamma(t), \gamma'(t), t) \, dt $$
+                    </p>
+
+                    <p>
+                        For simple Euclidean length, the cost is merely the magnitude of the velocity vector, $L = \|\gamma'(t)\|$, integrated over time. However, in optimization problems involving terrain or potential fields, $L$ becomes significantly more complex.
+                    </p>
+
+                    <h3>Defining Optimality</h3>
+                    <p>
+                        An optimal path $\gamma^*$ is one that minimizes this functional $J$. Formally, we seek a $\gamma^*$ such that for all valid neighboring paths $\gamma$:
                     </p>
                     
+                    <p class="my-4 text-center">
+                        $$ J(\gamma^*) \leq J(\gamma) $$
+                    </p>
 
+                    <p>
+                        This minimization problem leads us to the Calculus of Variations. Just as we find local minima in standard calculus by setting the derivative to zero, here we seek a "stationary point" of the functional. 
+                        This yields the famous Euler-Lagrange equation:
+                    </p>
 
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
+                        $$ \frac{\partial L}{\partial \gamma} - \frac{d}{dt} \left( \frac{\partial L}{\partial \gamma'} \right) = 0 $$
+                    </p>
+
+                    <p>
+                        Solving this differential equation provides the necessary conditions for the path to be optimal.
+                    </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
                 <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
                     <li id="fn1">
+                        The choice of the interval $[a,b]$ is arbitrary but usually normalized to $[0,1]$ for topological proofs.
                         <a href="#fnref1" class="article-link ml-1">↩︎</a>
+                    </li>
+                    <li id="fn2">
+                        Strictly speaking, we require $\gamma$ to be piecewise differentiable to calculate length.
+                        <a href="#fnref2" class="article-link ml-1">↩︎</a>
                     </li>
                 </ol>
             </section>
