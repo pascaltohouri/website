@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An essay by Pascal Tohouri on the formal description of optimal path traversals.">
-    <title>A Quick Formal Description of Optimal Path Traversals - Pascal Tohouri</title>
+    <meta name="description" content="An essay by Pascal Tohouri on machine learning experiment traversals, and formal languages.">
+    <title>Describing Experiment Traversals - Pascal Tohouri</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -96,8 +96,8 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-4xl">
-            <a href="#" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
-            <a href="#" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
+            <a href="index.html" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
+            <a href="index.html" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
                 <span class="inline-block transition-transform group-hover:-translate-x-1">&larr;</span> Back to Home
             </a>
         </nav>
@@ -108,196 +108,194 @@
             <div class="bg-white shadow-sm rounded-xl px-6 md:px-12 py-10 border border-gray-100">
                 
                 <header class="mb-8 text-center">
-                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">A Quick Formal Description of Optimal Path Traversals</h1>
+                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">Describing Experiment Traversals</h1>
                     <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
-                        <span>Nov 21, 2025</span>
+                        <span>Nov 18, 2025</span>
                         <span>&bull;</span>
                         <span>5 Min Read</span>
                     </div>
                 </header>
 
                 <div class="article-body">
-                    <h2>The Vector Space on $\mathbb{R}^n$</h2>
-                    <p>A vector space is not just an unordered jumble of vectors. The vector space on the reals \(V = \mathbb{R}^n\)
-                        is taken with operations and axioms that ensure the space is well-behaved. 
-                        For example, if we start at the origin, walk along one vector $\vec{u}$, then along another $\vec{v}$ (parallel and in the same direction), 
-                        we do not expect to return to the origin, we expect to end at $\vec{u}+\vec{v} \neq \mathbf{0}$.
-                    </p>
-                    <p>These common-sense assumptions are guaranteed by eight axioms that, in the interest of brevity, 
-                    I will not elaborate on, other than to list them (where $\vec{u}, \vec{v}, \vec{w} \in V$ and scalars $a, b \in \mathbb{R}$): 
-                    </p>
-
-                    <!-- Collapsible Axioms Section -->
-                    <div class="space-y-3 my-8">
-                        <!-- Vector Addition -->
-                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
-                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                    Axioms of Vector Addition
-                                </span>
-                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                    </svg>
-                                </span>
-                            </summary>
-                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50">
-                                <ul class="space-y-3 text-sm">
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Associativity</span>
-                                        <span class="text-stone-600">$(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Commutativity</span>
-                                        <span class="text-stone-600">$\vec{u} + \vec{v} = \vec{v} + \vec{u}$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Identity Element</span>
-                                        <span class="text-stone-600">$\exists \mathbf{0}$ such that $\vec{u} + \mathbf{0} = \vec{u}$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Inverse Element</span>
-                                        <span class="text-stone-600">$\forall \vec{u}$, there exists $-\vec{u}$ s.t. $\vec{u} + (-\vec{u}) = \mathbf{0}$</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </details>
-
-                        <!-- Scalar Multiplication -->
-                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
-                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
-                                <span class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                    Axioms of Scalar Multiplication
-                                </span>
-                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                    </svg>
-                                </span>
-                            </summary>
-                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50">
-                                <ul class="space-y-3 text-sm">
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Compatibility</span>
-                                        <span class="text-stone-600">$a(b\vec{u}) = (ab)\vec{u}$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Multiplicative Identity</span>
-                                        <span class="text-stone-600">$1 \cdot \vec{u} = \vec{u}$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Distributivity (Vector)</span>
-                                        <span class="text-stone-600">$a(\vec{u} + \vec{v}) = a\vec{u} + a\vec{v}$</span>
-                                    </li>
-                                    <li class="grid sm:grid-cols-[160px_1fr] items-baseline gap-2">
-                                        <span class="font-semibold text-stone-700">Distributivity (Scalar)</span>
-                                        <span class="text-stone-600">$(a + b)\vec{u} = a\vec{u} + b\vec{u}$</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </details>
-                    </div>
-                                            
-                    <h2>Paths as Mappings</h2>
-                    <p>A path is like a line that resides within the vector space. In the three physical dimensions, a projectile’s trajectory traces a literal path. 
-                        Think of a plane, rocket, or bird’s flight path. Since we have no direct experience of paths in higher dimensions, 
-                        we can use the differences between paths in the observed dimensions to conjecture about high dimensional paths.
-                    </p>
-
-                    <p> Starting in one dimension, movement is restricted to a scalar value changing over time. There is no "wiggle room"; one can only move forward or backward along the line. 
-                        Formalizing this for $n$-dimensions, we define a path $\gamma$ as a correspondence between a path parameter (like time) and the vector space:
-                    </p>
-
-                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
-                        $$ \gamma: [a, b] \to \mathbb{R}^n $$
-                        $$ t \mapsto \gamma(t) = (x_1(t), x_2(t), \dots, x_n(t)) $$
-                    </p>
-
-                    <p>
-                        Here, $\gamma(a)$ represents the starting point and $\gamma(b)$ the endpoint. 
-                        In physical traversals, the path must be continuous to ensure it is unbroken. 
-                        Though, this stipulation may be unnecessary for traversals in the space of machine learning experiments.
-                    </p>
-
-                    <h2>Optimal Paths</h2>
-                    <p>
-                        To discuss what the 'best path' actually is, we need to set an optimality criterion. 
-                        (We should stop here to say that any assumption made about optimality may severely limit the generality of derived results.
-                        This commitment to oversimplicity and the consignment of results to a special case continually frustrate me, 
-                        but without some limiting assumptions we often have to consider two or more branching, contradictory theories at once and statements take on a slippery or ephemeral quality; no statement is concretely true.)
-                    </p>
-                    <p>
-                    So, assume an experimentalist expresses preferences over ML experiments $\mathbf{x}$ with a utility or preference function $f$.
-                    </p>
-                    <p class="my-4 text-center">
-                        $$ u_t = f(\mathbf{x}_t) $$
-                    </p>
-                    <p>
-                        Assume further that this utility function is dynamic and can change from time to time.
-                    </p>
-                     <p class="my-4 text-center">
-                        $$ u_t = f_t(\mathbf{x}_t) $$
-                    </p>
-                    <p>
-                        Then, to measure the aggregate quality of a given experiment (does the AI perform well? Is it using too much memory? Can we understand it?), 
-                        Sum each of the instantaneous utility values:
-                    </p>
-                    <p class="my-4 text-center">
-                        $$ U = \sum_{t} f_t(\mathbf{x}_t) $$
-                    </p>
-                    <p> 
-                        If the utility function output varies smoothly with time, we can instead integrate the experimentalist's utility.
-                        The optimal path then maximises that integral:
-                    </p>
-                    <p class="my-4 text-center">
-                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} f_t(\gamma(t), t)\, dt, \quad \gamma(t) = \mathbf{x}_t $$
-                    </p>
-                    <p>    
-                        If this path must vary smoothly, we can import the famous Euler-Lagrange result for optimal paths.
-                        The result says that if we dice up the path and wiggle each section, 
-                        there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
-                        The final section of this article includes a full derivation of this result. The equation's solutions are the necessary conditions for optimality.
-                    </p>
-                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
-                        $$ \frac{\partial L}{\partial \gamma} - \frac{d}{dt} \left( \frac{\partial L}{\partial \gamma'} \right) = 0 $$
-                    </p>
-                    <p>
-                       The utility integral (mapping paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
-                        Whereas standard calculus examines the stationary point of functions, the "calculus of variations" examines functional optimisations.
-                        The optimal path yields a higher utility than its neighbouring paths:
-                    </p>
-                    <p class="my-4 text-center">
-                        $$ U(\gamma^*) \geq U(\gamma) $$
+                    <h2>Learning Representations and Symbolic Information</h2>
+                    <h3>Experiment Features</h3>
+                    <p>A machine learning experiment comprises many different features. 
+                        For example, when training a Large Language Model (LLM), 
+                        one specifies the architecture (attention heads, hidden dimension size, normalisation strategy...), 
+                        loss function, learning rate \(\eta\), etc.. These elements make the experiment unique; 
+                        changing them would recover a different experiment \(e'\).
                     </p>
                     
-                    <h3>Limitations and Next Steps</h3>
+                    <h3>Differing Representations</h3>
+                    <p>Each experiment's symbolic information is like an abstract symmetry preserved across different representations. 
+                        For example, one might represent an experiment (where an LLM is trained via SGD) as a programming script, 
+                        a semantic vector \(\vec{v}_e\), or in natural language. 
+                        Each representation has different linguistic rules, and thus different properties 
+                        (e.g., completeness, description lengths, self-referencing), but translations preserve the essence of an experiment. 
+                        It is therefore assumed here that an experiment is an equivalence class of 
+                        representations that preserve task-relevant structure.
+                    </p>
+                    
+                    <h3>Platonic and Structuralist Forms</h3>
+                    <p>In the Platonic view, each experiment's abstraction resides in the canonical space of forms; 
+                        a symbolic space of semantically distinct objects. In the structuralist view, 
+                        no independent space of forms exists; an experiment is just the enduring symmetries that translate between the experiment's representations. 
+                        One unifying interpretation is the manifold hypothesis, which unites these views by supposing a symbolic space 
+                        \(\mathcal{S}\) where each semantic object sits on a manifold and has an associated fiber containing all possible representations. 
+                        So, the symbolic representation of "LLM" has a mapping to "programming script", 
+                        "technical report", "semantic vector", and so forth.
+                    </p>
+                    
+                    <p>Loosely speaking, a manifold of fiber bundles is like a Moduli space<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. 
+                        I'm using this analogy informally and it is already somewhat problematic because it presupposes a lot of structure onto the canonical space of forms. 
+                        For example, it is intuitively disquieting that a fundamental, abstract space should happen to be locally Euclidean. 
+                        Immediately therefore, one easily acquiesces to the structuralist view of persistent symmetric properties, 
+                        treating this canonical space as just another representation, not a literal description of reality. 
+                        Still, the manifold hypothesis is useful here for illustrative purposes.
+                    </p>
+                    
+                    <h3>Method-Specific Limitations</h3>
+                    <p>A task with well-defined preferences over all these experiments may have an optimum \(e^*\), 
+                        but holding some experiment features fixed, the researcher may never find it. 
+                        For example, sticking to an LLM architecture may guarantee another superior architecture is never discovered, 
+                        irrespective of the gains from scaling and training. So, it is important not to commit to one type of experiment, 
+                        and instead invest in experiment agnostic search.
+                    </p>
+
+                    <h2>General Information-Theoretic Semantics</h2>
+                    <h3>Non-Experiment Objects</h3>
+                    <p>Experiments are not the only type of information that occupies this symbolic manifold \(\mathcal{S}\). 
+                        Any thing distinct from nothingness and from other pieces of information may inhabit the space. 
+                        For example, a dog, a person, a house, a feeling, an image 
+                        - all these different human comprehensible objects have a unique essence that presents differently depending on the language used. 
+                        This seems obvious because a single object has a different name across natural languages 
+                        (e.g., "dog" \(\equiv\) "perro" \(\equiv\) "hund").
+                    </p>
+
+                    <h3>Alternate Representations and Semantic Geometry</h3>
+                    <p>It is natural to think new languages might exist that allow us to express these symbolic essences more succinctly, 
+                        or traverse between them with greater ease. So far, the semantic space of real-valued vectors \(\mathbb{R}^n\) is the most tractable language for expressing objects. 
+                        We know, for example, that adding the vector difference to a new origin yields semantic consistency:
+                    </p>
+                    
+                    <!-- Block Math Equation -->
+                    <p>$$ \vec{v}_{\text{king}} - \vec{v}_{\text{man}} + \vec{v}_{\text{woman}} \approx \vec{v}_{\text{queen}} $$</p>
+                    
+                    <p> So, an abstract space's geometry or rules may encode its semantics. This is exactly the sort of structure exploited by word-embedding models like 
+                        <a href="https://arxiv.org/abs/1301.3781" class="article-link">Word2Vec</a> and <a href="https://aclanthology.org/D14-1162/" class="article-link">GloVe</a>, 
+                        where linear relations in \(\mathbb{R}^n\) often correlate with semantic analogies. 
+                        (I quietly think there is a more principled language with the same tractability as the SVS for expressing these movements, 
+                        similar to the approach of 
+                        <a href="https://www.researchgate.net/publication/45907781_Mathematical_Foundations_for_a_Compositional_Distributional_Model_of_Meaning#:~:text=framework.%20...-,...,natural%20language%20processing.%20..." class="article-link">
+                        Coecke et al.</a>.)
+                    </p>
+
+                    <h3>Traversals</h3>
+                    <p>This proposition raises the issue of traversals. 
+                       Suppose two experiments \(e_{t}\) and \(e_{t+1}\) are static "snapshots," and that these experiments are identical except for an LLM's parameter vector \(\theta_t\) and \(\theta_{t+1}\), 
+                        then moving from \(e_t\) to \(e_{t+1}\) is precisely what happens during training. More generally, traversing the semantic vector space traces a path \(\gamma(t)\), 
+                        and an onlooker may assign different values to each path. 
+                        For example, an experimentalist may deem a path quickly converging to the global loss minimum \(\mathcal{L}_{min}\) as "good."
+                    </p>
+                    
+                    <figure class="my-8 p-8 bg-gray-50 border border-gray-200 rounded-lg text-center flex flex-col items-center justify-center">
+                    <!-- Placeholder used since original image was not provided -->
+                    <img
+                        src="semantic_trajectory.png"
+                        alt="Trajectory γ(t) between e₁ and e₂ in a semantic coordinate system"
+                        class="max-h-64 w-auto mb-4"
+                    />
+                    <figcaption class="mt-2 text-sm text-gray-400 italic">
+                        Fig 1. A visualization of a trajectory \(\gamma(t)\) through the semantic vector space.
+                    </figcaption>
+                </figure>
+
+                    <h3>Path Generality</h3>
+                    <p>Since these paths are not confined to specific architectures, the path might start with an LLM, morph into a GAN or VAE, and settle at a diffusion model. 
+                        Moreover, given these paths are not restricted to learning systems at all, a path may derail into a non-experiment object, 
+                        especially when interpolating between well-defined objects in a smooth space. This derailment happens when a language model garbles improvements to a learning experiment. 
+                        In the special case where a learning model articulates these experiment traversals, the path represents a recursively self-improving algorithm. 
+                    <\p>
                     <p>
-                        You'll notice we assumed the experimentalist's utility was well-defined, smooth, and integrable. 
-                        These assumptions are restrictive because while performance metrics like inference time or loss are objective, 
-                        human preferences vary wildly across time and experiments, and are often inconsistent.
-                        So, we are in a position where building a collossal edifice of theoretical deductions on these brittle assumptions risks
-                        reducing those deductions to a heap later when these assumptions are relaxed.
-                    </p> 
-                    <p>  
-                        For this reasons, I don't feel motivated to identify all the valid conclusions and corrolaries here; that effort seems wasteful. 
-                        Also, I'm sure they exist elsewhere! This quick formalism was useful for illustrative purposes, but to proceed we should start with more robust assumptions.
-                        For example, we could say "given a set of objective metrics, and a general utility function over those metrics, 
-                        what optimality results can we claim and how do they depend on the utility function's form?"
-                        That is our next stop, and the reader is referred to this <a href="#" class="article-link">blog post</a> for a fuller discussion.
+                        Recent JEPA work by <a href="https://arxiv.org/abs/2509.14252" class="article-link">Huang et al.</a> is approaching semantic vector traversal by applying the loss to the encoded vector, not the output.
+                        It remains to be seen whether these LLM induced paths, or simpler divergence-based minimiser paths are most accurate and practical. (Again, I quietly believe a very manual method of calculating the norm-integral between two paths will prevail, though I am currently unsure!)
+                        The focus of this article is on linguistic path descriptions, so the reader should refer to <a href="blog_optimal_path_traverals.html" class="article-link">this blog post</a> 
+                        for a fuller discussion.
+                    </p>
+
+                    <h2>Canonical Forms and the Semantic Basis</h2>
+                    
+                    <h3>The Entanglement of Natural Language</h3>
+                    <p>If the symbolic space really can represent all semantically distinct objects, we must address the problem of entanglement. 
+                        In natural language, concepts like "Politeness" and "Formality" are often treated as distinct axes, but more accurately, 
+                        they are amalgams of more fundamental primitives. These semantic primitives may be incomprehensible to us, 
+                        just as the binary representation of a song or the RGB values of an image cannot individually convey their aggregate meaning.
+                    </p>
+                        
+                    <p>Nonetheless, this semantic decomposition is mathematically useful. For example, by varying a subset of these bases, 
+                        one fixes useful semantic properties while optimising over variables. Concretely, let \(x_1, x_2, x_3\) be the primitives comprising "interpretability", 
+                        then let \(x_4, x_5, x_6\) compose to "performance". Importantly, suppose there is no basis that contributes to both concepts, or that if a basis (say \(x_3\)) were contributing to both, 
+                        that one could decompose \(x_3\) into orthogonal components (say \(x'_3, x'_4\) ) that contribute separately to each concept by composition. 
+                    </p>
+                        
+                    <p>Having obtained the distinct \(\{x_1, x_2, x_3\}, \{x_4, x_5, x_6\}\) bases, fixing the first three while varying the second three to change peformance while retaining interpretability. 
+                        So, with sufficient decomposition, paths can optimise discretionary semantics by moving along a hyper-plane of fixed symmetries. 
+                        In practice we might not expect to literally recover these primitives; I’m using them as idealisations to consider holding interpretability fixed while improving performance.
+                    </p>
+                        
+                    <p>Returning to the manifold and fiber bundles, movement along the fiber of a desirable symmetry can optimise a representation while retaining a useful property. 
+                        For example, when traversing the canonical manifold, a researcher may first settle on a highly interpretable model and then move around its fiber to change the model's representation. 
+                        So, there is scope for preserving symmetries within and between representations.
+                    </p>
+
+                    <h3>The Canonical, Decomposed Space</h3>
+                    <p>If we can derive the true canonical bases of the semantic vector space, we may dispense with the complexity of fibers entirely. 
+                        Instead of accepting the manifold hypothesis, take the infinite-dimensional Euclidean interpretation as fundamental. 
+                        Then, the fiber bundles mapping to different representations are flattened within the SVS. 
+                        For example, bases \(x_7, x_8, x_9\) might specify the language-relevant primitives, allowing us to alter their relative contributions and go from "programming script", to "natural language", 
+                        to "semantic vector". It is slightly unintuitive to think of the SVS as at once describing the present representation, while not being that representation. 
+                        But, this self-referencing problem exists whenever a canonical space of forms is presumed; one language describes another.
+                    </p>
+                        
+                    <p>It must be emphasised that in this flattened "One Space" model, one need not traverse a curved fiber to preserve symmetry; 
+                        simply mask or traverse a specific subset of the primitive axes.
+                    </p>
+
+                    <h2>Recursive Geometry</h2>
+                    <h3>Models and Paths as Coordinates</h3>
+                    <p>An important implication of the canonical SVS is the recursion arising for the models themselves. 
+                        Typically, an LLM is a function \(f(x)\) that processes vectors. 
+                        Yet, within the SVS of experiments, the LLM, its architecture, parameters, and loss function, occupies a single coordinate point \(\mathbf{x}_{LLM} \in \mathbb{R}^N\). 
+                        It is a static object within the space of possible intelligences. 
+                        
+                    <p>The SVS's completeness further implies that there exists a point for each path through the space. 
+                        In a semantically principled space, geometric transforms would describe these combinations, 
+                        with the experiment's element-vectors transforming under composition (perhaps even addition) to the whole experiment's vector.
+                    </p>
+                    <p>
+                        Likewise, one could project a time path on the space to a single point. This is the standard trick of moving to a function space: a trajectory \(\gamma(t)\) becomes a single object in a higher-level region, whose coordinates summarise properties of the whole curve. 
+                        These projections and reconstructions essentially move between object descriptions at differing levels of detail.
+                    </p>
+                    
+                    <h3>Linear Trajectories to Task Optimal Architectures</h3>
+                    <p>These facts imply the "Path Generality" mentioned is literally a trajectory optimisation problem. 
+                        By expressing preferences over time-paths a person could (in principle) vary trajectories through the space of architectures such that at any moment, the path specifies a task-optimal architecture. 
+                        In the idealised limit where the space is truly canonical and flattened via the right basis decomposition, 
+                        the path from an imperfect model to a target state \(e^*\) need not be a complex, non-convex search. 
+                    </p>
+                    <p>
+                        Instead, the correct bases may render the optimal path linear (not curved), or perhaps a simple geodesic in the manifold case. 
+                        It is then interesting to imagine whether, if a linear trajectory could distinguish an infinitessimally fine semantic movement, 
+                        whether standard optimisers, like hill-climbing or gradient descent might generalise beyond parameter tuning to broader semantic optimisation over models and experiments.
                     </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
                 <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
                     <li id="fn1">
-                        The choice of the interval $[a,b]$ is arbitrary but usually normalized to $[0,1]$ for topological proofs.
+                        Perhaps more technically, if the number of representations varies across objects,
+                        the space is a diffeological space of sheaves.
                         <a href="#fnref1" class="article-link ml-1">↩︎</a>
-                    </li>
-                    <li id="fn2">
-                        Strictly speaking, we require $\gamma$ to be piecewise differentiable to calculate length.
-                        <a href="#fnref2" class="article-link ml-1">↩︎</a>
                     </li>
                 </ol>
             </section>
