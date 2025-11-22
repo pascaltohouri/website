@@ -383,6 +383,39 @@
                 readingTimeSpan.textContent = `${minutes} Min Read`;
             }
 
+            // --- Text-to-speech reader ---
+        const ttsButton = document.getElementById('tts-toggle');
+
+        if (ttsButton && 'speechSynthesis' in window && articleBody) {
+            let utterance = null;
+            let isSpeaking = false;
+
+            ttsButton.addEventListener('click', () => {
+                if (!isSpeaking) {
+                    const text = articleBody.innerText || articleBody.textContent || '';
+                    if (!text.trim()) return;
+
+                    utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.95; // slightly slower than default
+                    utterance.onend = () => {
+                        isSpeaking = false;
+                        ttsButton.textContent = '▶ Listen';
+                    };
+
+                    isSpeaking = true;
+                    ttsButton.textContent = '■ Stop';
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    window.speechSynthesis.cancel();
+                    isSpeaking = false;
+                    ttsButton.textContent = '▶ Listen';
+                }
+            });
+        } else if (ttsButton) {
+            // Hide button if TTS not supported
+            ttsButton.style.display = 'none';
+        }
+
             // --- Obfuscated Contact Info ---
             const emailUser = 'pascal.tohouri1';
             const emailDomain = 'gmail.com';
