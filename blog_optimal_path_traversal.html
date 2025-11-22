@@ -271,19 +271,20 @@
                         becomes the canonical Lagrangian $ L(\gamma(t), \gamma'(t), t)$:    
                     </p>
                     <p class="my-4 text-center">
-                        $$L(\gamma(t), \gamma'(t), t) = f(\gamma(t), t)-\lambda||\gamma'(t)||^2$$
+                        $$L(\gamma(t), \gamma'(t), t) = f(\gamma(t), t)-\lambda\|\gamma'(t)\|^2$$
                     </p>
-                    </p>
+                    <p>
                        and the optimal path is:
                     </p>
                     <p class="my-4 text-center">
-                        $$ \gamma^* \in \arg\max_{\gamma} \int_{a}^{b} L(\gamma(t), \gamma'(t), t)\, dt$$
+                        $$ \gamma^* \in \arg\max_{\gamma} J[\gamma] = \int_{a}^{b} L(\gamma(t), \gamma'(t), t)\, dt$$
                     </p>
                     <p>    
                         We can then import the famous Euler-Lagrange result for optimal paths.
                         The result says that if we dice up the path and wiggle each section, 
                         there exists an arrangement (the optimal path) where no further wiggling retains smoothness and improves the utility function.
-                        The final section of this article includes a full derivation of this result. The equation's solutions are the necessary conditions for optimality.
+                        <!--The final section of this article includes a full derivation of this result.-->
+                        The equation's solutions are the necessary conditions for optimality.
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
                         $$ \frac{\partial L}{\partial \gamma} - \frac{d}{dt} \left( \frac{\partial L}{\partial \gamma'} \right) = 0 $$
@@ -291,10 +292,10 @@
                     <p>
                        The utility integral (mapping paths to total utility) is an example of a functional. Functionals map functions (paths) to scalars (utility).
                         Whereas standard calculus examines the stationary point of functions, the "calculus of variations" examines functional optimisations.
-                        An optimal path then yields a higher utility than its neighbouring paths:
+                        An optimal path then yields a higher utility than its neighbouring paths (subject to the smoothness penalty):
                     </p>
                     <p class="my-4 text-center">
-                        $$ U(\gamma^*) \geq U(\gamma) $$
+                        $$ J(\gamma^*) \geq J(\gamma) $$
                     </p>
                     
                     <h3>Limitations and Next Steps</h3>
