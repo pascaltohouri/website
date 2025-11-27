@@ -329,6 +329,24 @@
                 });
             }
 
+            // --- Reading time calculation ---
+            const articleBody = document.querySelector('.article-body');
+            const readingTimeSpan = document.getElementById('reading-time');
+    
+            if (articleBody && readingTimeSpan) {
+                const text = articleBody.innerText || articleBody.textContent || '';
+                const words = text.trim().split(/\s+/).filter(Boolean).length;
+    
+                const defaultWpm = 200;
+                const wpmAttr = readingTimeSpan.getAttribute('data-wpm');
+                const WORDS_PER_MINUTE = wpmAttr ? parseInt(wpmAttr, 10) || defaultWpm : defaultWpm;
+    
+                const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+    
+                readingTimeSpan.textContent = `${minutes} Min Read`;
+            }
+
+
             // --- Obfuscated Contact Info ---
             const emailUser = 'pascal.tohouri1';
             const emailDomain = 'gmail.com';
