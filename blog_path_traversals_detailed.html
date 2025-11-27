@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- KaTeX CSS and JS for Math Rendering -->
+    <!-- Added defer to ensure correct loading order and execution timing -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
@@ -126,19 +127,27 @@
                 </header>
 
                 <div class="article-body">
+                    <div class="article-body">
                     <p>
                     <em>This blog post follows the problem established in <a href="#" class="article-link">A Quick Formal Description of Optimal Path Traversals</a>.</em>
                     </p>
                     
                     <h2>Restating the Problem</h2>
                     <p>
-                        In the preceeding articles, every machine learning experiments was described by a path $\gamma$ through the semantic vector space $\mathbb{R}^n$. We formalized this as:
+                        In the preceeding articles, every machine learning experiments was described by a path $\gamma$ through the semantic vector space $\mathbb{R}^n$. We formalised this as:
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6">
                         $$ \gamma: [a, b] \to \mathbb{R}^n, \quad \text{where } \gamma(a) = \text{Start}, \ \gamma(b) = \text{End} $$
                     </p>
                     <p>
-                        This formalism provided a neat topological view of experimentation. However, it relied on a critical, often unrealistic assumption: that we know where we are going. In the clean mathematics of the calculus of variations, the endpoint $\gamma(b)$ is fixed boundary condition. In the messy reality of Machine Learning research, $\gamma(b)$ is the unknown optimal model we are trying to discover.
+                        This formalism gave us a clear topological view of experiments and a route to optimisation under strict assumptions. 
+                        Now, we must relax those assumptions. 
+                        A good assumption to start with is the fixed endpoint assumption, because its removal is the most well-covered in the literature. 
+                        Relaxing the welfare function assumptions is a more delicate thing, and I'll wait until the end of this post to tackle that relaxation. 
+                    </p>
+                    <p>
+                        In the mathematics of the calculus of variations, the endpoint $\gamma(b)$ is a fixed boundary condition. 
+                        In the messy real world of Machine Learning research, $\gamma(b)$ is the unknown optimal model we are trying to discover.
                     </p>
 
                     <h2>Relaxing the Fixed Endpoint Assumption</h2>
@@ -146,7 +155,7 @@
                         To make our theory useful, we must relax the assumption of a fixed destination. We are not solving a Boundary Value Problem; we are exploring an open space.
                     </p>
                     <p>
-                        When we remove the fixed endpoint $\gamma(b)$, the nature of the traversal changes. The "optimal path" is no longer defined by the minimal action required to reach a specific coordinate. Instead, it is defined by the <strong>gradient of discovery</strong>. At any point $\gamma(t)$, the optimal next step is not necessarily the one that moves linearly toward a known solution, but the one that maximizes the rate of information gain.
+                        When we remove the fixed endpoint $\gamma(b)$, the nature of the traversal changes. The "optimal path" is no longer defined by the minimal action required to reach a specific coordinate. Instead, it is defined by the <strong>gradient of discovery</strong>. At any point $\gamma(t)$, the optimal next step is not necessarily the one that moves linearly toward a known solution, but the one that maximises the rate of information gain.
                     </p>
                     <p>
                          This shifts our perspective from <em>Interpolation</em> (finding the best path between knowns) to <em>Extrapolation</em> (venturing into the void to find the unknown).
@@ -160,7 +169,18 @@
                         This dynamic plotting raises a significant question: Does the lack of a fixed endpoint require a completely separate mathematical framework?
                     </p>
                     <p>
-                         Standard path optimization relies on global knowledge of the space. Dynamic traversal relies on local sensing and active decision-making. The topology of a space explored by an agent (Active Learning) is distinct from the topology of a space traversed by a projectile. It is likely that a separate article will be needed to formalize the specific geometry of these "exploratory" paths, where the metric tensor itself might be a function of the agent's uncertainty.
+                         Standard path optimisation relies on global knowledge of the space. Dynamic traversal relies on local sensing and active decision-making. The topology of a space explored by an agent (Active Learning) is distinct from the topology of a space traversed by a projectile. It is likely that a separate article will be needed to formalise the specific geometry of these "exploratory" paths, where the metric tensor itself might be a function of the agent's uncertainty.
+                    </p>
+
+                    <h2>Relaxing the Welfare Function</h2>
+                    <p>
+                        Finally, we must address the "delicate thing" mentioned in the introduction: the welfare function $f_t(\mathbf{x}_t)$. In our formal definition, we assumed this was a well-behaved, smooth scalar field. In practice, the utility of a machine learning model is rarely so simple.
+                    </p>
+                    <p>
+                        Real-world utility is a jagged, multi-objective landscape. We care about accuracy, but also inference latency, memory footprint, fairness, and interpretability. Often, these objectives are disjoint or directly contradictory (e.g., the trade-off between accuracy and sparsity).
+                    </p>
+                    <p>
+                        Furthermore, the utility function is often non-stationary; what we value in the early stages of exploration (e.g., "does it learn at all?") differs from what we value at convergence (e.g., "is it robust to edge cases?"). A true generalist model cannot simply climb a static hill; it must infer the changing preferences of the experimentalist, effectively performing Inverse Reinforcement Learning to determine what "optimal" actually means in the current context.
                     </p>
 
                     <h2>The Ultimate Goal: Generalist Active Learning</h2>
@@ -171,7 +191,7 @@
                         We are not simply trying to train better classifiers for specific tasks. These essays are foundational steps toward a larger objective: building a <strong>Generalist, Multimodal, State-of-the-Art Active Learning Model</strong>.
                     </p>
                     <p>
-                        Such a model acts as an autonomous traveler in experiment space. It cannot rely on human engineers to set the coordinates for every journey. It must understand the geometry of the semantic space itself to navigate efficiently—selecting its own data, tuning its own hyperparameters, and traversing from ignorance to generalization with minimal compute. To build this model, we must first understand the ground it walks on.
+                        Such a model acts as an autonomous traveller in experiment space. It cannot rely on human engineers to set the coordinates for every journey. It must understand the geometry of the semantic space itself to navigate efficiently—selecting its own data, tuning its own hyperparameters, and traversing from ignorance to generalisation with minimal compute. To build this model, we must first understand the ground it walks on.
                     </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
@@ -200,7 +220,9 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             // --- KaTeX Initialization ---
-            if (window.renderMathInElement) {
+            // Fix: Check for both renderMathInElement AND window.katex to prevent
+            // "Cannot read properties of undefined (reading 'ParseError')"
+            if (window.renderMathInElement && window.katex) {
                 renderMathInElement(document.body, {
                     delimiters: [
                         {left: '$$', right: '$$', display: true},
@@ -210,6 +232,8 @@
                     ],
                     throwOnError: false
                 });
+            } else {
+                console.warn("KaTeX or renderMathInElement not loaded. Math rendering may be incomplete.");
             }
 
             // --- Reading time calculation ---
