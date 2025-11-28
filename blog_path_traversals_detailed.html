@@ -81,18 +81,17 @@
         }
 
         .article-body h4 {
-            font-size: 1.05rem;
+            font-size: 1.0rem;
             font-weight: 600;
-            margin-top: 1.5rem;
+            margin-top: 1.35rem;
             margin-bottom: 0.5rem;
             line-height: 1.3;
             color: #374151; /* Gray 700 */
-            counter-reset: subsubsection;
         }
 
         .article-body h4::before {
-            counter-increment: subsection;
-            content: counter(section) "." counter(subsection) " ";
+            counter-increment: subsubsection;
+            content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
         }
 
         /* Link Styling */
@@ -174,7 +173,7 @@
                     <h2>Relaxing the Fixed Endpoint Assumption</h2>
                     <h3>Degrees of Uncertainty</h3>
                     <p>
-                        At this point, it helps to briefly talk about the differences between a "known" and "unknown" thing.
+                        At this juncture, it helps to briefly talk about the differences between a "known" and "unknown" thing.
                         Generally, most objects have many distinguishing features. For example, a person has a name, height, hair colour, and so on. 
                         These pieces of information help to distinguish two otherwise similar objects 
                         (e.g., person A is not person B, because person A is 175cm tall and person B is 178cm tall).
@@ -200,34 +199,109 @@
                     </p>
                     <h3>Preferred Points</h3>
                     <p>
-                    While all points in the SVS may be <em>feasible</em> under coordinate uncertainty, 
-                    it is unlikely that every point is an equally attractive option. 
-                    For example, if all prior experiments in the path contained neural layers for compressing data, 
-                    and if this compression correlated with higher performance, 
-                    then one might expect that subsequent experiments would evolve 
-                    these compression layers, 
-                    and that the "best experiment" would contain the pinnacle of efficient neural compression. 
+                        While all points in the SVS may be <em>feasible</em> under coordinate uncertainty, 
+                        it is unlikely that every point is an equally attractive option. 
+                        For example, if all prior experiments in the path contained neural layers for compressing data, 
+                        and if this compression correlated with higher performance, 
+                        then one might expect that subsequent experiments would evolve 
+                        these compression layers, 
+                        and that the "best experiment" would contain the pinnacle of efficient neural compression. 
                     </p>
                     <p>
                     One would not, however, expect the best experiment to be the semantic vector for "kelp". 
                     This change would be unacceptably disconnected from the evidence of prior experiments. 
                     So, when we lack information about the next step, 
-                    we can look back along the path to separate likely from unlikely progressions.
+                    we can look back along the path to separate likely from unlikely future progressions.
                     </p>
-                    <h4> Autoregression and Path sufficiency </h4>
-                    Indeed, if the path really encodes <em>all<em> relevant information from the 
-                    experiment's history, then the path should be <em>sufficient<em> for inferring 
-                    or deducing its next member points. This claim touches on the idea of autoregression 
-                    or Markov processes, where one piece of information is sufficient for predicting the next. 
+                    <h2>Autoregression and Path sufficiency</h2>
+                    <p>
+                    When an endpoint is a priori unknown but deducible from context, one can use prior experiments in a process called auto-regression.
+                    If the path really encodes <em>all</em> relevant information from the 
+                    experiment's history, then the path should be <em>sufficient</em> for inferring 
+                    or deducing its next member points. This claim touches on the idea of autoregressive time series models 
+                    and Markov processes, where one piece of information is sufficient for predicting the next. 
                     I liken these paths to jungle expeditions, where explorers use the topography and fauna 
                     of their current path to orienteer their next steps.
-                    <p>
-                        When we remove the fixed endpoint $\gamma(b)$, the nature of the traversal changes. The "optimal path" is no longer defined by the minimal action required to reach a specific coordinate. Instead, it is defined by the <strong>gradient of discovery</strong>. At any point $\gamma(t)$, the optimal next step is not necessarily the one that moves linearly toward a known solution, but the one that maximises the rate of information gain.
                     </p>
                     <p>
-                         This shifts our perspective from <em>Interpolation</em> (finding the best path between knowns) to <em>Extrapolation</em> (venturing into the void to find the unknown).
+                    To formalise, take the time-indexed experiment path:
+                    $$\gamma:[a,b]\to\mathbb{R}^n,\qquad \gamma(t)\in\mathbb{R}^n.$$
+                    For any time $t\in[a,b)$ denote the <em>trace</em> (preceding points) up to time $t$ by
+                    $$T_t \;=\; \gamma([a,t]) \;=\; \{\gamma(s): a\le s\le t\}.$$
+                    For a time horizon beyond the present $\Delta>0$ future increments or predictions are $\gamma(t+\Delta)$. 
+                    If the trace is to accurately represent the path's history, it must contain all visited points in their order of visitation.
+                    The object to capture this ordering of (maybe uncountably many) points 
                     </p>
 
+                    <p>
+                    <strong>Definition 1 (Sufficiency of the trace).</strong>
+                    The trace $T_t$ is <em>sufficient</em> for predicting $\gamma(t+\Delta)$ iff there exists a measurable map (a path-summary)
+                    $$\varphi:\;\mathcal{P}(\mathbb{R}^n)\to\mathcal{S}$$
+                    into some (typically finite-dimensional) summary space $\mathcal{S}$ such that, for every measurable set $A\subset\mathbb{R}^n$,
+                    \[
+                    \mathbb{P}\big(\gamma(t+\Delta)\in A\mid T_t\big)
+                    \;=\;
+                    \mathbb{P}\big(\gamma(t+\Delta)\in A\mid \varphi(T_t)\big)
+                    \qquad\text{(a.s.)}.
+                    \]
+                    Equivalently, the σ-algebra generated by $T_t$ is conditionally independent of the future given the summary $\varphi(T_t)$.
+                    </p>
+
+                    <p>
+                    <strong>Definition 2 Minimal sufficient summary.</strong>
+                    A summary $\varphi$ is minimal sufficient if any other summary $\psi$ satisfying the same conditional equality factors through $\varphi$ (i.e. $\psi=\eta\circ\varphi$ for some measurable $\eta$). When such a finite-dimensional $\varphi$ exists we may treat the path as having an effective finite memory.
+                    </p>
+
+                    <p>
+                    <strong>Practical (modeling) formulations.</strong> The sufficiency declaration above admits common operational forms used in autoregressive modelling:
+                    </p>
+
+                    <ul>
+                    <li><em>Order-$k$ Markov approximation</em> (discrete times): choose
+                    $$\varphi(T_t) = \big(\gamma(t),\gamma(t-\Delta t),\dots,\gamma(t-(k-1)\Delta t)\big)\in\mathbb{R}^{nk},$$
+                    and posit the generative model
+                    $$\gamma(t+\Delta t) = f\big(\varphi(T_t)\big) + \varepsilon_{t+\Delta t},$$
+                    where $\varepsilon$ is a noise term independent of $T_t$.</li>
+
+                    <li><em>Continuous autoregressive / flow form:</em>
+                        $$\dot\gamma(t) = F\big(\varphi(T_t),t\big) + \xi(t),$$
+                        with $\xi$ a stochastic perturbation. Here $\varphi$ can encode short-term history or features of the whole past (see below).</li>
+
+                    <li><em>Kernel / embedding summary:</em> choose an RKHS kernel $k:\mathbb{R}^n\times\mathbb{R}^n\to\mathbb{R}$ and use the mean embedding
+                        $$\varphi(T_t) \;=\; \int_{a}^{t} k\big(\cdot,\gamma(s)\big)\,w(s)\,ds,$$
+                        with weight $w(s)$ (e.g. exponential decay). Prediction is then performed in the RKHS via
+                        $$\mathbb{E}[\gamma(t+\Delta)|T_t]\approx \mathcal{G}\big(\varphi(T_t)\big).$$</li>
+                    </ul>
+
+                    <p>
+                    <strong>Proposition (sufficient condition).</strong>
+                        If there exists a measurable finite-dimensional $\varphi$ and a measurable function $f$ such that
+                        $$\gamma(t+\Delta)=f\big(\varphi(T_t),\zeta_{t+\Delta}\big)\qquad\text{a.s.},$$
+                        with $\zeta_{t+\Delta}$ independent noise, then $\varphi(T_t)$ is sufficient in the sense above.
+                    </p>
+
+                    <p>
+                    <strong>Remarks (interpretation & approximations).</strong>
+                    <ul>
+                    <li>The abstract sufficiency condition is measure-theoretic and nonconstructive; in practice we approximate $\varphi$ (and hence the sufficiency) by models that compress the past into a finite vector: sliding windows, exponential decays, learned recurrent states (RNN/LSTM/Transformer context vectors), or RKHS embeddings.</li>
+                    <li>Verifying true minimal sufficiency from empirical data is generally infeasible; consequently we treat sufficiency as a modelling hypothesis to be evaluated by predictive performance and robustness to distributional shift.</li>
+                    <li>When $\varphi(T_t)=\gamma(t)$ (the identity), we recover the ordinary Markov (order-1) hypothesis. When longer memory is needed, increase the capacity of $\varphi$ accordingly.</li>
+                    </ul>
+                    </p>
+
+                    <p>
+                    Together these statements make explicit the central claim used throughout this paper: <em>a path's traced vectors (or a sufficiently informative finite summary thereof) contain all the information practically required to form an optimal next-step prediction in the SVS.</em>
+                    </p>
+                    <h3> Probability Measures <h3>
+                    <p>
+                    If a feasible set of next steps exists, and we have information about which steps are most appealing, we can cast votes over where to go next, and these votes stem from our prior experience. I like to think of piles of paper ballots heaped over a flat plane. We are drawn to places where the weight of our past experiences weighs heavy with ballots, and we rarely tread in those sparsely balloted places.
+                    </p>
+                    <p>
+                    These ballots are a probability measureabout which The idea that two points may be differently appealing as candidates for a path's progression invites us to talk about probability. A probability is a way of assigning confidence or preference to each outcome in a feasible set.
+                    </p>
+                    <p>
+                    parameterise the path with time $\gamma(t)$<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>.
+                    </p> 
                     <h2>Dynamic Plotting and Local Utility</h2>
                     <p>
                         If the endpoint is unset, the path must be plotted dynamically. The "map" is effectively being drawn as we walk it. The utility function $f_t(\mathbf{x}_t)$ becomes a local heuristic—a flashlight beam illuminating only the immediate surroundings in the semantic manifold.
