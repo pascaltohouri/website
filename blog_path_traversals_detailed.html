@@ -176,7 +176,7 @@
                         At this juncture, it helps to briefly talk about the differences between a "known" and "unknown" thing.
                         Generally, most objects have many distinguishing features. For example, a person has a name, height, hair colour, and so on. 
                         These pieces of information help to distinguish two otherwise similar objects 
-                        (e.g., person A is not person B, because person A is 175cm tall and person B is 178cm tall).
+                        (e.g., twin A is not twin B, because twin A is 175cm tall and twin B is 178cm tall).
                         Likewise, an experiment's semantic vector encodes lots of distinguishing information.<sup id="fnref1"><a href="#fn1" class="article-link">[1]</a></sup>
                         So, if we suddenly lose one piece of information, we can no longer distinguish that experiment from all other experiments sharing the same information.
                     </p>  
@@ -187,25 +187,28 @@
                         (e.g., $[8,1,0]$, $[8,1,4.11]$, $[8,1,15],\dots$).
                         As mentioned in a prior blog post on <a href="#" class="article-link">experiment path descriptions</a>, 
                         in a well-structured "canonical" vector space, these symmetric experiments all have similar properties.
-                        The experiments are distinguished only by their third component, and if this distinction has some human interpretable form,
-                        we might find, say, each experiment has the same model architecture but a different set of parameter values.
-                        These examples show that there are degrees of uncertainty whereby we may not lose all the information about an experiment at once.
+                        The experiments are distinguished only by their third component. 
+                        If this distinction has is human interpretable we might find, for example,
+                        that each experiment has the same model architecture but a different 
+                        set of parameters.
+                        These examples show there are degrees of uncertainty, and that  
+                        we may not lose all information about an experiment at once.
                     </p>
                     <p>
                         Generally, we can continue in this way, removing identifying pieces of information, 
                         so that the space of equivalent/symmetric points broadens from a line, to a plane, to a cubic volume, 
-                        and so on. In the limit, where we know no identifying coordinate information about our "best point", 
+                        and so on. In the limit, where we know no identifying coordinate information about our "best point"; 
                         all points in the SVS are equally feasible. 
                     </p>
                     <h3>Preferred Points</h3>
                     <p>
                         While all points in the SVS may be <em>feasible</em> under coordinate uncertainty, 
-                        it is unlikely that every point is an equally attractive option. 
+                        it is unlikely that every point is an equally good option. 
                         For example, if all prior experiments in the path contained neural layers for compressing data, 
                         and if this compression correlated with higher performance, 
-                        then one might expect that subsequent experiments would evolve 
+                        then one might expect subsequent experiments to evolve 
                         these compression layers, 
-                        and that the "best experiment" would contain the pinnacle of efficient neural compression. 
+                        and that the "best experiment" would encode optimised neural compression. 
                     </p>
                     <p>
                     One would not, however, expect the best experiment to be the semantic vector for "kelp". 
@@ -215,24 +218,25 @@
                     </p>
                     <h2>Autoregression and Path sufficiency</h2>
                     <p>
-                    When an endpoint is a priori unknown but deducible from context, one can use prior experiments in a process called auto-regression.
+                    The use of past-values to predict future values is called auto-regression.
                     If the path really encodes <em>all</em> relevant information from the 
                     experiment's history, then the path should be <em>sufficient</em> for inferring 
-                    or deducing its next member points. This claim touches on the idea of autoregressive time series models 
-                    and Markov processes, where one piece of information is sufficient for predicting the next. 
+                    or deducing its next member points. This claim also touches on the idea of
+                    Markov processes, where one piece of information is sufficient for predicting the next. 
                     I liken these paths to jungle expeditions, where explorers use the topography and fauna 
                     of their current path to orienteer their next steps.
                     </p>
                     <p>
                     To formalise, take the time-indexed experiment path:
                     $$\gamma:[a,b]\to\mathbb{R}^n,\qquad \gamma(t)\in\mathbb{R}^n.$$
-                    For any time $t\in[a,b)$ denote the <em>trace</em> (preceding points) up to time $t$ by
+                    For any time $t\in[a,b)$ denote the <em>trace</em> as the preceding points up to time $t$. 
+                    If the trace is to accurately represent the path's history, 
+                    it must contain all visited points in their order of visitation. 
+                    The object to capture this ordering of (uncountably many) points is actually 
                     $$T_t \;=\; \gamma([a,t]) \;=\; \{\gamma(s): a\le s\le t\}.$$
+                      by
                     For a time horizon beyond the present $\Delta>0$ future increments or predictions are $\gamma(t+\Delta)$. 
-                    If the trace is to accurately represent the path's history, it must contain all visited points in their order of visitation.
-                    The object to capture this ordering of (maybe uncountably many) points 
                     </p>
-
                     <p>
                     <strong>Definition 1 (Sufficiency of the trace).</strong>
                     The trace $T_t$ is <em>sufficient</em> for predicting $\gamma(t+\Delta)$ iff there exists a measurable map (a path-summary)
@@ -334,6 +338,18 @@
                     <p class="font-medium text-stone-900">
                         Such a model acts as an autonomous traveller in experiment space. It cannot rely on human engineers to set the coordinates for every journey. It must understand the geometry of the semantic space itself to navigate efficiently—selecting its own data, tuning its own hyperparameters, and traversing from ignorance to generalisation with minimal compute. To build this model, we must first understand the ground it walks on.
                     </p>
+                    <h2>Implications for Ethos 0.1 and Welfare Optimisation.</h2>
+                    <p>
+                        It is useful to recapitulate this project's long term goal and the relevance 
+                        of experiment path uncertainty. 
+                        The ultimate goal is to build an experiment technique. 
+                        The features of an experiment can be encoded 
+                        and their temporal realisations concatenated. 
+                        So, each machine learning experiment's time progression is a path through 
+                        the semantic vector space. Relaxing the known endpoint assumption 
+                        lets us articulate a rule that moves an incomplete path to its next vector 
+                        element<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>.
+                    </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
@@ -342,8 +358,16 @@
                         It is interesting to imagine baking time into an SVS encoding. Then, the path parameter would be a real number that could index a path that retrogresses through time. 
                         In reality, though, experiments proceed unidirectionally in time, so encoding time into a semantic vector path may be arbitrary if time increases in a 1-to-1 relation with the path parameter.
                         If, however, (i) time progresses differently for two experiments, or (ii) the concept of time is entangled meaningfully with other bases, then its inclusion in the SVS encoding is necessary to comprehensibly describe an experiment.
-                        
                         <a href="#fnref1" class="article-link ml-1">↩︎</a>
+                    </li>
+                    <li id="fn2">
+                        If experiment paths are sufficiently detailed, 
+                        encoding information like the temperature of a GPU, 
+                        or the cognitive state of a researcher, 
+                        these paths might tend towards the literal progression of objects through spacetime. 
+                        One must consider, therefore, 
+                        that a path is constrained and driven by the physical laws of nature.
+                        <a href="#fnref2" class="article-link ml-1">↩︎</a>
                     </li>
                 </ol>
             </section>
