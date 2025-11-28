@@ -151,6 +151,7 @@
                     </p>
 
                     <h2>Relaxing the Fixed Endpoint Assumption</h2>
+                    <h3>Degrees of Uncertainty</h3>
                     <p>
                         At this point, it helps to briefly talk about the differences between a "known" and "unkown" thing.
                         Generally, most objects have many distinguishing features. For example, a person has a name, height, hair colour, and so on. 
@@ -161,14 +162,14 @@
                         Likewise, an experiment's semantic vector encodes lots of distinguishing information.
                         So, if we suddenly lose one piece of information, we can no longer distinguish that experiment from all other experiments sharing the same information.
                         For example, if experiment A's encoding is $[8,1,5]$, and we lose the final coordinate to get $[8,1,?]$, 
-                        then suddenly we cannot distinguish between the class of experiments whose first two encoding coordinates are $8$ and $1$.
-                        In the semantic vector space (SVS), we can walk along the line of points, parallel to the Z-axis containing points of the form $[8,1,x]$ 
+                        then we cannot distinguish between the class of experiments whose first two encoding coordinates are $8$ and $1$.
+                        In the semantic vector space (SVS), we can walk along the line, parallel to the Z-axis containing points of the form $[8,1,x]$ 
                         (e.g., $[8,1,0]$. $[8,1,4.11]$, $[8,1,15]$, ...).
                         As mentioned in a prior blog post on <a href="#" class="article-link">experiment path descriptions</a>, 
                         in a well-structured "canonical" vector space, these symmetric experiments all have similar properties.
-                        The experimenta are distinguished only by their third component, and if this distinction had some human interpretable form,
-                        we might find, for example, that the experiments represent the same model architecture but differ in a single parameter.
-                        SO, these examples show that ther are degrees of uncertainty whereby we may not lose all the information about a given experiment at once.
+                        The experiments are distinguished only by their third component, and if this distinction had some human interpretable form,
+                        we might find, fsay, that the experiments represent the same model architecture but differ in a single parameter.
+                        So, these examples show that ther are degrees of uncertainty whereby we may not lose all the information about a given experiment at once.
                     </p>
                     <p>
                         Since the endpoint is now presumed unknown, we must utilise any other scrap of information available. 
