@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A blog post by Pascal Tohouri framing the detailed path traversal problem in the SVS language">
-    <title>Introducing Uncertainty for More General Experiment Paths - Pascal Tohouri</title>
+    <title>Introducing Variable Endpoints for More General Experiment Paths - Pascal Tohouri</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -131,7 +131,7 @@
                 
                 <header class="mb-8 text-center">
                     <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">
-                        Introducing Uncertainty for More General Experiment Paths
+                        Introducing Variable Endpoints More General Experiment Paths
                     </h1>
                     <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
                         <span>Nov 27, 2025</span>
@@ -172,6 +172,7 @@
 
                     <h2>Relaxing the Fixed Endpoint Assumption</h2>
                     <h3>Degrees of Uncertainty</h3>
+                    <h4>Distinguishing information</h4>
                     <p>
                         At this juncture, it helps to briefly talk about the differences between a "known" and "unknown" thing.
                         Generally, most objects have many distinguishing features. For example, a person has a name, height, hair colour, and so on. 
@@ -180,6 +181,7 @@
                         Likewise, an experiment's semantic vector encodes lots of distinguishing information.<sup id="fnref1"><a href="#fn1" class="article-link">[1]</a></sup>
                         So, if we suddenly lose one piece of information, we can no longer distinguish that experiment from all other experiments sharing the same information.
                     </p>  
+                    <h4>Simple Numeric Example</h4>
                     <p>
                         For example, if experiment A's encoding is $[8,1,5]$, and we lose the final coordinate to get $[8,1,?]$, 
                         then we cannot distinguish between the class of experiments whose first two encoding coordinates are $8$ and $1$.
@@ -188,12 +190,13 @@
                         As mentioned in a prior blog post on <a href="#" class="article-link">experiment path descriptions</a>, 
                         in a well-structured "canonical" vector space, these symmetric experiments all have similar properties.
                         The experiments are distinguished only by their third component. 
-                        If this distinction has is human interpretable we might find, for example,
+                        If this distinction is human interpretable we might find, for example,
                         that each experiment has the same model architecture but a different 
                         set of parameters.
                         These examples show there are degrees of uncertainty, and that  
                         we may not lose all information about an experiment at once.
                     </p>
+                    <h4>Uncertain Regions</h4>
                     <p>
                         Generally, we can continue in this way, removing identifying pieces of information, 
                         so that the space of equivalent/symmetric points broadens from a line, to a plane, to a cubic volume, 
@@ -202,13 +205,13 @@
                     </p>
                     <h3>Preferred Points</h3>
                     <p>
-                        While all points in the SVS may be <em>feasible</em> under coordinate uncertainty, 
+                        While all points in the SVS may be <em>feasible</em> under complete coordinate uncertainty, 
                         it is unlikely that every point is an equally good option. 
                         For example, if all prior experiments in the path contained neural layers for compressing data, 
                         and if this compression correlated with higher performance, 
                         then one might expect subsequent experiments to evolve 
-                        these compression layers, 
-                        and that the "best experiment" would encode optimised neural compression. 
+                        these compression layers.
+                        The "best experiment" might then encode <en>optimised</em> neural compression. 
                     </p>
                     <p>
                     One would not, however, expect the best experiment to be the semantic vector for "kelp". 
@@ -218,12 +221,12 @@
                     </p>
                     <h2>Autoregression and Path sufficiency</h2>
                     <p>
-                    The use of past-values to predict future values is called auto-regression.
-                    If the path really encodes <em>all</em> relevant information from the 
+                    Using past-values to specify future values is called auto-regression.
+                    If a path really encodes <em>all</em> relevant information from the 
                     experiment's history, then the path should be <em>sufficient</em> for inferring 
-                    or deducing its next member points. This claim also touches on the idea of
+                    or deducing subsequent member points. This claim also touches on the idea of
                     Markov processes, where one piece of information is sufficient for predicting the next. 
-                    I liken these paths to jungle expeditions, where explorers use the topography and fauna 
+                    I liken these paths to jungle expeditions, where explorers use the topography and flora 
                     of their current path to orienteer their next steps.
                     </p>
                     <p>
@@ -231,125 +234,59 @@
                     $$\gamma:[a,b]\to\mathbb{R}^n,\qquad \gamma(t)\in\mathbb{R}^n.$$
                     For any time $t\in[a,b)$ denote the <em>trace</em> as the preceding points up to time $t$. 
                     If the trace is to accurately represent the path's history, 
-                    it must contain all visited points in their order of visitation. 
-                    The object to capture this ordering of (uncountably many) points is actually 
+                    it must contain all points in their order of visitation. 
+                    The object to capture this ordering of (uncountably many) points is just the prior path segment: 
                     $$T_t \;=\; \gamma([a,t]) \;=\; \{\gamma(s): a\le s\le t\}.$$
-                      by
                     For a time horizon beyond the present $\Delta>0$ future increments or predictions are $\gamma(t+\Delta)$. 
+                    While the trace represents the ground truth, its storage and calculation may be computationally 
+                    infeasible (in the infinite dim. case), 
+                    and unnecessary if a compression of the trace is a sufficient summary:
+                    </p>
+                    <p><strong>Definition 1 (Sufficienct Path Summary).</strong>
+                        A path-summary map $\varphi: \mathcal{P}(\mathbb{R}^n) \to \mathcal{S}$ is  
+                        sufficient with respect to the trace $T_t$ if, 
+                        for every measurable set $A \subset \mathbb{R}^n$,
+                        $$\mathbb{P}\big(\gamma(t+\Delta)\in A\mid T_t\big) \;=\; \mathbb{P}\big(\gamma(t+\Delta)\in A\mid \varphi(T_t)\big) \quad \text{(a.s.)}.$$
+                        Equivalently, the summary $\varphi(T_t)$ 
+                        screens off the full path history $T_t$ from the future.
+                    </p>
+                    <p><strong>Definition 2 (Minimal Sufficient Summary).</strong>
+                        A summary $\varphi$ is minimal sufficient if any other summary 
+                        $\psi$ satisfying the same conditional equality factors through 
+                        $\varphi$ (i.e. $\varphi=\eta\circ\psi$ for some measurable $\eta$). 
+                        When such a finite-dimensional $\varphi$ exists we may treat the path 
+                        as having an effective finite memory.
                     </p>
                     <p>
-                    <strong>Definition 1 (Sufficiency of the trace).</strong>
-                    The trace $T_t$ is <em>sufficient</em> for predicting $\gamma(t+\Delta)$ iff there exists a measurable map (a path-summary)
-                    $$\varphi:\;\mathcal{P}(\mathbb{R}^n)\to\mathcal{S}$$
-                    into some (typically finite-dimensional) summary space $\mathcal{S}$ such that, for every measurable set $A\subset\mathbb{R}^n$,
-                    \[
-                    \mathbb{P}\big(\gamma(t+\Delta)\in A\mid T_t\big)
-                    \;=\;
-                    \mathbb{P}\big(\gamma(t+\Delta)\in A\mid \varphi(T_t)\big)
-                    \qquad\text{(a.s.)}.
-                    \]
-                    Equivalently, the σ-algebra generated by $T_t$ is conditionally independent of the future given the summary $\varphi(T_t)$.
+                    Minimal sufficiency simply says a set of distinct path summaries may exist for the same trace.
+                    The minimal sufficient summary is the one that minimises some measure of complexity.
+                    Any other summary must map to that minimal summary via a function $\eta$.
+                    These definitions allow us to import some commonly used modelling machinery. 
+                    </p>                    
+                    <p><strong>Order-$k$ Markov Approximation</strong> (discrete time): choose
+                        $$\varphi(T_t) = \big(\gamma(t),\gamma(t-\Delta t),\dots,\gamma(t-(k-1)\Delta t)\big)\in\mathbb{R}^{nk},$$
+                        as the trace summary, then let the path generate itself from its history (generative modelling):
+                        $$\gamma(t+\Delta t) = f\big(\varphi(T_t)\big) + \varepsilon_{t+\Delta t},$$
+                        where $\varepsilon$ is a noise term independent of $T_t$. 
+                        The continuous model variant is an ordinary differential equation:
                     </p>
-
-                    <p>
-                    <strong>Definition 2 Minimal sufficient summary.</strong>
-                    A summary $\varphi$ is minimal sufficient if any other summary $\psi$ satisfying the same conditional equality factors through $\varphi$ (i.e. $\psi=\eta\circ\varphi$ for some measurable $\eta$). When such a finite-dimensional $\varphi$ exists we may treat the path as having an effective finite memory.
-                    </p>
-
-                    <p>
-                    <strong>Practical (modeling) formulations.</strong> The sufficiency declaration above admits common operational forms used in autoregressive modelling:
-                    </p>
-
-                    <ul>
-                    <li><em>Order-$k$ Markov approximation</em> (discrete times): choose
-                    $$\varphi(T_t) = \big(\gamma(t),\gamma(t-\Delta t),\dots,\gamma(t-(k-1)\Delta t)\big)\in\mathbb{R}^{nk},$$
-                    and posit the generative model
-                    $$\gamma(t+\Delta t) = f\big(\varphi(T_t)\big) + \varepsilon_{t+\Delta t},$$
-                    where $\varepsilon$ is a noise term independent of $T_t$.</li>
-
-                    <li><em>Continuous autoregressive / flow form:</em>
+                    <p><strong>Continuous Autoregressive Form:</strong>
                         $$\dot\gamma(t) = F\big(\varphi(T_t),t\big) + \xi(t),$$
-                        with $\xi$ a stochastic perturbation. Here $\varphi$ can encode short-term history or features of the whole past (see below).</li>
-
-                    <li><em>Kernel / embedding summary:</em> choose an RKHS kernel $k:\mathbb{R}^n\times\mathbb{R}^n\to\mathbb{R}$ and use the mean embedding
-                        $$\varphi(T_t) \;=\; \int_{a}^{t} k\big(\cdot,\gamma(s)\big)\,w(s)\,ds,$$
-                        with weight $w(s)$ (e.g. exponential decay). Prediction is then performed in the RKHS via
-                        $$\mathbb{E}[\gamma(t+\Delta)|T_t]\approx \mathcal{G}\big(\varphi(T_t)\big).$$</li>
-                    </ul>
-
+                        with $\xi$ a stochastic perturbation. 
+                        Here $\varphi$ can encode short-term history or features of the whole past (see below). 
+                        The discrete and continuous models are basically an engine that drive us through the space of all experiments. 
+                        In the discrete case, we take steps and in the continuous case, the path is smooth. 
+                        By letting this engine run, we can join a path segment to its next element. 
+                    </p>
+                    <h2>Conclusion: Implications for ORBIT</h2>
                     <p>
-                    <strong>Proposition (sufficient condition).</strong>
-                        If there exists a measurable finite-dimensional $\varphi$ and a measurable function $f$ such that
-                        $$\gamma(t+\Delta)=f\big(\varphi(T_t),\zeta_{t+\Delta}\big)\qquad\text{a.s.},$$
-                        with $\zeta_{t+\Delta}$ independent noise, then $\varphi(T_t)$ is sufficient in the sense above.
+                        If one repeats the autoregressive process, 
+                        one can continually elongate a path to produce perpetual motion in the space of experiments.
+                        This experiment engine is what we'll use to jump between experimental states during active learning.
+                        So far, however, the engine has no steering; we cannot direct an experiment to its "best state".
+                        In the next, blog post, we will introduce the probabilistic techniques that optimally steer an experiment through the SVS.
                     </p>
 
-                    <p>
-                    <strong>Remarks (interpretation & approximations).</strong>
-                    <ul>
-                    <li>The abstract sufficiency condition is measure-theoretic and nonconstructive; in practice we approximate $\varphi$ (and hence the sufficiency) by models that compress the past into a finite vector: sliding windows, exponential decays, learned recurrent states (RNN/LSTM/Transformer context vectors), or RKHS embeddings.</li>
-                    <li>Verifying true minimal sufficiency from empirical data is generally infeasible; consequently we treat sufficiency as a modelling hypothesis to be evaluated by predictive performance and robustness to distributional shift.</li>
-                    <li>When $\varphi(T_t)=\gamma(t)$ (the identity), we recover the ordinary Markov (order-1) hypothesis. When longer memory is needed, increase the capacity of $\varphi$ accordingly.</li>
-                    </ul>
-                    </p>
-
-                    <p>
-                    Together these statements make explicit the central claim used throughout this paper: <em>a path's traced vectors (or a sufficiently informative finite summary thereof) contain all the information practically required to form an optimal next-step prediction in the SVS.</em>
-                    </p>
-                    <h3> Probability Measures <h3>
-                    <p>
-                    If a feasible set of next steps exists, and we have information about which steps are most appealing, we can cast votes over where to go next, and these votes stem from our prior experience. I like to think of piles of paper ballots heaped over a flat plane. We are drawn to places where the weight of our past experiences weighs heavy with ballots, and we rarely tread in those sparsely balloted places.
-                    </p>
-                    <p>
-                    These ballots are a probability measureabout which The idea that two points may be differently appealing as candidates for a path's progression invites us to talk about probability. A probability is a way of assigning confidence or preference to each outcome in a feasible set.
-                    </p>
-                    <p>
-                    parameterise the path with time $\gamma(t)$<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>.
-                    </p> 
-                    <h2>Dynamic Plotting and Local Utility</h2>
-                    <p>
-                        If the endpoint is unset, the path must be plotted dynamically. The "map" is effectively being drawn as we walk it. The utility function $f_t(\mathbf{x}_t)$ becomes a local heuristic—a flashlight beam illuminating only the immediate surroundings in the semantic manifold.
-                    </p>
-                    <p>
-                        This dynamic plotting raises a significant question: Does the lack of a fixed endpoint require a completely separate mathematical framework?
-                    </p>
-                    <p>
-                         Standard path optimisation relies on global knowledge of the space. Dynamic traversal relies on local sensing and active decision-making. The topology of a space explored by an agent (Active Learning) is distinct from the topology of a space traversed by a projectile. It is likely that a separate article will be needed to formalise the specific geometry of these "exploratory" paths, where the metric tensor itself might be a function of the agent's uncertainty.
-                    </p>
-
-                    <h2>Relaxing the Welfare Function</h2>
-                    <p>
-                        Finally, we must address the "delicate thing" mentioned in the introduction: the welfare function $f_t(\mathbf{x}_t)$. In our formal definition, we assumed this was a well-behaved, smooth scalar field. In practice, the utility of a machine learning model is rarely so simple.
-                    </p>
-                    <p>
-                        Real-world utility is a jagged, multi-objective landscape. We care about accuracy, but also inference latency, memory footprint, fairness, and interpretability. Often, these objectives are disjoint or directly contradictory (e.g., the trade-off between accuracy and sparsity).
-                    </p>
-                    <p>
-                        Furthermore, the utility function is often non-stationary; what we value in the early stages of exploration (e.g., "does it learn at all?") differs from what we value at convergence (e.g., "is it robust to edge cases?"). A true generalist model cannot simply climb a static hill; it must infer the changing preferences of the experimentalist, effectively performing Inverse Reinforcement Learning to determine what "optimal" actually means in the current context.
-                    </p>
-
-                    <h2>The Ultimate Goal: Generalist Active Learning</h2>
-                    <p>
-                        Why bother with this topological pedantry? Why fuss over the definitions of paths and manifolds? 
-                    </p>
-                    <p>
-                        We are not simply trying to train better classifiers for specific tasks. These essays are foundational steps toward a larger objective: building a <strong>Generalist, Multimodal, State-of-the-Art Active Learning Model</strong>.
-                    </p>
-                    <p class="font-medium text-stone-900">
-                        Such a model acts as an autonomous traveller in experiment space. It cannot rely on human engineers to set the coordinates for every journey. It must understand the geometry of the semantic space itself to navigate efficiently—selecting its own data, tuning its own hyperparameters, and traversing from ignorance to generalisation with minimal compute. To build this model, we must first understand the ground it walks on.
-                    </p>
-                    <h2>Implications for ORBIT 0.0 and Welfare Optimisation.</h2>
-                    <p>
-                        It is useful to recapitulate this project's goal and to relate experiment path 
-                        uncertainty to that goal:
-                        we seek an experiment <em>and</em> language agnostic optimisation method 
-                        as the foundation of the ORBIT model.
-                        We know from previous articles that the features of an experiment 
-                        can be encoded and their temporal realisations concatenated into a path. 
-                        Relaxing the known endpoint assumption 
-                        tells us how to move an incomplete path to its next 
-                        element<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>.
-                    </p>
 
             <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                 <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
