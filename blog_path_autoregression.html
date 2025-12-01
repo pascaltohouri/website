@@ -131,7 +131,7 @@
                 
                 <header class="mb-8 text-center">
                     <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">
-                        Introducing Variable Endpoints More General Experiment Paths
+                        Introducing Variable Endpoints for More General Experiment Paths
                     </h1>
                     <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
                         <span>Nov 27, 2025</span>
@@ -242,7 +242,7 @@
                     infeasible (in the infinite dim. case), 
                     and unnecessary if a compression of the trace is a sufficient summary:
                     </p>
-                    <p><strong>Definition 1 (Sufficienct Path Summary).</strong>
+                    <p><strong>Definition 1 (Sufficient Path Summary).</strong>
                         A path-summary map $\varphi: \mathcal{P}(\mathbb{R}^n) \to \mathcal{S}$ is  
                         sufficient with respect to the trace $T_t$ if, 
                         for every measurable set $A \subset \mathbb{R}^n$,
@@ -284,7 +284,7 @@
                         one can continually elongate a path to produce perpetual motion in the space of experiments.
                         This experiment engine is what we'll use to jump between experimental states during active learning.
                         So far, however, the engine has no steering; we cannot direct an experiment to its "best state".
-                        In the next, blog post, we will introduce the probabilistic techniques that optimally steer an experiment through the SVS.
+                        In the next blog post, we will introduce the probabilistic techniques that optimally steer an experiment through the SVS.
                     </p>
 
 
@@ -336,7 +336,7 @@
                     throwOnError: false
                 });
             } else {
-                console.warn("KaTeX or renderMathInElement not loaded. Math rendering may be incomplete.");
+                console.warn("KaTeX or renderMathInElement not loaded.");
             }
 
             // --- Reading time calculation ---
@@ -352,48 +352,63 @@
                 const WORDS_PER_MINUTE = wpmAttr ? parseInt(wpmAttr, 10) || defaultWpm : defaultWpm;
                 
                 const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
-                
                 readingTimeSpan.textContent = `${minutes} Min Read`;
             }
 
-            // --- Text-to-speech reader ---
-        const ttsButton = document.getElementById('tts-toggle');
+            // --- FIXED Text-to-speech reader ---
+            const ttsButton = document.getElementById('tts-toggle');
 
-        if (ttsButton && 'speechSynthesis' in window && articleBody) {
-            let utterance = null;
-            let isSpeaking = false;
+            if (ttsButton && 'speechSynthesis' in window && articleBody) {
+                
+                // 1. We attach the utterance to 'window' to prevent Garbage Collection on PC
+                window.currentUtterance = null;
 
-            ttsButton.addEventListener('click', () => {
-                if (!isSpeaking) {
-                    const text = articleBody.innerText || articleBody.textContent || '';
-                    if (!text.trim()) return;
+                // 2. Clear any "stuck" audio when the page loads
+                window.speechSynthesis.cancel();
 
-                    utterance = new SpeechSynthesisUtterance(text);
-                    utterance.rate = 0.95; // slightly slower than default
-                    utterance.onend = () => {
-                        isSpeaking = false;
+                ttsButton.addEventListener('click', () => {
+                    // Check if the browser is currently speaking
+                    if (window.speechSynthesis.speaking) {
+                        // STOP ACTION
+                        window.speechSynthesis.cancel();
                         ttsButton.textContent = '▶ Listen';
-                    };
+                    } else {
+                        // PLAY ACTION
+                        
+                        // Always cancel before starting to clear the queue
+                        window.speechSynthesis.cancel();
 
-                    isSpeaking = true;
-                    ttsButton.textContent = '■ Stop';
-                    window.speechSynthesis.speak(utterance);
-                } else {
-                    window.speechSynthesis.cancel();
-                    isSpeaking = false;
-                    ttsButton.textContent = '▶ Listen';
-                }
-            });
-        } else if (ttsButton) {
-            // Hide button if TTS not supported
-            ttsButton.style.display = 'none';
-        }
+                        const text = articleBody.innerText || articleBody.textContent || '';
+                        if (!text.trim()) return;
+
+                        // Create the utterance and store it GLOBALLY
+                        window.currentUtterance = new SpeechSynthesisUtterance(text);
+                        window.currentUtterance.rate = 0.95;
+
+                        // Handle the end of speech
+                        window.currentUtterance.onend = () => {
+                            ttsButton.textContent = '▶ Listen';
+                        };
+
+                        // Error handling (helps debug on PC)
+                        window.currentUtterance.onerror = (e) => {
+                            console.error('Speech error:', e);
+                            ttsButton.textContent = '▶ Listen';
+                        };
+
+                        ttsButton.textContent = '■ Stop';
+                        window.speechSynthesis.speak(window.currentUtterance);
+                    }
+                });
+            } else if (ttsButton) {
+                ttsButton.style.display = 'none';
+            }
 
             // --- Obfuscated Contact Info ---
-            const emailUser = 'pascal.tohouri1';
-            const emailDomain = 'gmail.com';
+            const emailUser = 'pascaltohouri';
+            const emailDomain = 'yahoo.com';
             const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
-            const fullEmail = `mailto:${emailUser}@${emailDomain}`;
+            const fullEmail = `mailto:${pascaltohouri}@${yahoo.com}`;
             
             const footerEmailLink = document.getElementById('footer-email-link');
             const footerLinkedinLink = document.getElementById('footer-linkedin-link');
