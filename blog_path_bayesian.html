@@ -86,7 +86,7 @@
             margin-top: 1.35rem;
             margin-bottom: 0.5rem;
             line-height: 1.3;
-            color: #374151; /* Gray 700 */
+            color: #6b7280; /* Gray 500 - Softened to avoid competition with h2/h3 */
         }
 
         /* Numbering for h4 is optional, added here for consistency */
@@ -157,9 +157,9 @@
                         In previous posts, we established:
                     </p>
                     <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
-                        <li>Any machine learning experiment and all of its relevant features exist in the semantic vector space (SVS).</li>
+                        <li>Any machine learning experiment and all of its relevant features exist in the semantic vector space (SVS),</li>
                         <li>Training is a special case of more general inter-experiment path traversals,</li>
-                        <li>The optimal path identifies the task-optimal experiment (architecture, parameters, reward functions, etc.).</li>
+                        <li>The optimal path identifies the task-optimal experiment (architecture, parameters, reward functions, etc.),</li>
                         <li>Auto-regressing the rich information in a past path segment finds new experiments.</li>
                     </ul>
 
@@ -172,7 +172,7 @@
 
                     <h2>Bayesian Updating</h2>
                     
-                    <h3>The Parable of Shifting Ballot Dunes</h3>
+                    <h3>The Parable of The Shifting Ballot Dunes</h3>
                     <p>
                         Before jumping to the formalisms, recall that our autoregressive path takes the coordinates of the past and applies some rule to plot new coordinates. Here, for fun, let’s invoke a new analogy. Suppose you stand on a flat plane and can see the glow of your footsteps illuminated behind you. You need some rule prescribing next steps based on those past steps. 
                     </p>
@@ -185,72 +185,444 @@
                         In the semantic vector space, these footsteps are actually experiments, so the footsteps carry lots of information. For example, if you pass through crocodile-infested swamps, you may not wish to double back on yourself. If you pass a gold mine, perhaps you should double back!
                     </p>
                     <p>
-                        Each past footstep casts ballots over potential future steps. The crocodile path might cast ballots away from your current location, out of danger. The gold mine might ballot the area surrounding the mine, enticing you towards it. At every time, every point on the plane must have some non-negative number of ballots and each new step shifts the ballots, such that your path on the plane is a walk among <em>shifting ballot dunes</em>. To optimise the experiment, you should move to coordinates on the plane where the weight of ballots weighs heaviest, and avoid those places that are sparsely balloted.
+                        Each past footstep casts ballots over potential future steps. The crocodile path might cast ballots away from your current location, out of danger. The gold mine might ballot the area surrounding the mine, enticing you towards it. At all times, every point on the plane must have some non-negative number of ballots and each new step shifts the ballots, such that your path on the plane is a walk among <em>shifting ballot dunes</em>. To optimise the experiment, you should move to coordinates on the plane where the weight of ballots weighs heaviest, and avoid those places that are sparsely balloted.
                     </p>
 
                     <h3>Cox’s Theorem and Bayesian Inevitability</h3>
                     <p>
-                        Of course, these shifting ballot dunes are actually probability distributions, and an updating process drives their movements. In 1946, Richard Cox showed that Bayesian probability [Laplace (17–)] was the only method for updating a probability distribution that satisfied 3 common sense axioms:
+                        Of course, these shifting ballot dunes are actually probability distributions, 
+                        and an updating process drives their movements. 
+                        In 1946, Richard Cox showed that any update rule consistent with 3 reasonable axioms was isomorphic to the conditional probability laws described by Bayes, Laplace, and others (Bayes, 1763; Laplace, 1774; Cox, 1946):
                     </p>
                     
-                    <div class="border-l-4 border-stone-200 pl-4 my-6">
-                        <h4 class="text-sm uppercase tracking-wide text-stone-500 mb-2">1. Divisibility and Transitivity (Beliefs are Numbers)</h4>
-                        <p class="mb-2"><strong>The Rule:</strong> The plausibility of a proposition is a real number.</p>
-                        <p><strong>The Logic:</strong> If you believe $A$ is more likely than $B$, and $B$ is more likely than $C$, you must believe $A$ is more likely than $C$. This allows us to rank hypotheses.</p>
-                        
-                        <h4 class="text-sm uppercase tracking-wide text-stone-500 mb-2 mt-4">2. Common Sense (Compatibility with Negation)</h4>
-                        <p class="mb-2"><strong>The Rule:</strong> If your belief in a proposition $A$ increases, your belief in $\text{not-}A$ must decrease.</p>
-                        <p><strong>The Logic:</strong> You cannot become more convinced that "It will rain" without becoming less convinced that "It will not rain."</p>
+                    <div class="space-y-3 my-8">
+                        <!-- Axiom 1: Chart/Numbers Icon -->
+                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"></path>
+                                    </svg>
+                                    1. Divisibility and Transitivity (Beliefs are Numbers)
+                                </span>
+                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50 text-sm text-stone-700">
+                                <p class="mb-2"><strong>Rule:</strong> The plausibility of a proposition is a real number.</p>
+                                <p><strong>Reasoning:</strong> If you believe $A$ is more likely than $B$, and $B$ is more likely than $C$, you must believe $A$ is more likely than $C$. This allows us to rank hypotheses.</p>
+                            </div>
+                        </details>
 
-                        <h4 class="text-sm uppercase tracking-wide text-stone-500 mb-2 mt-4">3. Consistency (Path Independence)</h4>
-                        <p class="mb-2"><strong>The Rule:</strong> If a conclusion depends on multiple pieces of evidence, the order in which you process the evidence cannot matter.</p>
-                        <p><strong>The Logic:</strong> Whether you see trace $x_1$ then $x_2$, or $x_2$ then $x_1$, the final belief state must be identical.</p>
+                        <!-- Axiom 2: Opposing Arrows/Balance Icon -->
+                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path>
+                                    </svg>
+                                    2. Common Sense (Compatibility with Negation)
+                                </span>
+                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50 text-sm text-stone-700">
+                                <p class="mb-2"><strong>Rule:</strong> If your belief in a proposition $A$ increases, your belief in $\text{not-}A$ must decrease.</p>
+                                <p><strong>Reasoning:</strong> You cannot become more convinced that "It will rain" without becoming less convinced that "It will not rain."</p>
+                            </div>
+                        </details>
+
+                        <!-- Axiom 3: Map Icon -->
+                        <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300">
+                            <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"></path>
+                                    </svg>
+                                    3. Consistency (Path Independence)
+                                </span>
+                                <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50 text-sm text-stone-700">
+                                <p class="mb-2"><strong>Rule:</strong> If a conclusion depends on multiple pieces of evidence, the order in which you process the evidence cannot matter.</p>
+                                <p><strong>Reasoning:</strong> Whether you see trace $x_1$ then $x_2$, or $x_2$ then $x_1$, the final belief state must be identical.</p>
+                            </div>
+                        </details>
                     </div>
 
                     <p>
-                        To respect these common sense axioms, the method for updating a probability distribution over the experiment space should adhere to Bayes’ rule. Formally, for experimental encoding $X$, a distribution over the SVS $p(X)$ represents the probability that any given vector $X'$ is the optimal next experiment, conditioned on the evidence $E$ (our trace):
+                        Therefore, to maintain consistency, our method for navigating the experiment space must adhere to 
+                        Bayes’ rule. Formally, a distribution over the SVS $p(X)$ represents the probability that any 
+                        given vector $X$ is the optimal next experiment, conditioned on the evidence $E$ (the path trace):
                     </p>
 
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
-                         $$ p(X' \mid E) = \frac{p(E \mid X') p(X')}{p(E)} $$
+                         $$ p(X \mid E) = \frac{p(E \mid X) p(X)}{p(E)} $$
                     </p>
 
-                    <h3>The Fisher Information Metric and Natural Gradient</h3>
+                    <h3>Trace and Utility Induced Posteriors</h3>
                     <p>
-                        Returning to our parable, the "ballot dunes" do not reside on a flat Euclidean plane. The Semantic Vector Space is a manifold where distances represent information geometry, not mere coordinate distance. A small step in coordinates ($[1.0, 1.0] \to [1.1, 1.1]$) might represent a massive shift in model behavior, while a large step elsewhere might represent negligible change.
+                        As mentioned, this ballot landscape is dynamic, evolving as we explore.
+                        Every time we step to a new point $\mathbf{x}_{t+\Delta}$ and observe a 
+                        result (a utility or loss), we gain new evidence.
+                        It is therefore imperative that the experimentalist accurately specifies 
+                        their utility function; well specified utility combines with the trace 
+                        to update the posterior distribution. We will further explore this notion in later 
+                        blog posts.
                     </p>
                     <p>
-                        To navigate these dunes correctly, we cannot rely on the standard Euclidean gradient. We must utilize the <strong>Fisher Information Metric</strong> $G$, which acts as a Riemannian metric tensor describing the local curvature of the probability distribution. The steepest descent on this manifold is given by the <strong>Natural Gradient</strong>:
+                        For now, suffice to say the posterior probability distribution after taking a step
+                        is proportional to the distribution before the step was taken, mutliplied by the 
+                        probability that the step generated the observed utility. It helps to take this 
+                        hand-wavy explanation on faith for now, to stop the post from becoming overly dense
+                        with technical notation.
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
-                        $$ \tilde{\nabla}\mathcal{L} = G^{-1} \nabla\mathcal{L} $$
+                        $$ P(\text{Opt} | T_{t+\Delta}) \propto P(\text{Utility} | \text{Opt}) \cdot P(\text{Opt} | T_t) $$
                     </p>
                     <p>
-                        By correcting the gradient with the inverse Fisher Information Matrix, we ensure that our "steps" through the experiment space are consistent with the shifting probability densities (the ballot dunes), rather than the arbitrary units of the parameters.
+                        In our analogy, if we move towards the crocodile swamp, we may hear the snapping of jaws. 
+                        This signal will reduce our happiness and lower our confidence that the forward path is optimal.
+                        Ballots will then flitter, like startled birds, from the mound in front of us, past where we stand, and back in the direction 
+                        whence we came. The inverse is true for the gold mine, and more generally the happiness of our current point 
+                        is the breeze that moves these ballots.
                     </p>
 
+                    <h2>Dynamic Plotting and Local Utility</h2>
+                    <h3>Probability Maximising Paths</h3>
+                    <h4>Optimal Experiment Jumps</h4>
+                    <p>
+                        Given the ballot dunes represent the probability that a certain experiment is best, 
+                        we had better move to places of high probability in the SVS.
+                        It might seem tempting to just teleport to places on the plane where the ballots 
+                        are highly stacked. This is a bad idea. If the ballot dunes shift as we explore the plane, teleporting directly
+                        to where the ballots peak might land us directly in the swamp! We have all experienced this sense of miscalculation.
+                        For example, when riding a bike, you might be confident that the road ahead is smooth, only to find yourself
+                        hurtling towards a pothole. So, while we want to move towards areas of high confidence, 
+                        we must account for these (possibly rapid) changes in probability.
+                    </p>
+                    <h4>Gradient Ascent</h4>
+                    <p>
+                        A popular method for adjusting step sizes based on how quickly the ballots shift is natural gradient ascent:
+
+                    <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
+                        <li><strong>Gradient Ascent:</strong> Step in the direction of the steepest density ascent (move in the direction where ballots are locally steepest).</li>
+                        <li><strong>Natural Gradient Adjustment:</strong> Move faster in regions where the optimality probability is unresponsive, and slower in regions where the optimality probability is highly responsive to our movements (speed increases with the persistence of the ballot dunes).</li>
+                    </ul>
+                    <p>
+                       In standard probability ascent, one updates the experiment encoding according to:
+                    </p>
+                    <p>
+                       $$X_{t+1} \leftarrow X_t + \eta \underbrace{\nabla_X \log p(X_t)}_{\text{Standard Gradient}}$$
+                    </p>
+                    <p>
+                       which says "add to the current encoding vector $X$, a vector $ \eta \nabla_X \log p(X_t)$, 
+                       that is the step-size $\eta$ -weighted gradient". In our analogy, that gradient points
+                       us along the plane in the direction of the steepest ballot slope. We use the logarithm of the Probability of Optimality
+                       as a trick to simplify the mathematics while ensuring the ballot peaks stay where they are (see
+                        <a href="#" class="article-link">here</a> for a detailed explanation).
+                    </p>
+                    <h2>Information Geometry and the Natural Gradient</h2>
+                    <h3>A Curved Statistical Manifold</h3>
+                    <p>
+                        The semantic vector space is typically modelled as a flat mutlidimensional Euclidean space.
+                        Since we live in such a (3D) physical space, we can use our physical intuitions to think about curving
+                        the SVS.
+                        First, note that mass and energy curve spacetime. The typical way to model this phenomonen is with a trampoline and two balls.
+                        The heavier of the balls sits at the trampoline's center, and the lighter rolls in a curved path, called a geodesic, 
+                        that minimises the distance across the depressed sheet.
+                        Here, trampoline depression mimics the curvature of space due to mass.
+                    </p>
+                    <p>
+                        Similarly, the semantic vector space is flat, until one warps its fabric by adjusting for information.
+                        Let's embellish our distinction between a flat and curved space, to develop these nascent intuitions
+                        before applying them to the SVS. 
+                        In our analogy, a flat plane has grid lines that are always parallel underfoot, 
+                        wherever we stand. A curved plane (like the Earth's surface) may have lines that seem 
+                        parrallel underfoot, but converge (e.g. at the North Pole) or diverge (e.g. at the equator).
+                        This curvature means the unit vector (1 unit step) looks different depending on where it occurs.
+                    </p>
+                    <p>                        
+                        The classic example is that of a person holding a spear at the North Pole who walks to the equator 
+                        (still holding the spear forward). If the person shuffles sideways until having half-circumnavigated 
+                        the equator, then returns to the North pole (without applying any rotation to the spear), the spear
+                        will point opposite to its starting direction. Here, translation only has caused a rotation in the spear. 
+                        The spear represents the unit vector on the plane.
+                        Holonomy is the name for this phenomonon where a commuted vector stops being
+                        parallel to its non-commuted equivalent, and is a defining feature of curved spaces.
+                    </p>
+                    <h3>An Intuitive Description of Information Geometry</h3>
+                    <h4>Deformed Grid Lines</h4>
+                    <p>
+                        Let's return to our flat plane, and our path among the shifting ballot dunes. 
+                        So far, we imagined that traversals on the plane are independent of changes in the ballots.
+                        The distance we travelled forwards, backwards, or sideways did not encode information on how the ballots moved.
+                        Steps and ballots were causally related but had separate identities.
+                        We would just step some flat distance, then observe how the ballots flittered around.
+                    </p>
+                    <p> 
+                        Information geometry is a way of stuffing the ballot landscapes into the plane's geometry, 
+                        thereby merging the distinct identities of the space and the changing probability distribution.
+                        Suppose you looked down and saw parallel grid lines running underfoot, 
+                        as though you stood on the page of a maths exercise book.
+                        When encoding the ballot dunes into the plane's geometry, 
+                        the grid lines would begin to waver and dance in the plane, and a path that, too you, 
+                        seemed perfectly straight would, to an observer, wind circuitously.
+                    </p>
+                    <p>
+                        In some places, the grid lines would bulge and diverge, in others, the grid lines would compress and clump.
+                        We experience this phenomenon when writing perfectly straight without the aid of grid lines, 
+                        only to learn on later inspection that our handwriting is actually heavily slanted!
+                        This strange deformation is the space's way of encoding the speed of belief changes.
+                    </p>
+                    <p>
+                    <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
+                        <li><em>High Distribution Shift $\frac{dDist.}{dX}$:</em>    In regions where our beliefs change rapidly, we would like to peer through a magnifying glass and amplify
+                        the grid lines to ensure we tread carefully.
+                        <li><em>Low Distribution Shift $\frac{dDist.}{dX}$:</em> In regions where our beliefs change slowly, we learn very little from each step, so we can move quickly without
+                        worrying much about where we tread. So, we compress these data-similar regions, and the grid lines bunch.</li>
+                    </ul>
+                    </p>   
+                    <h4>The Metric Tensor</h4>
+                    <p>
+                        The neat mathematical object that describe's a space's 
+                        pattern of bulging and compression is the metric tensor $G(X)$. 
+                        This metric tensor is like a converter that translates movements in the SVS 
+                        ($dX$) into the equivalent information geometric distance ($ds^2$). 
+                        In a standard flat Euclidean space, 
+                        this tensor is just the identity matrix;
+                        a step of one unit in any direction always equals one unit of distance.
+                    </p> 
+                    <p>
+                        Yet, in the curved statistical space, 
+                        the metric tensor is the Fisher Information Matrix (FIM). 
+                        Here, distances change with the difference between the ballot landscape before
+                        and after each step. 
+                        So, if I take a tiny step and a crocodile lurches out of the undergrowth, 
+                        my belief about the optimality of that position will have changed massively.
+                        In the combined information-theoretic space, every milimeter of that step 
+                        should be elongated and its significance amplified such that it appears equal to 
+                        a one hundred-mile journey over crocodile-free wastelands. 
+                    <p> 
+                        The FIM scales movements by the expected curvature of the log-likelihood, 
+                        ensuring that a small step in a sensitive $X$ direction converts to a massive 
+                        leap in information space.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 my-6">
+                        <div class="bg-stone-50 p-6 border border-stone-200 rounded-md text-center overflow-x-auto flex flex-col justify-center h-full">
+                            <span class="text-xs uppercase tracking-wide text-stone-500 font-semibold mb-3">Flat Euclidean Metric</span>
+                            $$ G(X) = \mathbf{I} $$
+                            <span class="text-stone-400 text-xs mt-3">(Constant Everywhere)</span>
+                        </div>
+                        <div class="bg-stone-50 p-6 border border-stone-200 rounded-md text-center overflow-x-auto flex flex-col justify-center h-full">
+                            <span class="text-xs uppercase tracking-wide text-stone-500 font-semibold mb-3">Fisher Information Metric</span>
+                            $$ G(X) = \mathbb{E} \left[ \nabla \log p(E|X) \nabla \log p(E|X)^T \right] $$
+                            <span class="text-stone-400 text-xs mt-3">(Varies with $X$)</span>
+                        </div>
+                    </div>
+
+                    <h3>Deriving the Metric from Divergence</h3>
+                    <p>
+                        (As 3B1B might say) "But why is the Fisher Information Matrix the correct metric?" Why not some other matrix?
+                        The answer lies in how we measure the difference between two probability distributions.
+                        If we move from experiment $X$ to $X + \delta$, we discard the Euclidean distance, and use the <strong>Kullback-Leibler (KL) Divergence</strong>:
+                    </p>
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
+                        $$D_{KL}(p(.|X)||p(⋅|X+\delta X))=\mathbb{E}_{E∼p(⋅∣X)}​[\log p(E∣X+\delta X)p(E|X)​]$$
+                    </p>
+                    <p>
+                        If we assume our step $\delta$ is small, we can approximate this divergence using a Taylor expansion.
+                        Since the distance from a distribution to itself is zero ($D_{KL}(\theta || \theta) = 0$) and strictly minimized at $\delta=0$, the zeroth and first-order terms of the expansion vanish.
+                        The geometry is thus dominated by the second-order term (the Hessian):
+                    </p>
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
+                        $$D_{KL}\!\big(p(\cdot|X)\,\|\,p(\cdot|X+\delta X)\big)
+                        \approx
+                        \underbrace{0}_{\text{0th order}}
+                        +
+                        \underbrace{0}_{\text{1st order}}
+                        +
+                        \frac{1}{2}\,\delta X^{\top}
+                        \underbrace{\nabla^{2}_{\delta X}\,D_{KL}\!\big(p(\cdot|X)\,\|\,p(\cdot|X+\delta X)\big)\big|_{\delta X=0}}_{G(X)}
+                        \delta X$$
+                    </p>
+                    <p>
+                        Through a standard derivation, one can show that this Hessian (the curvature of the relative entropy) is exactly equivalent to the expected covariance of the gradients, which is the definition of the Fisher Information Matrix ($F$):
+                    </p>
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
+                        $$ \nabla^2 D_{KL}(\theta) = F = \mathbb{E} \left[ \nabla \log p(x|\theta) \nabla \log p(x|\theta)^T \right] $$
+                    </p>
+                    <p>
+                        So the distance on the information manifold is a function of the FIM:
+                        $$ D_{KL} \approx \frac{1}{2} \delta^T F \delta $$
+                        When comparing this definition of squared distance to the Riemannian geometry case
+                        ($ds^2 = \delta^T G \delta$), one observes that $F$ plays the role of the metric tensor $G$.
+                        The Fisher Information Matrix must therefore be the geometry scaling object arising when the 
+                        space's distance metric is the KL divergence.
+                    </p>
+                    <h4> Natural Gradient Ascent </h4>
+                    <p>
+                        We must invert the FIM to dynamically adjust our steps.
+                        To see why, suppose we stand at the centre of a small circle. 
+                        The circle's radius is precisely the distance we travel in a single step from one 
+                        foot to the next. So, the circumference measures a constant distance in a flat space.
+                    </p>
+                    <p>  
+                        When the space warps, so will the coordinate system. If express the circle's new 
+                        coordinates in terms of the old coordinate system, we would see the shape's 
+                        perimeter has become distorted. The new shape's perimeter represent the set of points
+                        where the current distribution's KL divergence is equal. Effectively, therefore
+                        the step in all directions has now been scaled to account for the change in 
+                        information. During gradient ascent, we presume that the step size in the information 
+                        space is constant, so we must scale the Euclidean step to respect this constraint.
+                    </p>
+                    <p>
+                        $$D_{KL} = c$$
+                    </p>
+                    <p>
+                        Additionally, we must ensure that we step in the direction that maximises the posterior 
+                        probability of our step-destination being the optimal experiment. So we solve, the constrained
+                        optimisation:
+
+                        $$\text{maximize } J(\theta + \delta) \quad \text{s.t.} \quad D_{KL}(\theta || \theta + \delta) = c$$
+                    </p>
+
+
+                        recall the optimal step should be in the direction of steepest log- 
+                        probability ascent (this part gives us direction), <em>and</em> should be chosen
+                        from the all steps that are information-distant equivalent 
+                        We can (i) address the problem directly, (ii) 
+                        make a simplified description of the problem and solve the simpler problem.
+                        Precisely, 
+                        I will start with the and Learning this, I thought <em> "if the Probability of Model Correctness were instantaneously updated, 
+                        surely, it would tell us the same thing as the information Geometry. In other words, would the PMC-adjusted
+                        step mimic the natural gradient step?"</em>
+                    </p>
+                    <p>
+                        To answer this, let's look at the formal update rule. The Natural Gradient Ascent update is:
+                    </p>
+                    <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
+                        $$ X_{t+1} \leftarrow X_t + \eta \underbrace{F^{-1} \nabla_X \log p(X_t)}_{\text{Natural Gradient}} $$
+                    </p>
+             
+                        
                     <h2>Local Bayesian Optimality in Autoregression</h2>
                     <p>
-                        We can now merge this probabilistic view with the autoregressive engine defined in the previous post. Previously, we defined a deterministic function $f$ such that $\gamma(t+\Delta t) = f(\varphi(T_t))$. 
+                        We can now merge this probabilistic view with the autoregressive engine 
+                        defined in the previous post. 
+                        Previously, we defined a deterministic function $f$ such that $\gamma(t+\Delta t) = f(\varphi(T_t))$. 
                     </p>
                     <p>
-                        In the Bayesian formulation, the autoregressive model does not output a single point, but effectively parameterizes a posterior distribution over the SVS. The "best" next experiment is a sample drawn from this posterior predictive distribution:
+                        In the Bayesian formulation, 
+                        the autoregressive model does not output a single point, 
+                        but effectively parameterizes a posterior distribution over the SVS. 
+                        The "best" next experiment is a sample drawn from this posterior predictive distribution:
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
                         $$ \gamma_{next} \sim p(\gamma \mid T_t, \text{ORBIT}) $$
                     </p>
                     <p>
-                        This formulation allows the path to explore. When the distribution is sharp (low variance), the path exploits known good regions (the gold mine). When the distribution is flat (high variance/high entropy), the path explores broadly, driven by the uncertainty of the trace. This is the mechanism that provides the "steering" we lacked in the purely deterministic setting.
+                        This formulation allows the path to explore. 
+                        When the distribution is sharp (low variance), 
+                        the path exploits known good regions (the gold mine). 
+                        When the distribution is flat (high variance/high entropy), 
+                        the path explores broadly, driven by the uncertainty of the trace. 
+                        This is the mechanism that provides the "steering" we lacked in the purely deterministic setting.
                     </p>
 
-                    <h2>Implications for ORBIT</h2>
+                    <h2>Conclusions and Implications for ORBIT</h2>
                     <p>
-                        The integration of Bayesian updating into the ORBIT path-finding framework transforms it from a passive recorder of history into an active agent of discovery. The model no longer blindly extrapolates; it weighs the evidence of the past to construct a probability surface for the future.
-                    </p>
+                        Before this post, we had a rule for blindly selecting a path through the space of experiments, based on our experiment history. Now, we have a mechanism that directs our path according to the fundamental laws of conditional probability. We use past information to build a probability landscape and adjust the angle and size of our steps according to how rapidly information changes, then move in the direction that maximises our probability of finding the optimal experiment and architecture. This approach is the theoretical gold-standard for experiment traversals in the SVS.
+</p>
                     <p>
-                        By optimizing the Natural Gradient on this surface, ORBIT can efficiently traverse the SVS, ignoring parameter directions that do not yield information gain. This brings us one step closer to the ultimate goal: a system that not only represents experiments universally but navigates the space between them to find the optimal configuration with minimal friction.
+So, why not implement this method, achieve AGI, solve the welfare-matter problem, and put our feet up?
+Astute observers may have noticed several fatal flaws in this idealisation that render its application near-impossible. These are the "Grand-Challenge" problems of high-dimensional optimisation:
+                    <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
+		    <li><strong> The Curse of Dimensionality, </li>
+			<li><strong> Intractable Marginal Likelihood Integrals, </li>
+			<li><strong> Uninvertible Fisher Information Matrices </li>
+                      <li><strong>(2nd-Order) The Probability of Model Correctness:</strong> A second-order function mapping from the SVS coordinates $\mathbb{R}^N$ to the unit interval $[0,1]$, representing our confidence that the 1st-order density is robust $P(p(X)=Correct)$.</li>
+                    </ul>
+                        By optimizing the Natural Gradient on this surface, 
+                        ORBIT can efficiently traverse the SVS, 
+                        ignoring parameter directions that do not yield information gain. 
+                        This brings us one step closer to the ultimate goal: 
+                        a system that not only represents experiments universally 
+                        but navigates the space between them to find the optimal configuration with minimal friction.
                     </p>
 
+                    <hr class="my-8 border-stone-200">
+
+                    <p>
+                        However, a critical observer might note a fatal flaw. 
+                        While mathematically sound, 
+                        this model suffers from the "Grand Challenges" of high-dimensional optimization:
+                        <strong>intractability of integration</strong>, 
+                        <strong>the curse of dimensionality</strong>, and <strong>non-convexity</strong>.
+                        Solving the Fisher Information Matrix in a raw, 
+                        million-dimensional vector space is computationally ruinous.
+                    </p>
+                    <p class="font-medium text-stone-900">
+                        This leads us to the true purpose of ORBIT. 
+                        We cannot optimize in the raw territory of the SVS; we must optimize the map.
+                        ORBIT acknowledges that the "hardness" of a problem is a product of the coupling between its intrinsic logic and the extrinsic linguistic context used to describe it.
+                        Some languages amplify this intractability, while others might dampen it.
+                        ORBIT, therefore, acts as a <strong>linguistic matchmaker</strong>. 
+                        It seeks to identify the specific linguistic framework—the "bedfellow"—that aligns most frictionlessly with the natural gradient search.
+                        By optimizing the representation alongside the path, we aim to thaw the "ice" of intractability.
+                    </p>
+                    <p>
+                        How we construct this alignment is the subject of the next article.
+                    </p>
+                                        <h4>Historical Trace Confidence</h4>
+                    <p>
+                        To be precise, we must distinguish between two types of probability:
+                    <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
+                        <li><strong>(1st-Order) The Probability of Optimality:</strong> The relative likelihood or density $p(X)$ that a specific coordinate $X$ represents the optimal experiment.</li>
+                        <li><strong>(2nd-Order) The Probability of Model Correctness:</strong> A second-order function mapping from the SVS coordinates $\mathbb{R}^N$ to the unit interval $[0,1]$, representing our confidence that the 1st-order density is robust $P(p(X)=Correct)$.</li>
+                    </ul>
+                    </p>
+                    <p>
+                        We have high confidence in the previously visited points.
+                        Prior experiments on the trace 
+                        $T_t$ form a "corridor" of relative certainty where the experiment's utility effect was observed. 
+                        Yet, this confidence is not sempiternal. If our utility function is dynamic, 
+                        it may value a given point on the trace differently with time.
+                        This temporal decay causes the probability of model correctness to wane. 
+                    </p>
+                    <p>
+                        Conceptully, changes in a confidence about a belief ought to exert influence on that belief.
+                        If one thinks a crocodile is hiding around the corner, and one becomes less certain about that belief, 
+                        even in the absence of new information about one's surroundings, one might abandon the belief about the crocodile.
+                        Likewise, the decay in 2nd order confidence forces an update to the Probability of Optimality. 
+                        As our confidence wanes, due to spatial distance from the trace or temporal distance since the observation, 
+                        the sharp peaks of the probability distribution might deteriorate.
+                        They might flatten and spread out, reverting towards a high-entropy prior. 
+                        We cannot be certain of a geometric feature of the posterior if we doubt the posterior as a whole. 
+                        Thus, the corridor of certainty encircling the trace is a low entropy region 
+                        constantly diffusing into a fog of high entropy as we step onwards.
+                    </p>
+                                        <p>
+                       My initial thought was <em>"If we have a Probability of Model Correctness (PMC), 
+                        why don't we adjust our experiment-steps with the PMC, 
+                        thereby avoiding the complexities of information geometry?"</em> 
+                        Then, we could accelerate updating in regions of high confidence, 
+                        and slow updates elsewhere. After extensive discussions with various LLMs, 
+                        the natural gradient has been suggested as a more sophisticated method for 
+                        adjusting our steps based on the posterior's responsiveness. I want to 
+                        recapitulate those discussions here. 
+                    </p>
                     <section class="footnotes mt-10 pt-6 border-t border-gray-200">
                         <h3 class="text-base font-semibold text-gray-700 mb-3">Notes</h3>
                         <ol class="list-decimal pl-6 text-sm text-gray-500 space-y-2">
@@ -264,8 +636,104 @@
                             </li>
                         </ol>
                     </section>
+
+                    <section class="references mt-8 pt-6 border-t border-gray-200">
+                        <h3 class="text-base font-semibold text-gray-700 mb-3">References</h3>
+                        <ul class="list-none pl-0 text-sm text-gray-500 space-y-3">
+                            <li class="pl-4 -indent-4">
+                                <strong>Amari, S. I. (1998).</strong> Natural Gradient Works Efficiently in Learning. <em>Neural Computation</em>, 10(2), 251–276.
+                            </li>
+                            <li class="pl-4 -indent-4">
+                                <strong>Bayes, T. (1763).</strong> An Essay towards solving a Problem in the Doctrine of Chances. <em>Philosophical Transactions of the Royal Society of London</em>, 53, 370–418.
+                            </li>
+                            <li class="pl-4 -indent-4">
+                                <strong>Cox, R. T. (1946).</strong> Probability, Frequency and Reasonable Expectation. <em>American Journal of Physics</em>, 14(1), 1–13.
+                            </li>
+                            <li class="pl-4 -indent-4">
+                                <strong>Gal, Y., & Ghahramani, Z. (2016).</strong> Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning. <em>International Conference on Machine Learning</em>, 1050–1059.
+                            </li>
+                            <li class="pl-4 -indent-4">
+                                <strong>Laplace, P. S. (1774).</strong> Mémoire sur la probabilité des causes par les événements. <em>Mémoires de l'Académie Royale des Sciences Présentés par Divers Savans</em>, 6, 621–656.
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </div>
+	<p>
+                        Here, the inverse Fisher Information Matrix $F^{-1}$ acts as a preconditioner to the standard gradient $\nabla_X$.
+                        I have concluded (without a shred of proof!) that if the PMC were updated instantaneously 
+                        to reflect the volatility of the posterior (supposing such an update were feasible), 
+                        a PMC-weighted step would mimic the magnitude-scaling behavior of the Natural Gradient.
+                        The PMC and FIM would scale step sizes equally because they encode the same belief-responsiveness information. 
+                        Both mechanisms dampen steps in regions of high instability or curvature.
+                    </p>
+                    <p>
+                        However, proponents of the <strong>Natural Gradient</strong> argue it offers a critical advantage: <strong>Rotation</strong>.
+                    </p>
+                    <p>
+                        It is often argued that a scalar PMC can only scale the <em>speed</em> of the update, 
+                        whereas the Natural Gradient, by utilizing the Fisher Information Matrix ($F$), 
+                        accounts for the correlations between parameters to <em>rotate</em> the vector.
+                        But I challenge the notion that a full tensor is strictly required for this rotation.
+                    </p>
+                    <p>
+                        The Probability of Model Correctness defines a scalar field over the parameter space.
+                        Crucially, because this is a field, we are not limited to a single static value at a point;
+                        we can calculate the <strong>gradient of the PMC field</strong> itself.
+                        If we hold one parameter constant and vary the second, our confidence may drop sharply in the second dimension
+                        while remaining stable in the first.
+                        We essentially know the partial derivatives of our confidence: $\nabla \text{PMC}$.
+                    </p>
+                    <p>
+                        This vector tells us exactly which directions are "fragile" (steep drops in confidence) 
+                        and which are "robust" (flat confidence).
+                        By penalizing movement in the direction of the negative PMC gradient, we effectively 
+                        apply an anisotropic scaling to our update. We take large steps in robust dimensions and tiny steps 
+                        in fragile ones. This non-uniform scaling <em>is</em> a rotation.
+                        Our experiment path acts like a projectile moving through a medium of varying viscosity; 
+                        the differential resistance across dimensions generates torque, turning the path away from uncertainty.
+                        Thus, the PMC scalar field—through its gradient—can indeed induce rotation.
+                    </p>
+
+                    <h4>The Computational Payoff</h4>
+                    <p>
+                        Crucially, does this buy us any mathematical favours? 
+                        <strong>Yes, and they are massive.</strong>
+                    </p>
+                    <p>
+                        The Fisher Information Matrix is an $N \times N$ object (where $N$ is the number of parameters).
+                        For modern neural networks, $N$ can be in the billions. 
+                        Inverting this matrix to find the Natural Gradient typically costs $O(N^3)$—a cubic wall 
+                        that makes exact Natural Gradient Descent computationally ruinous for deep learning.
+                    </p>
+                    <p>
+                        In contrast, the PMC is a scalar field. 
+                        Its gradient, $\nabla \text{PMC}$, is a vector of size $N$.
+                        Calculating this vector (assuming the PMC function is differentiable) scales linearly, $O(N)$, 
+                        similar to standard backpropagation.
+                    </p>
+                    <p>
+                        We effectively trade the prohibitively expensive logic of <strong>Matrix Inversion</strong> 
+                        for the manageable logic of <strong>Vector Subtraction</strong>.
+                        We achieve a "Conformal Natural Gradient"—a rotation induced by the scalar field's shape—without 
+                        ever having to materialize or invert the massive curvature tensor.
+                        If we can define a cheap proxy for the PMC (e.g., via ensembles or dropout variance), 
+                        we unlock the geometric benefits of second-order optimization at first-order cost.
+                    </p>
+
+                    <h4>The Twin Limits</h4>
+                    <p>
+                        However, we must remain intellectually honest about the remaining barriers:
+                    </p>
+                    <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
+                        <li><strong>Approximation Error (Natural Gradient):</strong> While the Natural Gradient is the "gold standard" for movement on the statistical manifold, calculating it exactly is impossible. We rely on approximations (like K-FAC) that introduce their own noise.</li>
+                        <li><strong>Epistemic Regress (PMC):</strong> While calculating the <em>gradient</em> of the PMC is cheap, defining the PMC <em>itself</em> is hard. Accurately estimating the Probability of Model Correctness requires a "model of the model." Techniques like Bayesian approximation (Gal & Ghahramani, 2016) exist, but they introduce their own overheads (the infinite regress of checking one's own homework).</li>
+                    </ul>
+                    <p>
+                        Thus, practical implementations in <strong>ORBIT</strong> must navigate this trade-off: 
+                        accepting the "low-resolution" rotation of the scalar PMC field to escape the computational 
+                        impossibility of the full Fisher tensor.
+                    </p>
         </article>
     </main>
 
