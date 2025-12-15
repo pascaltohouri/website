@@ -157,9 +157,9 @@
                         In previous posts, we established:
                     </p>
                     <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
-                        <li>Any machine learning experiment and all of its relevant features exist in the semantic vector space (SVS),</li>
+                        <li>Any machine learning experiment and all of its relevant features exist in the semantic vector space (SVS).</li>
                         <li>Training is a special case of more general inter-experiment path traversals,</li>
-                        <li>The optimal path identifies the task-optimal experiment (architecture, parameters, reward functions, etc.),</li>
+                        <li>The optimal path identifies the task-optimal experiment (architecture, parameters, reward functions, etc.).</li>
                         <li>Auto-regressing the rich information in a past path segment finds new experiments.</li>
                     </ul>
 
@@ -332,39 +332,58 @@
                        as a trick to simplify the mathematics while ensuring the ballot peaks stay where they are (see
                         <a href="#" class="article-link">here</a> for a detailed explanation).
                     </p>
+                    
                     <h2>Information Geometry and the Natural Gradient</h2>
+                    
+                    <!-- Collapsible Digression -->
+                    <details class="group bg-white border border-stone-200 rounded-lg shadow-sm overflow-hidden transition-all duration-300 open:ring-1 open:ring-stone-300 my-6">
+                        <summary class="flex items-center justify-between p-4 cursor-pointer list-none text-stone-900 font-medium hover:bg-stone-50 transition-colors select-none">
+                            <span class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Digression: Intuitive Analogies for Curved Geometries
+                            </span>
+                            <span class="text-stone-400 group-open:rotate-180 transition-transform duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="border-t border-stone-100 px-4 py-3 bg-stone-50/50 text-sm text-stone-700">
+                            <p class="mb-4">
+                                The semantic vector space is typically modelled as a flat mutlidimensional Euclidean space.
+                                Since we live in such a (3D) physical space, we can use our physical intuitions to think about curving
+                                the SVS.
+                                First, note that mass and energy curve spacetime. The typical way to model this phenomonen is with a trampoline and two balls.
+                                The heavier of the balls sits at the trampoline's center, and the lighter rolls in a curved path, called a geodesic, 
+                                that minimises the distance across the depressed sheet.
+                                Here, trampoline depression mimics the curvature of space due to mass.
+                            </p>
+                            <p class="mb-4">
+                                Similarly, the semantic vector space is flat, until one warps its fabric by adjusting for information.
+                                Let's embellish our distinction between a flat and curved space, to develop these nascent intuitions
+                                before applying them to the SVS. 
+                                In our analogy, a flat plane has grid lines that are always parallel underfoot, 
+                                wherever we stand. A curved plane (like the Earth's surface) may have lines that seem 
+                                parrallel underfoot, but converge (e.g. at the North Pole) or diverge (e.g. at the equator).
+                                This curvature means the unit vector (1 unit step) looks different depending on where it occurs.
+                            </p>
+                            <p>
+                                The classic example is that of a person holding a spear at the North Pole who walks to the equator 
+                                (still holding the spear forward). If the person shuffles sideways until having half-circumnavigated 
+                                the equator, then returns to the North pole (without applying any rotation to the spear), the spear
+                                will point opposite to its starting direction. Here, translation only has caused a rotation in the spear. 
+                                The spear represents the unit vector on the plane.
+                                Holonomy is the name for this phenomonon where a commuted vector stops being
+                                parallel to its non-commuted equivalent, and is a defining feature of curved spaces.
+                            </p>
+                        </div>
+                    </details>
+
                     <h3>A Curved Statistical Manifold</h3>
-                    <p>
-                        The semantic vector space is typically modelled as a flat mutlidimensional Euclidean space.
-                        Since we live in such a (3D) physical space, we can use our physical intuitions to think about curving
-                        the SVS.
-                        First, note that mass and energy curve spacetime. The typical way to model this phenomonen is with a trampoline and two balls.
-                        The heavier of the balls sits at the trampoline's center, and the lighter rolls in a curved path, called a geodesic, 
-                        that minimises the distance across the depressed sheet.
-                        Here, trampoline depression mimics the curvature of space due to mass.
-                    </p>
-                    <p>
-                        Similarly, the semantic vector space is flat, until one warps its fabric by adjusting for information.
-                        Let's embellish our distinction between a flat and curved space, to develop these nascent intuitions
-                        before applying them to the SVS. 
-                        In our analogy, a flat plane has grid lines that are always parallel underfoot, 
-                        wherever we stand. A curved plane (like the Earth's surface) may have lines that seem 
-                        parrallel underfoot, but converge (e.g. at the North Pole) or diverge (e.g. at the equator).
-                        This curvature means the unit vector (1 unit step) looks different depending on where it occurs.
-                    </p>
-                    <p>                        
-                        The classic example is that of a person holding a spear at the North Pole who walks to the equator 
-                        (still holding the spear forward). If the person shuffles sideways until having half-circumnavigated 
-                        the equator, then returns to the North pole (without applying any rotation to the spear), the spear
-                        will point opposite to its starting direction. Here, translation only has caused a rotation in the spear. 
-                        The spear represents the unit vector on the plane.
-                        Holonomy is the name for this phenomonon where a commuted vector stops being
-                        parallel to its non-commuted equivalent, and is a defining feature of curved spaces.
-                    </p>
-                    <h3>An Intuitive Description of Information Geometry</h3>
                     <h4>Deformed Grid Lines</h4>
                     <p>
-                        Let's return to our flat plane, and our path among the shifting ballot dunes. 
                         So far, we imagined that traversals on the plane are independent of changes in the ballots.
                         The distance we travelled forwards, backwards, or sideways did not encode information on how the ballots moved.
                         Steps and ballots were causally related but had separate identities.
@@ -380,10 +399,11 @@
                         seemed perfectly straight would, to an observer, wind circuitously.
                     </p>
                     <p>
-                        In some places, the grid lines would bulge and diverge, in others, the grid lines would compress and clump.
-                        We experience this phenomenon when writing perfectly straight without the aid of grid lines, 
+                        In some places, the grid lines would bulge and diverge, in others, 
+                        the grid lines would compress and clump:
+                        <!--We experience this phenomenon when writing perfectly straight without the aid of grid lines, 
                         only to learn on later inspection that our handwriting is actually heavily slanted!
-                        This strange deformation is the space's way of encoding the speed of belief changes.
+                        This strange deformation is the space's way of encoding the speed of belief changes-->
                     </p>
                     <p>
                     <ul class="list-disc pl-6 mb-6 space-y-2 text-sm text-stone-700">
@@ -412,7 +432,7 @@
                         my belief about the optimality of that position will have changed massively.
                         In the combined information-theoretic space, every milimeter of that step 
                         should be elongated and its significance amplified such that it appears equal to 
-                        a one hundred-mile journey over crocodile-free wastelands. 
+                        a one hundred-mile journey across unremarkable wastelands. 
                     <p> 
                         The FIM scales movements by the expected curvature of the log-likelihood, 
                         ensuring that a small step in a sensitive $X$ direction converts to a massive 
@@ -436,14 +456,16 @@
                     <p>
                         (As 3B1B might say) "But why is the Fisher Information Matrix the correct metric?" Why not some other matrix?
                         The answer lies in how we measure the difference between two probability distributions.
-                        If we move from experiment $X$ to $X + \delta$, we discard the Euclidean distance, and use the <strong>Kullback-Leibler (KL) Divergence</strong>:
+                        If we move from experiment $X$ to $X + \delta$, the information distance is the difference between
+                        the prior $p(.|X)$ and posterior $p(⋅|X+\delta X)$, the <strong>Kullback-Leibler (KL) Divergence</strong>:
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
                         $$D_{KL}(p(.|X)||p(⋅|X+\delta X))=\mathbb{E}_{E∼p(⋅∣X)}​[\log p(E∣X+\delta X)p(E|X)​]$$
                     </p>
                     <p>
                         If we assume our step $\delta$ is small, we can approximate this divergence using a Taylor expansion.
-                        Since the distance from a distribution to itself is zero ($D_{KL}(\theta || \theta) = 0$) and strictly minimized at $\delta=0$, the zeroth and first-order terms of the expansion vanish.
+                        Since the distance from a distribution to itself is zero ($D_{KL}(\theta || \theta) = 0$) 
+                        and strictly minimized at $\delta=0$, the zeroth and first-order terms of the expansion are zero.
                         The geometry is thus dominated by the second-order term (the Hessian):
                     </p>
                     <p class="bg-stone-50 p-4 border border-stone-200 rounded-md text-center my-6 overflow-x-auto">
