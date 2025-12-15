@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A blog post by Pascal Tohouri on probabilistic path traversal in the SVS language">
+    <title>Boundary Integration For Path Traversals - Pascal Tohouri</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- KaTeX CSS and JS for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Typography Settings */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Headers and UI Fonts */
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.015em;
+        }
+        
+        nav, footer, .meta-data {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* LaTeX-style Numbering System */
+        .article-body {
+            counter-reset: section;
+        }
+        .article-body p, .article-body li {
+            margin-bottom: 1.15rem;
+            line-height: 1.7; /* Slightly tighter line height for academic feel */
+            font-size: 0.95rem; /* Reduced size for compact academic look */
+            color: #374151;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .article-body h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            color: #111827; /* Gray 900 */
+            counter-reset: subsection;
+        }
+
+        .article-body h2::before {
+            counter-increment: section;
+            content: counter(section) ". ";
+        }
+
+        .article-body h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            color: #374151; /* Gray 700 */
+            counter-reset: subsubsection;
+        }
+
+        .article-body h3::before {
+            counter-increment: subsection;
+            content: counter(section) "." counter(subsection) " ";
+        }
+
+        .article-body h4 {
+            font-size: 1.0rem;
+            font-weight: 600;
+            margin-top: 1.35rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            color: #6b7280; /* Gray 500 - Softened to avoid competition with h2/h3 */
+        }
+
+        /* Numbering for h4 is optional, added here for consistency */
+        .article-body h4::before {
+            counter-increment: subsubsection;
+            content: counter(section) "." counter(subsection) "." counter(subsubsection) " ";
+        }
+
+        /* Link Styling */
+        .article-link {
+            color: #2563eb;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+            cursor: pointer;
+        }
+        .article-link:hover {
+            color: #1e40af;
+        }
+
+        /* Footnote references */
+        sup {
+            font-size: 0.75em;
+            vertical-align: super;
+            line-height: 0;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-4xl">
+            <a href="website/index.html" class="text-base font-semibold tracking-tight text-stone-900">Pascal Tohouri</a>
+            <a href="website/index.html" class="text-xs font-medium text-stone-500 hover:text-stone-900 transition duration-300 group">
+                <span class="inline-block transition-transform group-hover:-translate-x-1">&larr;</span> Back to Home
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <article class="container mx-auto px-4 py-12 md:py-16 max-w-3xl">
+            <div class="bg-white shadow-sm rounded-xl px-6 md:px-12 py-10 border border-gray-100">
+                
+                <header class="mb-8 text-center">
+                    <h1 class="text-2xl md:text-3xl font-semibold text-stone-900 leading-tight mb-3 tracking-tight">
+                        Boundary Integration For Path Traversals
+                    </h1>
+                    <div class="meta-data flex justify-center gap-4 text-xs text-stone-500 uppercase tracking-wider font-medium">
+                        <span>Dec 04, 2025</span>
+                        <span>&bull;</span>
+                        <span id="reading-time" data-wpm="200"></span>
+                    </div>
+                    <button 
+                        id="tts-toggle" 
+                        class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-stone-300 text-xs font-medium text-stone-700 hover:bg-stone-100 transition"
+                    >
+                        ▶ Listen
+                    </button>
+                </header>
+
+                <div class="article-body">
+                   
+                    <h2> Paths Through the Clock-Work Universe </h2>
+                    <h3> Path Preferences </h3>
+                    <p>
+                        In previous posts, we established:
+                    </p>
+                    <p>
+                      In the last blog post, we described a general autoregressive method for moving between experiments in the semantic vector space. 
+                      This process lets us trace a path of experiments whose coordinates we could, at any time, 
+                      decode to recover a full description of our machine learning setup. 
+                      The autoregressive model was naive because it did not specify a preference over new potential experiments. 
+                      Since we seek a specific type of experiment that maximises our utility (e.g., due to high performance, efficiency, or interpretability) 
+                      we can use the laws of information to steer ourselves towards those optimal experiments in the SVS.
+                    </p>
+                      <h3> Path Preferences </h3>
+                    <p>
+                        If we let our imaginations run wild, 
+                        we might imagine that the apparent complexity of the physical world is generated by a relatively small set of underlying mechanisms, 
+                        like clockwork hidden behind the face of a watch. To understand the path, we would inspect the gears, which are the update rule. 
+                        In this idealisation, the next experiment is determined. Our preferences would not alter the trajectory; at most, 
+                        they would assign higher or lower value to points along it.
+                    </p>
+                    <p>
+                        Viewed through the SVS lens, this is the claim that there exists an update rule (a ``law'') that maps the current experiment encoding to its successor,                  
+                        \[
+                        X_{t+\Delta} = f(X_t),
+                        \]
+                        so the trace is a deterministic path. More generally, the laws of nature (physical, informational, and computational) 
+                        restrict which moves are even feasible, confining us to a subregion of the SVS; in a fully determined universe, 
+                        the feasible successor set collapses to a singleton - the unique next state compatible with the current state. 
+                    </p>
+                    <p>
+                      In discrete time, this ``law'' is a transition map \(f\). In continuous time, the same idea is expressed as a vector field \(v\) on the SVS, \(\frac{dX}{dt}=v(X)\). 
+                      So, the laws of nature would be a vector field on the SVS, prescribing experiment state flows. 
+                      Of course, this is a specific case of the more general universe-state flows that govern the movement of our universe across time and through SVS representations.
+                    </p>
+                    <h2>Semantic Vector Space Properties</h2>
+                    <h3>Self-Reference </h3>
+                    <p>
+                      It is interesting to discuss the information that the semantic vector space (SVS) encodes. 
+                      For example, a semantic vector X may encode a model’s parameters, or X may represent the architecture (full computational graph). 
+                      X may represent the data and its generation process. So, can X represent the architecture and data at once? Can we continue, 
+                      in a process of sequential enrichment, to encode more and more information into each point of the SVS? 
+                      If so, we might imagine some semantic vector for every distinct object, and this conclusion has strange implications for the SVS’s properties.
+                    </p>
+                    <p>
+                    Take self-reference, if X encodes all the features of a machine learning experiment, and if that experiment is a search algorithm over the semantic vector space, 
+                    then X can access or refer to itself. This phenomenon is called self-reference, and generally, 
+                    if a space contains all objects, then it must contain a description of itself (as the space is an object). To formalise, consider a vector space:
+                    </p>
+                    <p>
+                      where a conceptual universe of distinct objects $o \in \mathcal{O}$ are described via an encoding $\phi$:
+                    </p>
+                    
+                    <p>
+                      $$\phi: \mathcal{O} \to \mathbb{R}^N.$$
+                    </p>
+                    
+                    <p>
+                      Then:
+                    </p>
+                    
+                    <p>
+                      \[
+                        \exists\, o \in \mathcal{O}\ \ \text{s.t.}\ \ o=\text{``a procedure that takes }\phi(o)\text{ as input.''}
+                      \]
+                    </p>
+
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-8 mb-4">
+                <a id="footer-email-link" href="#" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">Email</a>
+                <a id="footer-linkedin-link" href="#" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-900 transition duration-300 font-medium">LinkedIn</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2025 Pascal Tohouri. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // --- KaTeX Initialization ---
+            if (window.renderMathInElement && window.katex) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            } else {
+                console.warn("KaTeX or renderMathInElement not loaded.");
+            }
+
+            // --- Reading time calculation ---
+            const articleBody = document.querySelector('.article-body');
+            const readingTimeSpan = document.getElementById('reading-time');
+            
+            if (articleBody && readingTimeSpan) {
+                const text = articleBody.innerText || articleBody.textContent || '';
+                const words = text.trim().split(/\s+/).filter(Boolean).length;
+                
+                const defaultWpm = 200;
+                const wpmAttr = readingTimeSpan.getAttribute('data-wpm');
+                const WORDS_PER_MINUTE = wpmAttr ? parseInt(wpmAttr, 10) || defaultWpm : defaultWpm;
+                
+                const minutes = Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+                readingTimeSpan.textContent = `${minutes} Min Read`;
+            }
+
+            // --- TTS Logic ---
+            const ttsButton = document.getElementById('tts-toggle');
+
+            if (ttsButton && 'speechSynthesis' in window && articleBody) {
+                window.currentUtterance = null;
+                window.speechSynthesis.cancel();
+
+                ttsButton.addEventListener('click', () => {
+                    if (window.speechSynthesis.speaking) {
+                        window.speechSynthesis.cancel();
+                        ttsButton.textContent = '▶ Listen';
+                    } else {
+                        window.speechSynthesis.cancel();
+                        const text = articleBody.innerText || articleBody.textContent || '';
+                        if (!text.trim()) return;
+
+                        window.currentUtterance = new SpeechSynthesisUtterance(text);
+                        window.currentUtterance.rate = 0.95;
+
+                        window.currentUtterance.onend = () => {
+                            ttsButton.textContent = '▶ Listen';
+                        };
+
+                        window.currentUtterance.onerror = (e) => {
+                            console.error('Speech error:', e);
+                            ttsButton.textContent = '▶ Listen';
+                        };
+
+                        ttsButton.textContent = '■ Stop';
+                        window.speechSynthesis.speak(window.currentUtterance);
+                    }
+                });
+            } else if (ttsButton) {
+                ttsButton.style.display = 'none';
+            }
+
+            // --- Contact Info ---
+            const emailUser = 'pascaltohouri';
+            const emailDomain = 'yahoo.com';
+            const linkedinUrl = 'https://www.linkedin.com/in/pascal-tohouri/';
+            const fullEmail = `mailto:${emailUser}@${emailDomain}`;
+            
+            const footerEmailLink = document.getElementById('footer-email-link');
+            const footerLinkedinLink = document.getElementById('footer-linkedin-link');
+            if(footerEmailLink) footerEmailLink.href = fullEmail;
+            if(footerLinkedinLink) footerLinkedinLink.href = linkedinUrl;
+        });
+    </script>
+</body>
+</html>
